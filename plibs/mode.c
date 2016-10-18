@@ -1,25 +1,68 @@
 #include "mode.h"
 
-ps_mode_cond switch_conds[NUMOFCONDS];
+struct ps_condition_array_t cond;
 ps_mode_t modes[NUMOFMODES];
 
-void ps_mode_create(id_type mode_id, void(* runnable)(void *))
+static ps_mode_t current_mode;
+
+void prv_mode_add_task(id_t mode_id, ps_task_t * ptask)
 {
-    (*runnable)((void *)&mode_id);
+    int num = modes[mode_id].num;
+    modes[mode_id].tasks[num] = ptask;
+    modes[mode_id].num = num + 1;
 }
 
-void ps_mode_start(id_type mode_id)
+ps_mode_t * prv_mode_get_current_mode()
+{
+    return &current_mode;
+}
+
+int prv_mode_get_num(id_t mode_id)
+{
+    return modes[mode_id].num;
+}
+
+
+// public API
+void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
+{
+    int i;
+    modes[mode_id].mode_id = mode_id;
+    for(i=0;i<num;++i){
+        prv_mode_add_task(mode_id, task_array[i]);
+    }
+}
+
+void ps_mode_start(id_t mode_id)
 {
     /*start all the tasks in this mode*/
     int i;
-    for(i = 0; i < modes[mode_id].num; ++i){
-        prv_task_start(mode_id, i);
+    current_mode = modes[mode_id];
+    for(i=0;i<modes[mode_id].num;++i){
+        //prv_task_start( modes[mode_id].tasks[i]);
     }
 }
 
 
-void ps_mode_switch_create(id_type cond_id, bool (*condition)(void), id_type mode_dest)
+void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)
 {
-    switch_conds[cond_id].mode_dest = mode_dest;
-    switch_conds[cond_id].condition = condition;
+    int num = cond.num;
+    cond.conditions[num].mode_dest = mode_dest;
+    cond.conditions[num].condition = condition;
+    cond.num = num + 1;
+}
+
+void ps_mode_switch()
+{
+    int i;
+    for(i=0;i<cond.num;++i){
+        if(cond.conditions[i].condition() == 1){
+            ps_mode_start(cond.conditions[i].mode_dest);
+            break;
+        }
+    }
+    if(i == cond.num){
+        ps_mode_start(prv_mode_get_current_mode());
+    }
+
 }
