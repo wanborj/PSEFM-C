@@ -16,6 +16,11 @@ tick_t    prv_servant_get_LED(ps_servant_t *pservant)
     return pservant->LED;
 }
 
+tick_t    prv_servant_get_LET(ps_servant_t *pservant)
+{
+    reutrn pservant->LET;
+}
+
 int       prv_servant_get_num(ps_servant_t *pservant)
 {
     return pservant->num;
@@ -32,7 +37,7 @@ void      prv_servant_add_arrive(ps_servant_t *pservant)
 }
 
 /* create servant and record the time,relation and function information */
-void ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
+void ps_servant_create(id_t servant_id, int servant_type, tick_t LET, tick_t LED,
                                 int num,
                                 ps_servant_t *src_array,
                                 void (*runnable)(void *),
@@ -41,6 +46,7 @@ void ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
     int i;
     pservant->servant_id = servant_id;
     pservant->servant_type = servant_type;
+    pservant->LET = LET;
     pservant->LED = LED;
     pservant->num = num;
     pservant->arrive = 0;

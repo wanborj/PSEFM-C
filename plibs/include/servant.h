@@ -7,6 +7,7 @@
 
 typedef struct servant{
     id_t servant_id;
+    tick_t LET;
     tick_t LED;
     int servant_type; // one of the elements in enum variable
     int num;   // the src servants of this servant
@@ -17,6 +18,7 @@ typedef struct servant{
 id_t      prv_servant_get_id(ps_servant_t *pservant);
 int       prv_servant_get_type(ps_servant_t * pservant);
 tick_t    prv_servant_get_LED(ps_servant_t *pservant);
+tick_t    prv_servant_get_LET(ps_servant_t *pservant);
 int       prv_servant_get_num(ps_servant_t *pservant);
 int       prv_servant_get_arrive(ps_servant_t *pservant);
 
@@ -32,6 +34,7 @@ void      prv_servant_add_arrive(ps_servant_t *pservant);
  * */
 void ps_servant_create(id_t servant_id,
                         int servant_type,
+                        tick_t LET,
                         tick_t LED,
                         int num,   // number of elements in src_array
                         ps_servant_t *src_array,
