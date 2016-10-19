@@ -1,23 +1,24 @@
 #include "list_internal.h"
+#include "event.h"
 
-void prv_event_list_initialize(struct event_list_t * pEventList)
+void prv_list_initialize(list_t * pEventList)
 {
     pEventList->length = 0;
     pEventList->earliest_time = 0;
     pEventList->first = pEventList->last = NULL;
 }
 
-void prv_event_item_initialize(struct event_item_t * pEventItem)
+void prv_item_initialize(item_t * pEventItem)
 {
     pEventItem->owner = NULL;
     pEventItem->next = NULL;
-    peventItem->prev = NULL;
+    pEventItem->prev = NULL;
 }
 
-void prv_event_list_insert_end( struct event_item_t * pEventItem,
-                              struct event_list_t * pEventList)
+void prv_list_insert_end( item_t * pEventItem,
+                              list_t * pEventList)
 {
-    ps_event_t * pevent = prv_item_get_event_entity(pEventItem);
+    ps_event_t * pevent = (ps_event_t *) prv_item_get_event_entity(pEventItem);
 
     if(pEventList->length == 0){
         pEventList->first = pEventList->last = pEventItem;
@@ -30,8 +31,8 @@ void prv_event_list_insert_end( struct event_item_t * pEventItem,
         pEventList->last = pEventItem;
     }
 
-    if(pEventList->earliest_time > pevent->tag.xTimestamp){
-        pEventList->earliest_time = pevent->tag.xTimestamp;
+    if(pEventList->earliest_time > pevent->tag.timestamp){
+        pEventList->earliest_time = pevent->tag.timestamp;
     }
     pEventList->length ++;
     pEventItem->owner = (void *)pEventList;
@@ -39,13 +40,13 @@ void prv_event_list_insert_end( struct event_item_t * pEventItem,
 
 static int tag_compare(ps_event_t * pe1, ps_event_t *pe2)
 {
-    if( pe1->tag.xTimestamp < pe2->tag.xTimestamp ){
+    if( pe1->tag.timestamp < pe2->tag.timestamp ){
         return 1;
-    }else if( pe1->tag.xTimestamp == pe2->tag.xTimestamp ){
-        if( pe1->tag.xMicroStep < pe2->tag.xMicroStep ){
+    }else if( pe1->tag.timestamp == pe2->tag.timestamp ){
+        if( pe1->tag.microstep < pe2->tag.microstep ){
             return 1;
-        }else if( pe1->tag.xMicroStep == pe2->tag.xMicroStep ){
-            if( pe1->tag.xLevel < pe2->tag.xLevel ){
+        }else if( pe1->tag.microstep == pe2->tag.microstep ){
+            if( pe1->tag.level < pe2->tag.level ){
                 return 1;
             }
         }
@@ -54,11 +55,11 @@ static int tag_compare(ps_event_t * pe1, ps_event_t *pe2)
     return 0;
 }
 
-void prv_event_list_insert_sorted(struct event_item_t * pEventItem,
-                            struct event_list_t * pEventList)
+void prv_list_insert_sorted(item_t * pEventItem,
+                            list_t * pEventList)
 {
-    ps_event_t * pevent = prv_item_get_event_entity(pEventItem);
-    volatile  struct event_item_t * pIndex;
+    ps_event_t * pevent = (ps_event_t *)prv_item_get_event_entity(pEventItem);
+    volatile  item_t * pIndex;
 
     if(pEventList->length == 0){
         pEventList->first = pEventList->last = pEventItem;
@@ -71,7 +72,7 @@ void prv_event_list_insert_sorted(struct event_item_t * pEventItem,
                 pIndex->prev->next = pEventItem;
                 pEventItem->prev = pIndex->prev;
 
-                pEventItem->next = pIndex;
+                pEventItem->next = (item_t *)pIndex;
                 pIndex->prev = pEventItem;
 
                 // if pEventItem is has smallest model time
@@ -86,7 +87,7 @@ void prv_event_list_insert_sorted(struct event_item_t * pEventItem,
                 pIndex->prev->next = pEventItem;
                 pEventItem->prev = pIndex->prev;
 
-                pEventItem->next = (struct event_item_t *)pIndex;
+                pEventItem->next = (item_t *)pIndex;
                 pIndex->prev = pEventItem;
 
             }else{ // insert the pEventItem into the end of pEventList
@@ -95,20 +96,19 @@ void prv_event_list_insert_sorted(struct event_item_t * pEventItem,
                 pEventItem->next = pEventList->first;
                 pEventList->last = pEventItem;
             }
-
         }
     }
 
-    if(pEventList->earliest_time > pevent->tag.xTimestamp){
-        pEventList->earliest_time = pevent->tag.xTimestamp;
+    if(pEventList->earliest_time > pevent->tag.timestamp){
+        pEventList->earliest_time = pevent->tag.timestamp;
     }
     pEventList->length ++;
     pEventItem->owner = (void *)pEventList;
 }
 
-void prv_event_list_remove(struct event_item_t * pEventItem)
+void prv_list_remove(item_t * pEventItem)
 {
-    struct event_list_t * pList = (struct event_list_t *)pEventItem->owner;
+    list_t * pList = (list_t *)pEventItem->owner;
 
     if(pList->length == 1){
         pList->first = NULL;
@@ -128,15 +128,23 @@ void prv_event_list_remove(struct event_item_t * pEventItem)
     pList->length --;
 }
 
-void prv_event_list_earlist_time_update(struct event_list_t * pEventList)
+item_t * prv_list_receive(list_t * pEventList)
 {
-    volatile  struct event_item_t * pIndex = prv_list_get_first_item(pEventList);
-    pEventList->earliest_time = pIndex->item->tag.xTimestamp;
+    item_t * pitem = pEventList->first;
+    prv_list_remove(pitem);
 
-    for(; pIndex != prv_list_get_first_item(pEventList); pIndex = prv_item_get_event_next(pEventList)){
-        if(pEventList->earliest_time > pIndex->item->tag.xTimestamp)
+    return pitem;
+}
+
+void prv_list_earlist_time_update(list_t * pEventList)
+{
+    volatile  item_t * pIndex = prv_list_get_first_item(pEventList);
+    pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
+
+    for(; pIndex != prv_list_get_first_item(pEventList); pIndex = prv_item_get_event_next(pIndex)){
+        if(pEventList->earliest_time > ((ps_event_t *)pIndex->item)->tag.timestamp)
         {
-            pEventList->earliest_time = pIndex->item->tag.xTimestamp;
+            pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
         }
     }
 }

@@ -1,6 +1,5 @@
 #include "servant.h"
 
-
 id_t      prv_servant_get_id(ps_servant_t *pservant)
 {
     return pservant->servant_id;

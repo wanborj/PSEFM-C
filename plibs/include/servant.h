@@ -5,20 +5,13 @@
 #include "PSEFMport.h"
 #include "exec_flow.h"
 
-typedef struct servant{
-    id_t servant_id;
-    tick_t LET;
-    tick_t LED;
-    int servant_type; // one of the elements in enum variable
-    int num;   // the src servants of this servant
-    int arrive; // arrived number of events from src servants
-}ps_servant_t;
 
 /*get set function*/
 id_t      prv_servant_get_id(ps_servant_t *pservant);
-int       prv_servant_get_type(ps_servant_t * pservant);
+tick_t    prv_servant_get_start_time(ps_servant_t * pservant);
 tick_t    prv_servant_get_LED(ps_servant_t *pservant);
 tick_t    prv_servant_get_LET(ps_servant_t *pservant);
+int       prv_servant_get_type(ps_servant_t * pservant);
 int       prv_servant_get_num(ps_servant_t *pservant);
 int       prv_servant_get_arrive(ps_servant_t *pservant);
 

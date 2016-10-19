@@ -1,6 +1,8 @@
 #ifndef __PSEFMCONFIGURE_H
 #define __PSEFMCONFIGURE_H
 
+#include <stdio.h>
+
 #define id_t int
 #define tick_t long
 #define bool int
@@ -9,7 +11,91 @@
 #define NUMOFCONDS 4 // the maximal number of mode switch condition in system
 #define NUMOFTASKS 4 // the maximal number of tasks in one mode
 #define NUMOFSERVANTS 6 // the maximal number of servants in one task
+#define NUMOFINS 4   // max in degree of every servants
+#define NUMOFRELATIONS NUMOFTASKS*NUMOFSERVANTS
 
-typedef enum {SEN=1, CONT, ACT} servant_t;
+/*
+ * event structure
+ * */
+typedef struct {
+    tick_t deadline;     /*< RM. The smaller the period the task is , the higher priority the event is. >*/
+    tick_t timestamp;             /*< the time to be proecessed >*/
+    int microstep;            /*< the topology order >*/
+    int level;                /*< the depth of current servant in a task >*/
+}ps_tag_t;
+
+typedef struct {
+    /* data type can be changed here. Data type including portCHAR, portFLOAT, portLONG, portSHORT, portBASE_TYPE*/
+    double data[NUMOFINS];
+}ps_data_t;
+
+typedef struct {
+    ps_servant_t * pservant_src;
+    ps_servant_t * pservant_dest;
+    ps_tag_t  tag;
+    ps_data_t data;
+    item_t eventItem;
+    int flag; // for counting the "arrive" number in servant;
+              // if counted, then flag ==1 ; else flag == 0
+}ps_event_t;
+
+
+/*
+ * servant structure
+ * */
+
+typedef struct servant{
+    id_t servant_id;
+    tick_t start_time;
+    tick_t LET;
+    tick_t LED;
+    int servant_type; // one of the elements in enum variable
+    int num;   // the src servants of this servant
+    int arrive; // arrived number of events from src servants
+}ps_servant_t;
+
+/*
+ * task structure
+ * */
+typedef struct task{
+    id_t task_id;
+    tick_t LET;
+    tick_t period;
+    tick_t deadline;
+    int servant_num;      // number of I-servants
+    ps_servant_t * servants[NUMOFSERVANTS];  // I-servants in this task
+}ps_task_t;
+
+
+/*
+ * mode structure
+ * */
+
+typedef struct mode{
+    id_t mode_id; // equal to the serial number of array
+    int num;  // number of tasks
+    ps_task_t * tasks[NUMOFTASKS];
+}ps_mode_t;
+
+typedef struct cond{
+    id_t mode_dest;
+    bool (*condition)(void);
+}ps_mode_cond;
+
+// event list struct
+typedef struct item{
+    void * item;   // the object item, event or servant
+    void * owner;   // the list it belongs to
+    struct item *next;
+    struct item *prev;
+} item_t;
+
+typedef struct list{
+    int                 length;
+    tick_t              earliest_time; // the earliest time-stamp of event in a event list
+    item_t *first;
+    item_t *last;
+} list_t;
+
 
 #endif

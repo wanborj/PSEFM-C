@@ -2,22 +2,8 @@
 #define __LIST_INTERNAL_H
 
 #include "PSEFMport.h"
-#include "event.h"
+#include "PSEFMconfigure.h"
 
-struct event_list_t{
-    int                 length;
-    tick_t              earliest_time; // the earliest time-stamp of event in a event list
-    struct event_item_t *first;
-    struct event_item_t *last;
-};
-
-// event list struct
-struct event_item_t{
-    ps_event_t * item;   // the object item, event or servant
-    void * owner;   // the list it belongs to
-    struct event_item_t *next;
-    struct event_item_t *prev;
-};
 
 
 //list operation
@@ -32,18 +18,19 @@ struct event_item_t{
 #define prv_item_get_event_next(ei)     (ei->next)
 #define prv_item_get_event_prev(ei)     (ei->prev)
 
-void prv_event_list_initialize(struct event_list_t * pEventList);
+void prv_list_initialize(list_t * pEventList);
 
-void prv_event_item_initialize(struct event_item_t * pEventItem);
+void prv_item_initialize(item_t * pEventItem);
 
-void prv_event_list_insert( struct event_item_t * pEventItem,
-                              struct event_list_t * pEventList);
+void prv_list_insert( item_t * pEventItem, list_t * pEventList);
 
-void prv_event_list_insert_sorted(struct event_item_t * pEventItem,
-                            struct event_list_t * pEventList);
+void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList);
 
-void prv_event_list_remove(struct event_item_t * pEventItem);
+void prv_list_remove(item_t * pEventItem);
 
-void prv_event_list_earlist_time_update(struct event_list_t * pEventList);
+void prv_list_earlist_time_update(list_t * pEventList);
+
+// get the first event of the event list
+item_t * prv_list_receive(list_t * pEventList);
 
 #endif

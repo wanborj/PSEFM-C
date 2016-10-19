@@ -4,14 +4,6 @@
 #include "PSEFMconfigure.h"
 #include "servant.h"
 
-typedef struct task{
-    id_t task_id;
-    tick_t LET;
-    tick_t period;
-    tick_t deadline;
-    int servant_num;      // number of I-servants
-    ps_servant_t * servants[NUMOFSERVANTS];  // I-servants in this task
-}ps_task_t;
 
 struct ps_task_array_t{
     int num;

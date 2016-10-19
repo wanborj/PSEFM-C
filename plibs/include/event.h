@@ -3,31 +3,35 @@
 
 #include "PSEFMconfigure.h"
 #include "PSEFMport.h"
-
-typedef struct {
-    tick_t xDeadline;     /*< RM. The smaller the period the task is , the higher priority the event is. >*/
-    tick_t xTimestamp;             /*< the time to be proecessed >*/
-    int xMicroStep;            /*< the topology order >*/
-    int xLevel;                /*< the depth of current servant in a task >*/
-}ps_tag_t;
-
-typedef struct {
-    /* data type can be changed here. Data type including portCHAR, portFLOAT, portLONG, portSHORT, portBASE_TYPE*/
-    double data;
-}ps_data_t;
-
-typedef struct {
-    ps_task_t * pservant_src;
-    ps_task_t * pservant_dest;
-    ps_tag_t  tag;
-    ps_data_t data;
-    struct event_item_t eventItem;
-    int flag; // for counting the "arrive" number in servant;
-              // if counted, then flag ==1 ; else flag == 0
-}ps_event_t;
+#include "list_internal.h"
 
 
-// event list operation
 
+// event operation
+
+// waiting for periodic timing event or message-arrival event
+void ps_event_wait();
+
+// receive events that contain data;
+// invoked in servant runnable function
+// update servant start_time
+ps_event_t * ps_event_receive();
+
+// event create for several destinate servants
+// initialize the flag in event
+void ps_event_create(ps_tag_t tag, ps_data_t data);
+
+//  send event to global event list;
+//  invoked in ps_event_create()
+void prv_event_send(ps_event_t * pevent);
+
+void prv_event_delete(ps_event_t * pevent);
+
+// event list initialize;
+// including blank event lis, global event list,
+// local event list and ready event list
+void prv_event_list_initialize();
+
+void prv_event_initialize();
 
 #endif

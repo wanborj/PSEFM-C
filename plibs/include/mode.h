@@ -6,16 +6,6 @@
 #include "event.h"
 
 
-typedef struct mode{
-    id_t mode_id; // equal to the serial number of array
-    int num;  // number of tasks
-    ps_task_t * tasks[NUMOFTASKS];
-}ps_mode_t;
-
-typedef struct cond{
-    id_t mode_dest;
-    bool (*condition)(void);
-}ps_mode_cond;
 
 struct ps_condition_array_t{
     int num;
