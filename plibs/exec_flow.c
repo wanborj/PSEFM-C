@@ -39,7 +39,20 @@ void prv_ef_add_relation(ps_servant_t * pservant_src, ps_servant_t * pservant_de
 // R-Servant
 void prv_ef_sorting()
 {
+    tick_t pcurrent_time = port_get_current_time();
 
+// sort the executable events
+    item_t * pevent_item = prv_item_get_first_item( &xEventGlobalList );
+    for(; pevent_item != prv_item_get_last_item( &xEventGlobalList );
+            pevent_item = prv_item_get_event_next( pevent_item)){
+        if(prv_event_get_timestamp((ps_event_t *) pevent_item->item) < pcurrent_time){
+            prv_list_remove(pevent_item);
+            prv_list_insert_sorted( pevent_item, &xEventLocalList);
+
+            // add the arrive record in dest servant
+            prv_servant_add_arrive( prv_event_get_dest((ps_servant_t *)pevent_item->item ));
+        }
+    }
 }
 
 void prv_ef_triggering()

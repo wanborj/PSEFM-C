@@ -15,10 +15,10 @@ void prv_item_initialize(item_t * pEventItem)
     pEventItem->prev = NULL;
 }
 
-void prv_list_insert_end( item_t * pEventItem,
+void prv_list_insert( item_t * pEventItem,
                               list_t * pEventList)
 {
-    ps_event_t * pevent = (ps_event_t *) prv_item_get_event_entity(pEventItem);
+    ps_event_t * pevent = (ps_event_t *) prv_item_get_entity(pEventItem);
 
     if(pEventList->length == 0){
         pEventList->first = pEventList->last = pEventItem;
@@ -58,7 +58,7 @@ static int tag_compare(ps_event_t * pe1, ps_event_t *pe2)
 void prv_list_insert_sorted(item_t * pEventItem,
                             list_t * pEventList)
 {
-    ps_event_t * pevent = (ps_event_t *)prv_item_get_event_entity(pEventItem);
+    ps_event_t * pevent = (ps_event_t *)prv_item_get_entity(pEventItem);
     volatile  item_t * pIndex;
 
     if(pEventList->length == 0){
@@ -67,8 +67,8 @@ void prv_list_insert_sorted(item_t * pEventItem,
         pEventItem->next = pEventItem;
     }else{
         pIndex = prv_list_get_first_item(pEventList);
-        for(; pIndex != prv_list_get_last_item(pEventList); pIndex = prv_item_get_event_next(pIndex)){
-            if(1 == tag_compare(pevent, prv_item_get_event_entity(pIndex))){
+        for(; pIndex != prv_list_get_last_item(pEventList); pIndex = prv_item_get_next(pIndex)){
+            if(1 == tag_compare(pevent, prv_item_get_entity(pIndex))){
                 pIndex->prev->next = pEventItem;
                 pEventItem->prev = pIndex->prev;
 
@@ -83,7 +83,7 @@ void prv_list_insert_sorted(item_t * pEventItem,
             }
         }
         if( pIndex == prv_list_get_last_item(pEventList) ){
-            if(1 == tag_compare(pevent, prv_item_get_event_entity(pIndex))){
+            if(1 == tag_compare(pevent, prv_item_get_entity(pIndex))){
                 pIndex->prev->next = pEventItem;
                 pEventItem->prev = pIndex->prev;
 
@@ -131,7 +131,7 @@ void prv_list_remove(item_t * pEventItem)
 item_t * prv_list_receive(list_t * pEventList)
 {
     item_t * pitem = pEventList->first;
-//    prv_list_remove(pitem);
+    prv_list_remove(pitem);
 
     return pitem;
 }
@@ -141,7 +141,7 @@ void prv_list_earlist_time_update(list_t * pEventList)
     volatile  item_t * pIndex = prv_list_get_first_item(pEventList);
     pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
 
-    for(; pIndex != prv_list_get_first_item(pEventList); pIndex = prv_item_get_event_next(pIndex)){
+    for(; pIndex != prv_list_get_first_item(pEventList); pIndex = prv_item_get_next(pIndex)){
         if(pEventList->earliest_time > ((ps_event_t *)pIndex->item)->tag.timestamp)
         {
             pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;

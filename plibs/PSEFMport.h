@@ -17,4 +17,6 @@
 
 #define  ps_event_sem_t
 
+#define port_malloc(size)
+
 #endif

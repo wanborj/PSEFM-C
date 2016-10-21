@@ -38,13 +38,11 @@ void prv_event_initialize()
 // know the dest servant of pevent, and send the event to each of the dest servants
 void prv_event_send(ps_event_t *pevent)
 {
-    prv_list_remove(&pevent->eventItem);
     prv_list_insert(&pevent->eventItem, &xEventGlobalList);
 }
 
 void prv_event_delete(ps_event_t * pevent)
 {
-    prv_list_remove(&pevent->eventItem);
     prv_list_insert(&pevent->eventItem, &xEventIdleList);
 }
 

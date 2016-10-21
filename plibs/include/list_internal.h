@@ -13,10 +13,10 @@
 #define prv_list_get_last_item(pevent_list)      (pevent_list->last)
 
 //item operation
-#define prv_item_get_event_entity(pevent_item)   (pevent_item->item)
-#define prv_item_get_event_owner(pevent_item)    (pevent_item->owner)
-#define prv_item_get_event_next(pevent_item)     (pevent_item->next)
-#define prv_item_get_event_prev(pevent_item)     (pevent_item->prev)
+#define prv_item_get_entity(pevent_item)   (pevent_item->item) // objects like events
+#define prv_item_get_owner(pevent_item)    (pevent_item->owner) // list it belongs to
+#define prv_item_get_next(pevent_item)     (pevent_item->next)
+#define prv_item_get_prev(pevent_item)     (pevent_item->prev)
 
 void prv_list_initialize(list_t * pEventList);
 
