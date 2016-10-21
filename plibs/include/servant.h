@@ -25,14 +25,12 @@ void      prv_servant_add_arrive(ps_servant_t *pservant);
  * 2) create the platform dependent thread
  * 3) build the communication relation
  * */
-void ps_servant_create(id_t servant_id,
+ps_servant_t * ps_servant_create(id_t servant_id,
                         int servant_type,
-                        tick_t LET,
                         tick_t LED,
                         int num,   // number of elements in src_array
                         ps_servant_t *src_array,
-                        void (*runnable)(void *),
-                        ps_servant_t *pservant);
+                        void (*runnable)(void *));
 
 void ps_servant_coorperate();  // invoked in runnable function in ps_servant_create API
 

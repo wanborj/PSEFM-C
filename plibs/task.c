@@ -54,6 +54,7 @@ void ps_task_create(id_t task_id, tick_t LET, int servant_num,
 
     for(i=0;i<servant_num;++i){
         tsk.tasks[pos].servants[i] = servants[i];
+        tsk.tasks[pos].servants[i]->LET = LET;
     }
     tsk.num ++;
 }

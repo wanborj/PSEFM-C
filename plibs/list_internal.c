@@ -131,7 +131,7 @@ void prv_list_remove(item_t * pEventItem)
 item_t * prv_list_receive(list_t * pEventList)
 {
     item_t * pitem = pEventList->first;
-    prv_list_remove(pitem);
+//    prv_list_remove(pitem);
 
     return pitem;
 }

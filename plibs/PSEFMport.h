@@ -14,4 +14,7 @@
 #define port_get_current_time()
 #define port_get_current_servant()
 
+
+#define  ps_event_sem_t
+
 #endif

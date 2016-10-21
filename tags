@@ -54,6 +54,7 @@ modes	plibs/mode.c	/^ps_mode_t modes[NUMOFMODES];$/;"	v
 next	plibs/PSEFMconfigure.h	/^    struct item *next;$/;"	m	struct:item	typeref:struct:item::item
 num	plibs/PSEFMconfigure.h	/^    int num;   \/\/ the src servants of this servant$/;"	m	struct:servant
 num	plibs/PSEFMconfigure.h	/^    int num;  \/\/ number of tasks$/;"	m	struct:mode
+num	plibs/PSEFMconfigure.h	/^    int num;$/;"	m	struct:__anon2
 num	plibs/include/mode.h	/^    int num;$/;"	m	struct:ps_condition_array_t
 num	plibs/include/task.h	/^    int num;$/;"	m	struct:ps_task_array_t
 owner	plibs/PSEFMconfigure.h	/^    void * owner;   \/\/ the list it belongs to$/;"	m	struct:item
@@ -68,6 +69,15 @@ prev	plibs/PSEFMconfigure.h	/^    struct item *prev;$/;"	m	struct:item	typeref:s
 prv_ef_set_dest	plibs/exec_flow.c	/^void prv_ef_set_dest( ps_event_t * pevent )$/;"	f
 prv_ef_update_current_servant	plibs/exec_flow.c	/^void prv_ef_update_current_servant(id_t  servant_id)$/;"	f
 prv_event_delete	plibs/event.c	/^void prv_event_delete(ps_event_t * pevent)$/;"	f
+prv_event_get_data	plibs/include/event.h	12;"	d
+prv_event_get_data_num	plibs/include/event.h	13;"	d
+prv_event_get_deadline	plibs/include/event.h	11;"	d
+prv_event_get_dest	plibs/include/event.h	15;"	d
+prv_event_get_flag	plibs/include/event.h	16;"	d
+prv_event_get_level	plibs/include/event.h	10;"	d
+prv_event_get_microstep	plibs/include/event.h	9;"	d
+prv_event_get_src	plibs/include/event.h	14;"	d
+prv_event_get_timestamp	plibs/include/event.h	8;"	d
 prv_event_initialize	plibs/event.c	/^void prv_event_initialize()$/;"	f
 prv_event_list_initialize	plibs/event.c	/^void prv_event_list_initialize()$/;"	f
 prv_event_send	plibs/event.c	/^void prv_event_send(ps_event_t *pevent)$/;"	f
@@ -106,7 +116,7 @@ prv_task_get_servant_num	plibs/task.c	/^int    prv_task_get_servant_num(ps_task_
 prv_task_start	plibs/task.c	/^void   prv_task_start(ps_task_t * ptask)$/;"	f
 ps_condition_array_t	plibs/include/mode.h	/^struct ps_condition_array_t{$/;"	s
 ps_data_t	plibs/PSEFMconfigure.h	/^}ps_data_t;$/;"	t	typeref:struct:__anon2
-ps_event_create	plibs/event.c	/^void ps_event_create(ps_tag_t tag, ps_data_t data)$/;"	f
+ps_event_create	plibs/event.c	/^void ps_event_create(ps_tag_t *tag, ps_data_t *data)$/;"	f
 ps_event_receive	plibs/event.c	/^ps_event_t * ps_event_receive()$/;"	f
 ps_event_t	plibs/PSEFMconfigure.h	/^}ps_event_t;$/;"	t	typeref:struct:__anon3
 ps_event_wait	plibs/event.c	/^void ps_event_wait()$/;"	f

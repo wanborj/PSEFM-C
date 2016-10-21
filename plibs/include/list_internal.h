@@ -7,16 +7,16 @@
 
 
 //list operation
-#define prv_list_get_length(el)         (el->length)
-#define prv_list_get_earliest_time(el)  (el->earliest_time)
-#define prv_list_get_first_item(el)     (el->first)
-#define prv_list_get_last_item(el)      (el->last)
+#define prv_list_get_length(pevent_list)         (pevent_list->length)
+#define prv_list_get_earliest_time(pevent_list)  (pevent_list->earliest_time)
+#define prv_list_get_first_item(pevent_list)     (pevent_list->first)
+#define prv_list_get_last_item(pevent_list)      (pevent_list->last)
 
 //item operation
-#define prv_item_get_event_entity(ei)   (ei->item)
-#define prv_item_get_event_owner(ei)    (ei->owner)
-#define prv_item_get_event_next(ei)     (ei->next)
-#define prv_item_get_event_prev(ei)     (ei->prev)
+#define prv_item_get_event_entity(pevent_item)   (pevent_item->item)
+#define prv_item_get_event_owner(pevent_item)    (pevent_item->owner)
+#define prv_item_get_event_next(pevent_item)     (pevent_item->next)
+#define prv_item_get_event_prev(pevent_item)     (pevent_item->prev)
 
 void prv_list_initialize(list_t * pEventList);
 
