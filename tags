@@ -21,12 +21,16 @@ __PSEFMCONFIGURE_H	plibs/PSEFMconfigure.h	2;"	d
 __PSEFMPORT_H	plibs/PSEFMport.h	2;"	d
 __SERVANT_H	plibs/include/servant.h	2;"	d
 __TASK_H	plibs/include/task.h	2;"	d
+actuator1	apps/servant.c	/^void actuator1()$/;"	f
+actuator2	apps/servant.c	/^void actuator2()$/;"	f
 arrive	plibs/PSEFMconfigure.h	/^    int arrive; \/\/ arrived number of events from src servants$/;"	m	struct:servant
 bool	plibs/PSEFMconfigure.h	8;"	d
 cond	plibs/PSEFMconfigure.h	/^typedef struct cond{$/;"	s
 cond	plibs/mode.c	/^struct ps_condition_array_t cond;$/;"	v	typeref:struct:ps_condition_array_t
 condition	plibs/PSEFMconfigure.h	/^    bool (*condition)(void);$/;"	m	struct:cond
 conditions	plibs/include/mode.h	/^    ps_mode_cond conditions[NUMOFCONDS];$/;"	m	struct:ps_condition_array_t
+controller1	apps/servant.c	/^void controller1()$/;"	f
+controller2	apps/servant.c	/^void controller2()$/;"	f
 current_mode	plibs/mode.c	/^static ps_mode_t current_mode;$/;"	v	file:
 data	plibs/PSEFMconfigure.h	/^    double data[NUMOFINS];$/;"	m	struct:__anon2
 data	plibs/PSEFMconfigure.h	/^    ps_data_t data;$/;"	m	struct:__anon3
@@ -47,6 +51,7 @@ length	plibs/PSEFMconfigure.h	/^    int     length;$/;"	m	struct:list
 level	plibs/PSEFMconfigure.h	/^    int level;                \/*< the depth of current servant in a task >*\/$/;"	m	struct:__anon1
 list	plibs/PSEFMconfigure.h	/^typedef struct list{$/;"	s
 list_t	plibs/PSEFMconfigure.h	/^} list_t;$/;"	t	typeref:struct:list
+main	main.c	/^int main()$/;"	f
 microstep	plibs/PSEFMconfigure.h	/^    int microstep;            \/*< the topology order >*\/$/;"	m	struct:__anon1
 mode	plibs/PSEFMconfigure.h	/^typedef struct mode{$/;"	s
 mode_dest	plibs/PSEFMconfigure.h	/^    id_t mode_dest;$/;"	m	struct:cond
@@ -62,10 +67,12 @@ num	plibs/include/task.h	/^    int num;$/;"	m	struct:ps_task_array_t
 owner	plibs/PSEFMconfigure.h	/^    void * owner;   \/\/ the list it belongs to$/;"	m	struct:item
 pcurrent_servant	plibs/exec_flow.c	/^static ps_servant_t * pcurrent_servant;$/;"	v	file:
 period	plibs/PSEFMconfigure.h	/^    tick_t period;$/;"	m	struct:task
-port_get_current_servant	plibs/PSEFMport.h	15;"	d
-port_get_current_time	plibs/PSEFMport.h	14;"	d
-port_thread_create	plibs/PSEFMport.h	5;"	d
-port_thread_yield	plibs/PSEFMport.h	6;"	d
+port_get_current_servant	plibs/PSEFMport.h	16;"	d
+port_get_current_time	plibs/PSEFMport.h	15;"	d
+port_malloc	plibs/PSEFMport.h	21;"	d
+port_servant_create	plibs/PSEFMport.h	5;"	d
+port_servant_yield	plibs/PSEFMport.h	6;"	d
+port_trigger	plibs/PSEFMport.h	11;"	d
 port_wait_event	plibs/PSEFMport.h	10;"	d
 prev	plibs/PSEFMconfigure.h	/^    struct item *prev;$/;"	m	struct:item	typeref:struct:item::item
 prv_ef_add_relation	plibs/exec_flow.c	/^void prv_ef_add_relation(ps_servant_t * pservant_src, ps_servant_t * pservant_dest)$/;"	f
@@ -88,10 +95,10 @@ prv_event_get_timestamp	plibs/include/event.h	7;"	d
 prv_event_initialize	plibs/event.c	/^void prv_event_initialize()$/;"	f
 prv_event_list_initialize	plibs/event.c	/^void prv_event_list_initialize()$/;"	f
 prv_event_send	plibs/event.c	/^void prv_event_send(ps_event_t *pevent)$/;"	f
-prv_item_get_event_entity	plibs/include/list_internal.h	16;"	d
-prv_item_get_event_next	plibs/include/list_internal.h	18;"	d
-prv_item_get_event_owner	plibs/include/list_internal.h	17;"	d
-prv_item_get_event_prev	plibs/include/list_internal.h	19;"	d
+prv_item_get_entity	plibs/include/list_internal.h	16;"	d
+prv_item_get_next	plibs/include/list_internal.h	18;"	d
+prv_item_get_owner	plibs/include/list_internal.h	17;"	d
+prv_item_get_prev	plibs/include/list_internal.h	19;"	d
 prv_item_initialize	plibs/list_internal.c	/^void prv_item_initialize(item_t * pEventItem)$/;"	f
 prv_list_earlist_time_update	plibs/list_internal.c	/^void prv_list_earlist_time_update(list_t * pEventList)$/;"	f
 prv_list_get_earliest_time	plibs/include/list_internal.h	11;"	d
@@ -99,7 +106,7 @@ prv_list_get_first_item	plibs/include/list_internal.h	12;"	d
 prv_list_get_last_item	plibs/include/list_internal.h	13;"	d
 prv_list_get_length	plibs/include/list_internal.h	10;"	d
 prv_list_initialize	plibs/list_internal.c	/^void prv_list_initialize(list_t * pEventList)$/;"	f
-prv_list_insert_end	plibs/list_internal.c	/^void prv_list_insert_end( item_t * pEventItem,$/;"	f
+prv_list_insert	plibs/list_internal.c	/^void prv_list_insert( item_t * pEventItem,$/;"	f
 prv_list_insert_sorted	plibs/list_internal.c	/^void prv_list_insert_sorted(item_t * pEventItem,$/;"	f
 prv_list_receive	plibs/list_internal.c	/^item_t * prv_list_receive(list_t * pEventList)$/;"	f
 prv_list_remove	plibs/list_internal.c	/^void prv_list_remove(item_t * pEventItem)$/;"	f
@@ -113,6 +120,7 @@ prv_servant_get_arrive	plibs/servant.c	/^int       prv_servant_get_arrive(ps_ser
 prv_servant_get_id	plibs/servant.c	/^id_t      prv_servant_get_id(ps_servant_t *pservant)$/;"	f
 prv_servant_get_num	plibs/servant.c	/^int       prv_servant_get_num(ps_servant_t *pservant)$/;"	f
 prv_servant_get_type	plibs/servant.c	/^servant_t prv_servant_get_type(ps_servant_t * pservant)$/;"	f
+prv_servant_trigger	plibs/servant.c	/^void prv_servant_trigger( ps_servant_t * pservant)$/;"	f
 prv_task_get_LET	plibs/task.c	/^tick_t prv_task_get_LET(ps_task_t * ptask)$/;"	f
 prv_task_get_actuator	plibs/task.c	/^ps_servant_t * prv_task_get_actuator(ps_task_t * ptask)$/;"	f
 prv_task_get_deadline	plibs/task.c	/^tick_t prv_task_get_deadline(ps_task_t * ptask)$/;"	f
@@ -125,7 +133,7 @@ ps_condition_array_t	plibs/include/mode.h	/^struct ps_condition_array_t{$/;"	s
 ps_data_t	plibs/PSEFMconfigure.h	/^}ps_data_t;$/;"	t	typeref:struct:__anon2
 ps_event_create	plibs/event.c	/^void ps_event_create(ps_tag_t *tag, ps_data_t *data)$/;"	f
 ps_event_receive	plibs/event.c	/^ps_event_t * ps_event_receive()$/;"	f
-ps_event_sem_t	plibs/PSEFMport.h	18;"	d
+ps_event_sem_t	plibs/PSEFMport.h	19;"	d
 ps_event_t	plibs/PSEFMconfigure.h	/^}ps_event_t;$/;"	t	typeref:struct:__anon3
 ps_event_wait	plibs/event.c	/^void ps_event_wait()$/;"	f
 ps_mode_cond	plibs/PSEFMconfigure.h	/^}ps_mode_cond;$/;"	t	typeref:struct:cond
@@ -148,6 +156,8 @@ pservants	plibs/include/exec_flow.h	/^    ps_servant_t * pservants[NUMOFINS];$/;
 pservants	plibs/servant.c	/^ps_servant_t * pservants[NUMOFSERVANTS];$/;"	v
 relation	plibs/include/exec_flow.h	/^typedef struct relation{$/;"	s
 sem	plibs/event.c	/^ps_event_sem_t sem[NUMOFSERVANTS];$/;"	v
+sensor1	apps/servant.c	/^void sensor1()$/;"	f
+sensor2	apps/servant.c	/^void sensor2()$/;"	f
 servant	plibs/PSEFMconfigure.h	/^typedef struct servant{$/;"	s
 servant_id	plibs/PSEFMconfigure.h	/^    id_t servant_id;$/;"	m	struct:servant
 servant_num	plibs/PSEFMconfigure.h	/^    int servant_num;      \/\/ number of I-servants$/;"	m	struct:task

@@ -59,32 +59,32 @@ void prv_ef_sorting()
 
 void prv_ef_triggering()
 {
-	item_t * pevent_item = prv_list_get_first_item(&xEventLocalList);
-	item_t * pevent_last = prv_list_get_last_item(&xEventLocalList);
+    item_t * pevent_item = prv_list_get_first_item(&xEventLocalList);
+    item_t * pevent_last = prv_list_get_last_item(&xEventLocalList);
 
-	ps_servant_t * pservant;
-	item_t * pevent_iterator;
-	int num, i, j, len;
+    ps_servant_t * pservant;
+    item_t * pevent_iterator;
+    int num, i, j, len;
 
-	len = prv_list_get_length(&xEventLocalList);
-	for(i = 0 ; i < len; pevent_item = prv_item_get_next(pevent_item){
+    len = prv_list_get_length(&xEventLocalList);
+    for(i = 0 ; i < len; pevent_item = prv_item_get_next(pevent_item){
 
-		pservant = prv_event_get_dest((ps_event_t *)pevent_item->item));
-		num = prv_servant_get_num(pservant);
-		if(prv_servant_get_arrive(pservant) == num){
-			pevent_iterator = pevent_item;
-			for(j=0; j < num && i < len; pevent_iterator = prv_item_get_next(pevent_iterator)){
-				if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
+        pservant = prv_event_get_dest((ps_event_t *)pevent_item->item));
+        num = prv_servant_get_num(pservant);
+        if(prv_servant_get_arrive(pservant) == num){
+            pevent_iterator = pevent_item;
+            for(j=0; j < num && i < len; pevent_iterator = prv_item_get_next(pevent_iterator)){
+                if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
 
-					prv_list_remove(pevent_item);
-					prv_list_insert(pevent_iterator, &xEventReadyList);
-					j ++;
-				} //end if
-				i ++;
-			} // end for
-			break;
-		} //end if
-	}// end for
+                    prv_list_remove(pevent_item);
+                    prv_list_insert(pevent_iterator, &xEventReadyList);
+                    j ++;
+                } //end if
+                i ++;
+            } // end for
+            break;
+        } //end if
+    }// end for
 
-	prv_servant_trigger(pservant);
+    prv_servant_trigger(pservant);
 }
