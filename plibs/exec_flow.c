@@ -42,20 +42,49 @@ void prv_ef_sorting()
     tick_t pcurrent_time = port_get_current_time();
 
 // sort the executable events
-    item_t * pevent_item = prv_item_get_first_item( &xEventGlobalList );
-    for(; pevent_item != prv_item_get_last_item( &xEventGlobalList );
-            pevent_item = prv_item_get_event_next( pevent_item)){
+    item_t * pevent_item = prv_list_get_first_item( &xEventGlobalList );
+    for(; pevent_item != prv_list_get_last_item( &xEventGlobalList );
+            pevent_item = prv_item_get_next( pevent_item)){
         if(prv_event_get_timestamp((ps_event_t *) pevent_item->item) < pcurrent_time){
             prv_list_remove(pevent_item);
             prv_list_insert_sorted( pevent_item, &xEventLocalList);
 
             // add the arrive record in dest servant
-            prv_servant_add_arrive( prv_event_get_dest((ps_servant_t *)pevent_item->item ));
+            prv_servant_add_arrive( prv_event_get_dest((ps_event_t *)pevent_item->item ));
         }
     }
+	prv_list_earlist_time_update( &xEventGlobalList);
 }
+
 
 void prv_ef_triggering()
 {
+	item_t * pevent_item = prv_list_get_first_item(&xEventLocalList);
+	item_t * pevent_last = prv_list_get_last_item(&xEventLocalList);
 
+	ps_servant_t * pservant;
+	item_t * pevent_iterator;
+	int num, i, j, len;
+
+	len = prv_list_get_length(&xEventLocalList);
+	for(i = 0 ; i < len; pevent_item = prv_item_get_next(pevent_item){
+
+		pservant = prv_event_get_dest((ps_event_t *)pevent_item->item));
+		num = prv_servant_get_num(pservant);
+		if(prv_servant_get_arrive(pservant) == num){
+			pevent_iterator = pevent_item;
+			for(j=0; j < num && i < len; pevent_iterator = prv_item_get_next(pevent_iterator)){
+				if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
+
+					prv_list_remove(pevent_item);
+					prv_list_insert(pevent_iterator, &xEventReadyList);
+					j ++;
+				} //end if
+				i ++;
+			} // end for
+			break;
+		} //end if
+	}// end for
+
+	prv_servant_trigger(pservant);
 }

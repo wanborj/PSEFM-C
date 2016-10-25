@@ -17,6 +17,7 @@ int       prv_servant_get_arrive(ps_servant_t *pservant);
 
 void      prv_servant_add_arrive(ps_servant_t *pservant);
 
+void 	prv_servant_trigger( ps_servant_t * pservant);
 
 
 /*

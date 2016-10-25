@@ -2,12 +2,13 @@
 #define __PSEFMPORT_H
 
 // servant operation
-#define port_thread_create()
-#define port_thread_yield()
+#define port_servant_create()
+#define port_servant_yield()
 
 
 // event operation
-#define port_wait_event(e)
+#define port_wait_event(e)  
+#define port_trigger(servant)
 
 
 // get current information

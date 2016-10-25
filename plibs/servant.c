@@ -54,7 +54,7 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
     pservant->arrive = 0;
 
     pservants[servant_id] = pservant; // store the new servant into servant array
-    //prv_thread_create(servant_id, runnable);
+    //prv_servant_create(servant_id, runnable);
 
     for(i = 0; i < num; ++ i){
         prv_ef_add_relation(src_array[i], pservant);
@@ -63,6 +63,13 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
 
 void ps_servant_cooperate()
 {
-    prv_servant_yield();
+    port_servant_yield();
     // yield API
+}
+
+void prv_servant_trigger( ps_servant_t * pservant)
+{
+	id_t servant_id = prv_servant_get_id( pservant );
+	pcurrent_servant = pservants[servant_id];   // mark the dest servant as the current servant
+	port_trigger(servant_id);
 }
