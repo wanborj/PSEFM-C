@@ -48,10 +48,18 @@ void      prv_servant_add_arrive(ps_servant_t *pservant)
     pservant->arrive ++;
 }
 
+void prv_servant_trigger( ps_servant_t * pservant)
+{
+	id_t servant_id = prv_servant_get_id( pservant );
+	prv_ef_set_current_servant(pservant);  // mark the dest servant as the current servant
+	port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
+}
+
+
 /* create servant and record the time,relation and function information */
 ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
                                 int num,
-                                ps_servant_t *src_array,
+                                ps_servant_t *src_array[],
                                 void (*runnable)(void *))
 {
     int i;
@@ -64,11 +72,13 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
     pservant->arrive = 0;
 
     pservants[servant_id] = pservant; // store the new servant into servant array
-    port_servant_create(servant_id, runnable);
+    port_servant_create(runnable, 2);
 
     for(i = 0; i < num; ++ i){
         prv_ef_add_relation(src_array[i], pservant);
     }
+
+	return pservant;
 }
 
 void ps_servant_cooperate()
@@ -77,9 +87,4 @@ void ps_servant_cooperate()
     // yield API
 }
 
-void prv_servant_trigger( ps_servant_t * pservant)
-{
-	id_t servant_id = prv_servant_get_id( pservant );
-	pcurrent_servant = pservant;   // mark the dest servant as the current servant
-	port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
-}
+

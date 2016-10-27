@@ -24,10 +24,10 @@ ps_servant_t * prv_task_get_actuator(ps_task_t *);
 
 
 /* create task and run its runnable function to create servants */
-void ps_task_create(id_t task_id,  // start from zero
+ps_task_t *  ps_task_create(id_t task_id,  // start from zero
                     tick_t LET,
-                    int servant_num,
-                    ps_servant_t * servants[]);
+                    ps_servant_t * servants[],
+                    int servant_num);
 
 
 #endif

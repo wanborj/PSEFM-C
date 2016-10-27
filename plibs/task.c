@@ -44,8 +44,9 @@ void   prv_task_start(ps_task_t * ptask)
     prv_servant_trigger( prv_task_get_sensor(ptask) );
 }
 
-void ps_task_create(id_t task_id, tick_t LET, int servant_num,
-                       ps_servant_t * servants[])
+ps_task_t * ps_task_create(id_t task_id, tick_t LET,
+                       ps_servant_t * servants[],
+                       int servant_num)
 {
     int i, pos = tsk.num;
     tsk.tasks[pos].task_id = task_id;
@@ -57,4 +58,6 @@ void ps_task_create(id_t task_id, tick_t LET, int servant_num,
         tsk.tasks[pos].servants[i]->LET = LET;
     }
     tsk.num ++;
+
+	return &tsk.task[pos];
 }

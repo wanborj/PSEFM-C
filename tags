@@ -4,6 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+GCD	plibs/model_time.c	/^static tick_t GCD(tick_t a, tick_t b){$/;"	f	file:
+INPUT	plibs/PSEFMconfigure.h	17;"	d
 LED	plibs/PSEFMconfigure.h	/^    tick_t LED;$/;"	m	struct:servant
 LET	plibs/PSEFMconfigure.h	/^    tick_t LET;$/;"	m	struct:servant
 LET	plibs/PSEFMconfigure.h	/^    tick_t LET;$/;"	m	struct:task
@@ -13,9 +15,11 @@ NUMOFMODES	plibs/PSEFMconfigure.h	10;"	d
 NUMOFRELATIONS	plibs/PSEFMconfigure.h	15;"	d
 NUMOFSERVANTS	plibs/PSEFMconfigure.h	13;"	d
 NUMOFTASKS	plibs/PSEFMconfigure.h	12;"	d
+OUTPUT	plibs/PSEFMconfigure.h	18;"	d
 __EVENT_H	plibs/include/event.h	2;"	d
 __EXEC_FLOW_H	plibs/include/exec_flow.h	2;"	d
 __LIST_INTERNAL_H	plibs/include/list_internal.h	2;"	d
+__MODEL_TIME_H	plibs/include/model_time.h	2;"	d
 __MODE_H	plibs/include/mode.h	2;"	d
 __PSEFMCONFIGURE_H	plibs/PSEFMconfigure.h	2;"	d
 __PSEFMPORT_H	plibs/PSEFMport.h	2;"	d
@@ -31,7 +35,7 @@ condition	plibs/PSEFMconfigure.h	/^    bool (*condition)(void);$/;"	m	struct:con
 conditions	plibs/include/mode.h	/^    ps_mode_cond conditions[NUMOFCONDS];$/;"	m	struct:ps_condition_array_t
 controller1	apps/servant.c	/^void controller1()$/;"	f
 controller2	apps/servant.c	/^void controller2()$/;"	f
-current_mode	plibs/mode.c	/^static ps_mode_t current_mode;$/;"	v	file:
+current_mode	plibs/mode.c	/^static ps_mode_t * current_mode;$/;"	v	file:
 data	plibs/PSEFMconfigure.h	/^    double data[NUMOFINS];$/;"	m	struct:__anon2
 data	plibs/PSEFMconfigure.h	/^    ps_data_t data;$/;"	m	struct:__anon3
 deadline	plibs/PSEFMconfigure.h	/^    tick_t deadline;     \/*< RM. The smaller the period the task is , the higher priority the event is. >*\/$/;"	m	struct:__anon1
@@ -53,6 +57,7 @@ list	plibs/PSEFMconfigure.h	/^typedef struct list{$/;"	s
 list_t	plibs/PSEFMconfigure.h	/^} list_t;$/;"	t	typeref:struct:list
 main	main.c	/^int main()$/;"	f
 microstep	plibs/PSEFMconfigure.h	/^    int microstep;            \/*< the topology order >*\/$/;"	m	struct:__anon1
+mod	plibs/mode.c	/^struct ps_mode_array_t mod;$/;"	v	typeref:struct:ps_mode_array_t
 mode	plibs/PSEFMconfigure.h	/^typedef struct mode{$/;"	s
 mode_dest	plibs/PSEFMconfigure.h	/^    id_t mode_dest;$/;"	m	struct:cond
 mode_id	plibs/PSEFMconfigure.h	/^    id_t mode_id; \/\/ equal to the serial number of array$/;"	m	struct:mode
@@ -63,17 +68,19 @@ num	plibs/PSEFMconfigure.h	/^    int num;  \/\/ number of tasks$/;"	m	struct:mod
 num	plibs/PSEFMconfigure.h	/^    int num;$/;"	m	struct:__anon2
 num	plibs/include/exec_flow.h	/^    int num;$/;"	m	struct:relation
 num	plibs/include/mode.h	/^    int num;$/;"	m	struct:ps_condition_array_t
+num	plibs/include/mode.h	/^    int num;$/;"	m	struct:ps_mode_array_t
 num	plibs/include/task.h	/^    int num;$/;"	m	struct:ps_task_array_t
 owner	plibs/PSEFMconfigure.h	/^    void * owner;   \/\/ the list it belongs to$/;"	m	struct:item
 pcurrent_servant	plibs/exec_flow.c	/^static ps_servant_t * pcurrent_servant;$/;"	v	file:
 period	plibs/PSEFMconfigure.h	/^    tick_t period;$/;"	m	struct:task
-port_get_current_servant	plibs/PSEFMport.h	16;"	d
-port_get_current_time	plibs/PSEFMport.h	15;"	d
-port_malloc	plibs/PSEFMport.h	21;"	d
-port_servant_create	plibs/PSEFMport.h	5;"	d
-port_servant_yield	plibs/PSEFMport.h	6;"	d
-port_trigger	plibs/PSEFMport.h	11;"	d
-port_wait_event	plibs/PSEFMport.h	10;"	d
+pmode	plibs/include/mode.h	/^    ps_mode_t * pmode[NUMOFMODES];$/;"	m	struct:ps_mode_array_t
+port_get_current_time	plibs/PSEFMport.h	21;"	d
+port_malloc	plibs/PSEFMport.h	25;"	d
+port_pure_event_create	plibs/PSEFMport.h	15;"	d
+port_servant_create	plibs/PSEFMport.h	7;"	d
+port_servant_yield	plibs/PSEFMport.h	8;"	d
+port_trigger	plibs/PSEFMport.h	13;"	d
+port_wait	plibs/PSEFMport.h	12;"	d
 prev	plibs/PSEFMconfigure.h	/^    struct item *prev;$/;"	m	struct:item	typeref:struct:item::item
 prv_ef_add_relation	plibs/exec_flow.c	/^void prv_ef_add_relation(ps_servant_t * pservant_src, ps_servant_t * pservant_dest)$/;"	f
 prv_ef_get_current_servant	plibs/exec_flow.c	/^ps_servant_t * prv_ef_get_current_servant()$/;"	f
@@ -82,7 +89,9 @@ prv_ef_get_ith_dest	plibs/exec_flow.c	/^ps_servant_t * prv_ef_get_ith_dest(ps_se
 prv_ef_set_current_servant	plibs/exec_flow.c	/^void prv_ef_set_current_servant(ps_servant_t * pservant)$/;"	f
 prv_ef_sorting	plibs/exec_flow.c	/^void prv_ef_sorting()$/;"	f
 prv_ef_triggering	plibs/exec_flow.c	/^void prv_ef_triggering()$/;"	f
+prv_event_can_process	plibs/event.c	/^int prv_event_can_process(ps_event_t * pevent)$/;"	f
 prv_event_delete	plibs/event.c	/^void prv_event_delete(ps_event_t * pevent)$/;"	f
+prv_event_future_model_time_reset	plibs/event.c	/^void prv_event_future_model_time_reset()$/;"	f
 prv_event_get_data	plibs/include/event.h	11;"	d
 prv_event_get_data_num	plibs/include/event.h	12;"	d
 prv_event_get_deadline	plibs/include/event.h	10;"	d
@@ -93,8 +102,12 @@ prv_event_get_microstep	plibs/include/event.h	8;"	d
 prv_event_get_src	plibs/include/event.h	13;"	d
 prv_event_get_timestamp	plibs/include/event.h	7;"	d
 prv_event_initialize	plibs/event.c	/^void prv_event_initialize()$/;"	f
+prv_event_is_overlap	plibs/event.c	/^int  prv_event_is_overlap(ps_event_t * pevent) $/;"	f
 prv_event_list_initialize	plibs/event.c	/^void prv_event_list_initialize()$/;"	f
+prv_event_sem_initialize	plibs/event.c	/^static void prv_event_sem_initialize()$/;"	f	file:
 prv_event_send	plibs/event.c	/^void prv_event_send(ps_event_t *pevent)$/;"	f
+prv_event_tag_set	plibs/event.c	/^void prv_event_tag_set(ps_event_t * pevent)$/;"	f
+prv_event_tag_update	plibs/event.c	/^int prv_event_tag_update(ps_event_t * pevent)$/;"	f
 prv_item_get_entity	plibs/include/list_internal.h	16;"	d
 prv_item_get_next	plibs/include/list_internal.h	18;"	d
 prv_item_get_owner	plibs/include/list_internal.h	17;"	d
@@ -107,19 +120,31 @@ prv_list_get_last_item	plibs/include/list_internal.h	13;"	d
 prv_list_get_length	plibs/include/list_internal.h	10;"	d
 prv_list_initialize	plibs/list_internal.c	/^void prv_list_initialize(list_t * pEventList)$/;"	f
 prv_list_insert	plibs/list_internal.c	/^void prv_list_insert( item_t * pEventItem,$/;"	f
-prv_list_insert_sorted	plibs/list_internal.c	/^void prv_list_insert_sorted(item_t * pEventItem,$/;"	f
+prv_list_insert_sorted	plibs/list_internal.c	/^void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList)$/;"	f
 prv_list_receive	plibs/list_internal.c	/^item_t * prv_list_receive(list_t * pEventList)$/;"	f
 prv_list_remove	plibs/list_internal.c	/^void prv_list_remove(item_t * pEventItem)$/;"	f
 prv_mode_add_task	plibs/mode.c	/^void prv_mode_add_task(id_t mode_id, ps_task_t * ptask)$/;"	f
 prv_mode_get_current_mode	plibs/mode.c	/^ps_mode_t * prv_mode_get_current_mode()$/;"	f
-prv_mode_get_num	plibs/mode.c	/^int prv_mode_get_num(id_t mode_id)$/;"	f
+prv_mode_get_task_num	plibs/mode.c	/^int prv_mode_get_task_num(id_t mode_id)$/;"	f
+prv_model_time_get_model_time	plibs/model_time.c	/^tick_t prv_model_time_get_model_time()$/;"	f
+prv_model_time_input_length	plibs/model_time.c	/^tick_t prv_model_time_input_length()$/;"	f
+prv_model_time_intput_end	plibs/model_time.c	/^tick_t prv_model_time_intput_end()$/;"	f
+prv_model_time_output_end	plibs/model_time.c	/^tick_t prv_model_time_output_end()$/;"	f
+prv_model_time_output_length	plibs/model_time.c	/^tick_t prv_model_time_output_length()$/;"	f
+prv_model_time_output_start	plibs/model_time.c	/^tick_t prv_model_time_output_start()$/;"	f
+prv_model_time_reset	plibs/model_time.c	/^void prv_model_time_reset()$/;"	f
+prv_model_time_unit_initialize	plibs/model_time.c	/^void prv_model_time_unit_initialize()$/;"	f
+prv_model_time_unit_length	plibs/model_time.c	/^static tick_t  prv_model_time_unit_length(ps_mode_t * pmode)$/;"	f	file:
+prv_model_time_unit_start	plibs/model_time.c	/^tick_t prv_model_time_unit_start()$/;"	f
 prv_servant_add_arrive	plibs/servant.c	/^void      prv_servant_add_arrive(ps_servant_t *pservant)$/;"	f
+prv_servant_clean_arrive	plibs/servant.c	/^void 	prv_servant_clean_arrive( ps_servant_t * pservant)$/;"	f
 prv_servant_get_LED	plibs/servant.c	/^tick_t    prv_servant_get_LED(ps_servant_t *pservant)$/;"	f
 prv_servant_get_LET	plibs/servant.c	/^tick_t    prv_servant_get_LET(ps_servant_t *pservant)$/;"	f
 prv_servant_get_arrive	plibs/servant.c	/^int       prv_servant_get_arrive(ps_servant_t *pservant)$/;"	f
 prv_servant_get_id	plibs/servant.c	/^id_t      prv_servant_get_id(ps_servant_t *pservant)$/;"	f
 prv_servant_get_num	plibs/servant.c	/^int       prv_servant_get_num(ps_servant_t *pservant)$/;"	f
 prv_servant_get_type	plibs/servant.c	/^servant_t prv_servant_get_type(ps_servant_t * pservant)$/;"	f
+prv_servant_set_arrive	plibs/servant.c	/^void 	  prv_servant_set_arrive( ps_servant_t * pservant, int n)$/;"	f
 prv_servant_trigger	plibs/servant.c	/^void prv_servant_trigger( ps_servant_t * pservant)$/;"	f
 prv_task_get_LET	plibs/task.c	/^tick_t prv_task_get_LET(ps_task_t * ptask)$/;"	f
 prv_task_get_actuator	plibs/task.c	/^ps_servant_t * prv_task_get_actuator(ps_task_t * ptask)$/;"	f
@@ -131,11 +156,12 @@ prv_task_get_servant_num	plibs/task.c	/^int    prv_task_get_servant_num(ps_task_
 prv_task_start	plibs/task.c	/^void   prv_task_start(ps_task_t * ptask)$/;"	f
 ps_condition_array_t	plibs/include/mode.h	/^struct ps_condition_array_t{$/;"	s
 ps_data_t	plibs/PSEFMconfigure.h	/^}ps_data_t;$/;"	t	typeref:struct:__anon2
-ps_event_create	plibs/event.c	/^void ps_event_create(ps_tag_t *tag, ps_data_t *data)$/;"	f
+ps_event_create	plibs/event.c	/^void ps_event_create(ps_event_t * pevent, ps_data_t * new_data)$/;"	f
 ps_event_receive	plibs/event.c	/^ps_event_t * ps_event_receive()$/;"	f
-ps_event_sem_t	plibs/PSEFMport.h	19;"	d
+ps_event_sem_t	plibs/PSEFMport.h	17;"	d
 ps_event_t	plibs/PSEFMconfigure.h	/^}ps_event_t;$/;"	t	typeref:struct:__anon3
 ps_event_wait	plibs/event.c	/^void ps_event_wait()$/;"	f
+ps_mode_array_t	plibs/include/mode.h	/^struct ps_mode_array_t{$/;"	s
 ps_mode_cond	plibs/PSEFMconfigure.h	/^}ps_mode_cond;$/;"	t	typeref:struct:cond
 ps_mode_create	plibs/mode.c	/^void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)$/;"	f
 ps_mode_start	plibs/mode.c	/^void ps_mode_start(id_t mode_id)$/;"	f
@@ -161,7 +187,7 @@ sensor2	apps/servant.c	/^void sensor2()$/;"	f
 servant	plibs/PSEFMconfigure.h	/^typedef struct servant{$/;"	s
 servant_id	plibs/PSEFMconfigure.h	/^    id_t servant_id;$/;"	m	struct:servant
 servant_num	plibs/PSEFMconfigure.h	/^    int servant_num;      \/\/ number of I-servants$/;"	m	struct:task
-servant_type	plibs/PSEFMconfigure.h	/^    int servant_type; \/\/ one of the elements in enum variable$/;"	m	struct:servant
+servant_type	plibs/PSEFMconfigure.h	/^    int servant_type; \/\/ 0 for sensor; 1 for controller; 2 for actuator$/;"	m	struct:servant
 servants	plibs/PSEFMconfigure.h	/^    ps_servant_t * servants[NUMOFSERVANTS];  \/\/ I-servants in this task$/;"	m	struct:task
 srcs	plibs/exec_flow.c	/^ps_relation_t srcs[NUMOFSERVANTS];$/;"	v
 start_time	plibs/PSEFMconfigure.h	/^    tick_t start_time;$/;"	m	struct:servant
@@ -174,7 +200,10 @@ tasks	plibs/include/task.h	/^    ps_task_t tasks[NUMOFTASKS*NUMOFMODES];$/;"	m	s
 tick_t	plibs/PSEFMconfigure.h	7;"	d
 timestamp	plibs/PSEFMconfigure.h	/^    tick_t timestamp;             \/*< the time to be proecessed >*\/$/;"	m	struct:__anon1
 tsk	plibs/task.c	/^struct ps_task_array_t tsk;$/;"	v	typeref:struct:ps_task_array_t
+units	plibs/model_time.c	/^static tick_t units[NUMOFMODES];$/;"	v	file:
 xEventGlobalList	plibs/event.c	/^list_t xEventGlobalList;$/;"	v
 xEventIdleList	plibs/event.c	/^list_t xEventIdleList;$/;"	v
 xEventLocalList	plibs/event.c	/^list_t xEventLocalList;$/;"	v
 xEventReadyList	plibs/event.c	/^list_t xEventReadyList;$/;"	v
+xFutureModelTime	plibs/event.c	/^static tick_t xFutureModelTime;$/;"	v	file:
+xModelTimeStart	plibs/model_time.c	/^static tick_t xModelTimeStart;$/;"	v	file:

@@ -24,6 +24,26 @@ int prv_mode_get_task_num(id_t mode_id)
     return modes[mode_id].num;
 }
 
+// set function implemented in model_time
+tick_t prv_mode_get_mode_period(id_t mode_id)
+{
+	return modes[mode_id].period;
+}
+
+void prv_mode_set_mode_period(id_t mode_id , tick_t period)
+{
+	modes[mode_id].period = period;
+}
+
+tick_t prv_mode_get_mode_unit(id_t mode_id)
+{
+	return modes[mode_id].unit;
+}
+void prv_mode_set_mode_unit(id_t mode_id, tick_t unit)
+{
+	modes[mode_id].unit  = unit;
+}
+
 
 // public API
 void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
@@ -62,16 +82,28 @@ void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)
 void ps_mode_switch()
 {
     int i;
-    for(i=0;i<cond.num;++i){
-        if(cond.conditions[i].condition() == 1){
-            ps_mode_start(cond.conditions[i].mode_dest);
-			prv_model_time_reset();  // reset the xModeTimeStart
-            break;
-        }
-    }
-    if(i == cond.num){
-        ps_mode_start(prv_mode_get_current_mode());
-    }
+	if( prv_model_time_is_mode_end() == 1){
+		
+		for(i=0;i<cond.num;++i){
+			if(cond.conditions[i].condition() == 1){
+				prv_model_time_reset();  // reset the xModeTimeStart
+				ps_mode_start(cond.conditions[i].mode_dest);
+				break;
+			}
+		}
+		if(i == cond.num){
+			ps_mode_start(prv_mode_get_current_mode());
+		}
+		
+		prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
+	}
+}
 
-	prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
+void system_start()
+{
+	prv_model_time_initialize();
+	prv_event_list_initialize();
+	prv_ef_create();
+	ps_mode_start(0);
+	port_scheduler_start();
 }

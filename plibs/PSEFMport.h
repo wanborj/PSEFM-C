@@ -4,8 +4,10 @@
 // based on FreeRTOS API
 
 // servant operation
-#define port_servant_create(servant_id, runnable) xTaskCreate(runnable, const signed portCHAR * const (servant_id + '0'), 128, NULL, 2, NULL) 
-#define port_servant_yield() taskYIELD()
+#define port_servant_create(runnable, prio) xTaskCreate(runnable, NULL, 128, NULL, prio, NULL) 
+
+// trigger R_Servant to run
+#define port_servant_yield() xSemaphoreGive(sem[NUMOFSERVANTS-1]) ; taskYIELD()
 
 
 // event operation
@@ -23,5 +25,9 @@
 // prv_ef_get_current_servant()
 
 #define port_malloc(size) pvPortMalloc(size)
+
+#define port_print(string)  { int i = 0; while( string[i]!='\0') { send_byte(string[i]; i++;}}
+
+#define port_scheduler_start() vTaskStartScheduler()
 
 #endif

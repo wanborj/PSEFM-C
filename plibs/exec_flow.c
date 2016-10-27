@@ -84,8 +84,9 @@ void prv_ef_triggering()
 				prv_list_insert(pevent_item, &xEventReadyList);
 
 				prv_servant_trigger(pservant);
+				break;
 				
-			}else if( 1 == flag){
+			} else if( 1 == flag){
 				// if events are executable controller events, then process the events with same dest servant
 				
 				prv_servant_clean_arrive(pservant);  // set the arrive of pservant to 0
@@ -101,9 +102,11 @@ void prv_ef_triggering()
 					} //end if
 					i ++;
 				} // end for
-				break;
 				prv_servant_trigger(pservant);
+
+				break;
 			}else{
+	
 				// transit all the left event in local list into the global event list
 				
 				pevent_temp = pevent_item;
@@ -118,4 +121,20 @@ void prv_ef_triggering()
 		}
 	}// end for
 	
+}
+
+
+static void R_Servant()
+{
+	while(1){
+		port_wait(sem[NUMOFSERVANTS-1]);
+		
+		prv_ef_sorting();
+		prv_ef_triggering();
+	}
+}
+
+void prv_ef_create()
+{
+	port_servant_create(R_Servant, 1);
 }

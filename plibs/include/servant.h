@@ -33,7 +33,7 @@ ps_servant_t * ps_servant_create(id_t servant_id,
                         int servant_type,
                         tick_t LED,
                         int num,   // number of elements in src_array
-                        ps_servant_t *src_array,
+                        ps_servant_t *src_array[],
                         void (*runnable)(void *));
 
 void ps_servant_coorperate();  // invoked in runnable function in ps_servant_create API

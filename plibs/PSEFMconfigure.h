@@ -94,6 +94,8 @@ typedef struct task{
 
 typedef struct mode{
     id_t mode_id; // equal to the serial number of array
+    tick_t period;
+	tick_t unit;
     int num;  // number of tasks
     ps_task_t * tasks[NUMOFTASKS];
 }ps_mode_t;

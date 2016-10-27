@@ -20,16 +20,6 @@ static void prv_event_sem_initialize()
 	}
 }
 
-void prv_event_list_initialize()
-{
-    prv_list_initialize(&xEventIdleList);
-    prv_list_initialize(&xEventGlobalList);
-    prv_list_initialize(&xEventLocalList);
-    prv_list_initialize(&xEventReadyList);
-
-    prv_event_initialize();
-}
-
 void prv_event_initialize()
 {
     int i;
@@ -44,6 +34,17 @@ void prv_event_initialize()
 
 	prv_event_sem_initialize();  // init the semaphores
 }
+
+void prv_event_list_initialize()
+{
+    prv_list_initialize(&xEventIdleList);
+    prv_list_initialize(&xEventGlobalList);
+    prv_list_initialize(&xEventLocalList);
+    prv_list_initialize(&xEventReadyList);
+
+    prv_event_initialize();
+}
+
 
 // know the dest servant of pevent, and send the event to each of the dest servants
 void prv_event_send(ps_event_t *pevent)
@@ -63,12 +64,12 @@ void prv_event_tag_set(ps_event_t * pevent)
 	ps_servant_t * pservant_dest = prv_ef_get_ith_dest(pservant,0);	
 	
 	if(pservant_dest->servant_type == 0){
-		pevent->tag.timestamp = prv_mode_time_output_end();
+		pevent->tag.timestamp = prv_model_time_output_end();
 		pevent->tag.microstep = 0;
 	}
 	else if (pservant_dest->servant_type == 1){
 		if( pservant->servant_type == 0){  // sensor communicate with controller
-			pevent->tag.timestamp = prv_mode_time_input_end();
+			pevent->tag.timestamp = prv_model_time_input_end();
 			pevent->tag.microstep = 0;
 		}else{ // controller communicate with controller
 			
@@ -195,8 +196,9 @@ void ps_event_create(ps_event_t * pevent, ps_data_t * new_data)
         pevent_temp->tag.deadline  = pevent->tag->deadline;  // nothing here yet
         pevent_temp->data.data[0]  = new_data->data[0];
 
-        prv_event_send(pevent);
+        prv_event_send(pevent_temp);
     }
+	prv_event_delete(pevent);
 }
 
 

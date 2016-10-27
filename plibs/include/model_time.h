@@ -9,7 +9,7 @@ tick_t prv_model_time_output_start();
 
 tick_t prv_model_time_output_end();
 
-tick_t prv_model_time_intput_end();
+tick_t prv_model_time_input_end();
 
 tick_t  prv_model_time_unit_length();
 
