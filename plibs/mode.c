@@ -1,9 +1,11 @@
 #include "mode.h"
 
 struct ps_condition_array_t cond;
+struct ps_mode_array_t mod;
+
 ps_mode_t modes[NUMOFMODES];
 
-static ps_mode_t current_mode;
+static ps_mode_t * current_mode;
 
 void prv_mode_add_task(id_t mode_id, ps_task_t * ptask)
 {
@@ -14,10 +16,10 @@ void prv_mode_add_task(id_t mode_id, ps_task_t * ptask)
 
 ps_mode_t * prv_mode_get_current_mode()
 {
-    return &current_mode;
+    return current_mode;
 }
 
-int prv_mode_get_num(id_t mode_id)
+int prv_mode_get_task_num(id_t mode_id)
 {
     return modes[mode_id].num;
 }
@@ -27,19 +29,24 @@ int prv_mode_get_num(id_t mode_id)
 void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
 {
     int i;
+	
     modes[mode_id].mode_id = mode_id;
     for(i=0;i<num;++i){
         prv_mode_add_task(mode_id, task_array[i]);
     }
+
+	mod.pmodes[mod.num] = &modes[mode_id];
+	mod.num ++;
+	
 }
 
 void ps_mode_start(id_t mode_id)
 {
     /*start all the tasks in this mode*/
     int i;
-    current_mode = modes[mode_id];
+    current_mode = &modes[mode_id];
     for(i=0;i<modes[mode_id].num;++i){
-        //prv_task_start( modes[mode_id].tasks[i]);
+        prv_task_start( modes[mode_id].tasks[i]);
     }
 }
 
@@ -58,6 +65,7 @@ void ps_mode_switch()
     for(i=0;i<cond.num;++i){
         if(cond.conditions[i].condition() == 1){
             ps_mode_start(cond.conditions[i].mode_dest);
+			prv_model_time_reset();  // reset the xModeTimeStart
             break;
         }
     }
@@ -65,4 +73,5 @@ void ps_mode_switch()
         ps_mode_start(prv_mode_get_current_mode());
     }
 
+	prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
 }

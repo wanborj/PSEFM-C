@@ -41,7 +41,7 @@ ps_servant_t * prv_task_get_actuator(ps_task_t * ptask)
 
 void   prv_task_start(ps_task_t * ptask)
 {
-    //prv_servant_start( prv_task_get_sensor(ptask) );
+    prv_servant_trigger( prv_task_get_sensor(ptask) );
 }
 
 void ps_task_create(id_t task_id, tick_t LET, int servant_num,

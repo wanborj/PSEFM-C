@@ -28,6 +28,28 @@ void prv_event_list_initialize();
 // invoked in prv_event_list_initialize()
 void prv_event_initialize();
 
+// invoked in ps_event_create()
+// set the tag of events sent by the current servant
+void prv_event_tag_set(ps_event_t * pevent);
+
+// update the timestamp of event
+void prv_event_tag_update(ps_event_t * pevent);
+
+// judge wether the timestamp of event is legal
+int  prv_event_is_overlap(ps_event_t * pevent);
+
+
+int prv_event_tag_update(ps_event_t * pevent);
+
+
+// update xFutureModelTime
+void prv_event_future_model_time_reset();
+
+//  judge wether event can be processed
+int prv_event_can_process(ps_event_t * pevent);
+
+
+
 /* API */
 // waiting for periodic timing event or message-arrival event
 void ps_event_wait();
@@ -36,6 +58,8 @@ void ps_event_wait();
 // invoked in servant runnable function
 // update servant start_time
 ps_event_t * ps_event_receive();
+
+
 
 // event create for several destinate servants
 // initialize the flag in event

@@ -14,6 +14,8 @@
 #define NUMOFINS 4   // max in degree of every servants
 #define NUMOFRELATIONS NUMOFINS*NUMOFSERVANTS
 
+#define INPUT 3
+#define OUTPUT 3
 /*
  * list type
  * */
@@ -56,7 +58,7 @@ typedef struct servant{
     tick_t start_time;
     tick_t LET;
     tick_t LED;
-    int servant_type; // one of the elements in enum variable
+    int servant_type; // 0 for sensor; 1 for controller; 2 for actuator
     int num;   // the src servants of this servant
     int arrive; // arrived number of events from src servants
 }ps_servant_t;

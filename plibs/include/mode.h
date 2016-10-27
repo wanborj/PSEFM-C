@@ -12,6 +12,12 @@ struct ps_condition_array_t{
     ps_mode_cond conditions[NUMOFCONDS];
 };
 
+struct ps_mode_array_t{
+    int num;
+    ps_mode_t * pmode[NUMOFMODES];
+};
+
+
 extern ps_mode_t modes[NUMOFMODES];
 extern ps_condition_array_t cond;
 
@@ -27,7 +33,7 @@ void ps_mode_start(id_t mode_id);
 
 // get information
 ps_mode_t * prv_mode_get_current_mode();
-int  prv_mode_get_num(id_t mode_id);
+int  prv_mode_get_task_num(id_t mode_id);
 
 
 #endif

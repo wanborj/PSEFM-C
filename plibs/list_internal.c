@@ -55,8 +55,7 @@ static int tag_compare(ps_event_t * pe1, ps_event_t *pe2)
     return 0;
 }
 
-void prv_list_insert_sorted(item_t * pEventItem,
-                            list_t * pEventList)
+void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList)
 {
     ps_event_t * pevent = (ps_event_t *)prv_item_get_entity(pEventItem);
     volatile  item_t * pIndex;
@@ -128,13 +127,6 @@ void prv_list_remove(item_t * pEventItem)
     pList->length --;
 }
 
-item_t * prv_list_receive(list_t * pEventList)
-{
-    item_t * pitem = pEventList->first;
-    prv_list_remove(pitem);
-
-    return pitem;
-}
 
 void prv_list_earlist_time_update(list_t * pEventList)
 {
@@ -148,3 +140,14 @@ void prv_list_earlist_time_update(list_t * pEventList)
         }
     }
 }
+
+
+item_t * prv_list_receive(list_t * pEventList)
+{
+    item_t * pitem = pEventList->first;
+    prv_list_remove(pitem);
+
+    return pitem;
+}
+
+

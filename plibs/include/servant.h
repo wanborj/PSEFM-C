@@ -14,6 +14,9 @@ tick_t    prv_servant_get_LET(ps_servant_t *pservant);
 int       prv_servant_get_type(ps_servant_t * pservant);
 int       prv_servant_get_num(ps_servant_t *pservant);
 int       prv_servant_get_arrive(ps_servant_t *pservant);
+void 	  prv_servant_set_arrive( ps_servant_t * pservant, int n);
+void 	  prv_servant_clean_arrive( ps_servant_t * pservant);
+
 
 void      prv_servant_add_arrive(ps_servant_t *pservant);
 
