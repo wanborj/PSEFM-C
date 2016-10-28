@@ -2,15 +2,6 @@
 #define __TASK_H
 
 #include "PSEFMconfigure.h"
-#include "servant.h"
-
-
-struct ps_task_array_t{
-    int num;
-    ps_task_t tasks[NUMOFTASKS*NUMOFMODES];
-};
-
-extern struct ps_task_array_t tsk;
 
 id_t   prv_task_get_id(ps_task_t *);
 tick_t prv_task_get_LET(ps_task_t *);

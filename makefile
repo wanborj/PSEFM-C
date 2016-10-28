@@ -13,8 +13,8 @@ FREERTOS_SRC = libraries/FreeRTOS
 FREERTOS_INC = $(FREERTOS_SRC)/include/
 FREERTOS_PORT_INC = $(FREERTOS_SRC)/portable/GCC/ARM_$(ARCHCM)/
 
-PSEFM_LIB = plibs/
-PSEFM_APP = apps/
+PSEFM_LIB = plibs
+PSEFM_APP = apps
 
 all: main.bin
 
@@ -55,7 +55,7 @@ main.bin: main.c
 		$(FREERTOS_SRC)/portable/MemMang/heap_2.c \
 		\
 	    $(PSEFM_LIB)/mode.c \
-	    $(PSEFM_LIB)/task.c \
+	    $(PSEFM_LIB)/ptask.c \
 		$(PSEFM_LIB)/servant.c \
 	    $(PSEFM_LIB)/event.c \
 	    $(PSEFM_LIB)/exec_flow.c \
@@ -77,7 +77,8 @@ qemu: main.bin $(QEMU_STM32)
 #	$(QEMU_STM32) -M stm32-p103 -kernel ~/ucos_stm32.bin
 
 qemugdb: main.bin $(QEMU_STM32)
-	$(QEMU_STM32) -M stm32-p103 -gdb tcp::3333 -S -nographic -kernel main.bin -serial pty
+	#$(QEMU_STM32) -M stm32-p103 -gdb tcp::3333 -S -nographic -kernel main.bin -serial pty
+	$(QEMU_STM32) -M stm32-p103 -gdb tcp::3333 -S -kernel main.bin
 
 qemuauto: main.bin
 	bash emulate.sh main.bin

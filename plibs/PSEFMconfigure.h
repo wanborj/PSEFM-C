@@ -3,9 +3,10 @@
 
 #include <stdio.h>
 
-#define id_t int
-#define tick_t long
-#define bool int
+typedef int id_t;
+typedef long tick_t;
+typedef int bool;
+
 
 #define NUMOFMODES 2  // the maximal number of modes in system, the id of mode start from 0
 #define NUMOFCONDS 4 // the maximal number of mode switch condition in system

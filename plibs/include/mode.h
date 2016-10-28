@@ -2,9 +2,8 @@
 #define __MODE_H
 
 #include "PSEFMconfigure.h"
-#include "task.h"
+#include "ptask.h"
 #include "event.h"
-
 
 
 struct ps_condition_array_t{
@@ -16,10 +15,6 @@ struct ps_mode_array_t{
     int num;
     ps_mode_t * pmode[NUMOFMODES];
 };
-
-
-extern ps_mode_t modes[NUMOFMODES];
-extern ps_condition_array_t cond;
 
 // mode setting
 void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num);

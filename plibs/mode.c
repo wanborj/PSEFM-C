@@ -49,15 +49,15 @@ void prv_mode_set_mode_unit(id_t mode_id, tick_t unit)
 void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
 {
     int i;
-	
+
     modes[mode_id].mode_id = mode_id;
     for(i=0;i<num;++i){
         prv_mode_add_task(mode_id, task_array[i]);
     }
 
-	mod.pmodes[mod.num] = &modes[mode_id];
+	mod.pmode[mod.num] = &modes[mode_id];
 	mod.num ++;
-	
+
 }
 
 void ps_mode_start(id_t mode_id)
@@ -82,8 +82,9 @@ void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)
 void ps_mode_switch()
 {
     int i;
+    ps_mode_t * current_mode;
 	if( prv_model_time_is_mode_end() == 1){
-		
+
 		for(i=0;i<cond.num;++i){
 			if(cond.conditions[i].condition() == 1){
 				prv_model_time_reset();  // reset the xModeTimeStart
@@ -92,12 +93,15 @@ void ps_mode_switch()
 			}
 		}
 		if(i == cond.num){
-			ps_mode_start(prv_mode_get_current_mode());
+            current_mode = prv_mode_get_current_mode();
+            ps_mode_start(current_mode->mode_id);
 		}
-		
+
 		prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
 	}
 }
+
+
 
 void system_start()
 {

@@ -4,15 +4,15 @@
 #include "PSEFMconfigure.h"
 #include "PSEFMport.h"
 
-#define prv_event_get_timestamp(pevent) (pevent->tag.timestamp)
-#define prv_event_get_microstep(pevent) (pevent->tag.microstep)
-#define prv_event_get_level(pevent) (pevent->tag.level)
-#define prv_event_get_deadline(pevent) (pevent->tag.deadline)
-#define prv_event_get_data(pevent) (pevent->data.data)
-#define prv_event_get_data_num(pevent) (pevent->data.num)
-#define prv_event_get_src(pevent) (pevent->pservant_src)
-#define prv_event_get_dest(pevent) (pevent->pservant_dest)
-#define prv_event_get_flag(pevent) (pevent->flag)
+#define prv_event_get_timestamp(pevent) (((ps_event_t *)pevent)->tag.timestamp)
+#define prv_event_get_microstep(pevent) (((ps_event_t *)pevent)->tag.microstep)
+#define prv_event_get_level(pevent) (((ps_event_t *)pevent)->tag.level)
+#define prv_event_get_deadline(pevent) (((ps_event_t *)pevent)->tag.deadline)
+#define prv_event_get_data(pevent) (((ps_event_t *)pevent)->data.data)
+#define prv_event_get_data_num(pevent) (((ps_event_t *)pevent)->data.num)
+#define prv_event_get_src(pevent) (((ps_event_t *)pevent)->pservant_src)
+#define prv_event_get_dest(pevent) (((ps_event_t *)pevent)->pservant_dest)
+#define prv_event_get_flag(pevent) (((ps_event_t *)pevent)->flag)
 
 //  send event to global event list;
 //  invoked in ps_event_create()
@@ -32,13 +32,12 @@ void prv_event_initialize();
 // set the tag of events sent by the current servant
 void prv_event_tag_set(ps_event_t * pevent);
 
-// update the timestamp of event
-void prv_event_tag_update(ps_event_t * pevent);
 
 // judge wether the timestamp of event is legal
 int  prv_event_is_overlap(ps_event_t * pevent);
 
 
+// update the timestamp of event
 int prv_event_tag_update(ps_event_t * pevent);
 
 
@@ -63,7 +62,7 @@ ps_event_t * ps_event_receive();
 
 // event create for several destinate servants
 // initialize the flag in event
-void ps_event_create(ps_tag_t *tag, ps_data_t *data);
+void ps_event_create(ps_event_t * pevent, ps_data_t *data);
 
 
 

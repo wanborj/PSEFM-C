@@ -15,8 +15,7 @@ void prv_item_initialize(item_t * pEventItem)
     pEventItem->prev = NULL;
 }
 
-void prv_list_insert( item_t * pEventItem,
-                              list_t * pEventList)
+void prv_list_insert( item_t * pEventItem, list_t * pEventList)
 {
     ps_event_t * pevent = (ps_event_t *) prv_item_get_entity(pEventItem);
 

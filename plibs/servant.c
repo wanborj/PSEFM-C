@@ -1,5 +1,8 @@
 #include "servant.h"
 #include "exec_flow.h"
+#include "PSEFMconfigure.h"
+
+extern ps_event_sem_t sem[NUMOFSERVANTS];
 
 ps_servant_t * pservants[NUMOFSERVANTS];
 
@@ -8,7 +11,8 @@ id_t      prv_servant_get_id(ps_servant_t *pservant)
     return pservant->servant_id;
 }
 
-servant_t prv_servant_get_type(ps_servant_t * pservant)
+
+int prv_servant_get_type(ps_servant_t * pservant)
 {
     return pservant->servant_type;
 }
@@ -20,7 +24,12 @@ tick_t    prv_servant_get_LED(ps_servant_t *pservant)
 
 tick_t    prv_servant_get_LET(ps_servant_t *pservant)
 {
-    reutrn pservant->LET;
+    return pservant->LET;
+}
+
+tick_t prv_servant_get_start_time(ps_servant_t * pservant)
+{
+    return pservant->start_time;
 }
 
 int       prv_servant_get_num(ps_servant_t *pservant)

@@ -1,10 +1,14 @@
 #ifndef __PSEFMPORT_H
 #define __PSEFMPORT_H
 
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "queue.h"
 // based on FreeRTOS API
 
 // servant operation
-#define port_servant_create(runnable, prio) xTaskCreate(runnable, NULL, 128, NULL, prio, NULL) 
+#define port_servant_create(runnable, prio) xTaskCreate(runnable, NULL, 128, NULL, prio, NULL)
 
 // trigger R_Servant to run
 #define port_servant_yield() xSemaphoreGive(sem[NUMOFSERVANTS-1]) ; taskYIELD()
@@ -12,11 +16,10 @@
 
 // event operation
 #define port_wait(e)   xSemaphoreTake( e, portMAX_DELAY)
-#define port_trigger(e) xSemaphoreGive(e)
+#define port_trigger(e) xSemaphoreGive( e )
 // create semaphore and take the token away
-#define port_pure_event_create(e)  xSemaphoreCreateBinary(e); \
-									xSemaphoreTake(e, portMAX_DELAY) 
-#define ps_event_sem_t xQueueHandle  
+#define port_pure_event_create(e)  vSemaphoreCreateBinary(e)
+#define ps_event_sem_t xQueueHandle
 
 
 // get current information
@@ -26,7 +29,7 @@
 
 #define port_malloc(size) pvPortMalloc(size)
 
-#define port_print(string)  { int i = 0; while( string[i]!='\0') { send_byte(string[i]; i++;}}
+#define port_print(string)  { int i = 0; while( (char)string[i]!='\0') { send_byte((char)string[i]); i++;}}
 
 #define port_scheduler_start() vTaskStartScheduler()
 

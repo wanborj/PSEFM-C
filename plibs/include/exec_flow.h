@@ -5,8 +5,9 @@
 #include "PSEFMport.h"
 #include "event.h"
 #include "mode.h"
-#include "task.h"
+#include "ptask.h"
 #include "servant.h"
+#include "list_internal.h"
 
 typedef struct relation{
     int num;
