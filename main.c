@@ -34,6 +34,7 @@ void myHardwareInit(){
 int main()
 {
     myHardwareInit();
+    port_print("I'm in main()\n\r");
 	ps_servant_t * ps_servants[NUMOFSERVANTS];
 	ps_task_t * ps_tasks[NUMOFTASKS];
 

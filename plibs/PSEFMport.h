@@ -29,7 +29,8 @@
 
 #define port_malloc(size) pvPortMalloc(size)
 
-#define port_print(string)  { int i = 0; while( (char)string[i]!='\0') { send_byte((char)string[i]); i++;}}
+//#define port_print(string)  { int i = 0; while( (char)string[i]!='\0') { send_byte((char)string[i]); i++;}}
+#define port_print(string) vPrintString((char *) string)
 
 #define port_scheduler_start() vTaskStartScheduler()
 

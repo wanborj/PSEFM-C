@@ -84,6 +84,7 @@ void ps_mode_switch()
     int i;
     ps_mode_t * current_mode;
 	if( prv_model_time_is_mode_end() == 1){
+        port_print("i'm in ps_mode_switch()\n\r");
 
 		for(i=0;i<cond.num;++i){
 			if(cond.conditions[i].condition() == 1){

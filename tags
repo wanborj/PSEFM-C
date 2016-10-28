@@ -27858,6 +27858,7 @@ USB_LP_CAN1_RX0_IRQHandler	libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startu
 USB_LP_CAN1_RX0_IRQn	libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h	/^  USB_LP_CAN1_RX0_IRQn        = 20,     \/*!< USB Device Low Priority or CAN1 RX0 Interrupts       *\/$/;"	e	enum:IRQn
 USER	libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h	/^  __IO uint16_t USER;$/;"	m	struct:__anon55
 USE_STDPERIPH_DRIVER	libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h	105;"	d
+USE_STDPERIPH_DRIVER	main.c	1;"	d	file:
 US_BRGR	libraries/FreeRTOS/portable/GCC/ARM7_AT91SAM7S/AT91SAM7X256.h	/^	AT91_REG	 US_BRGR; 	\/\/ Baud Rate Generator Register$/;"	m	struct:_AT91S_USART
 US_BRGR	libraries/FreeRTOS/portable/GCC/ARM7_AT91SAM7S/ioat91sam7x256.h	/^	AT91_REG	 US_BRGR; 	\/\/ Baud Rate Generator Register$/;"	m	struct:_AT91S_USART
 US_BRGR	libraries/FreeRTOS/portable/IAR/AtmelSAM7S64/AT91SAM7S64.h	/^	AT91_REG	 US_BRGR; 	\/\/ Baud Rate Generator Register$/;"	m	struct:_AT91S_USART
@@ -28798,6 +28799,10 @@ modes	plibs/mode.c	/^ps_mode_t modes[NUMOFMODES];$/;"	v
 mov_x	libraries/FreeRTOS/portable/IAR/MSP430X/data_model.h	75;"	d
 mov_x	libraries/FreeRTOS/portable/IAR/MSP430X/data_model.h	84;"	d
 mov_x	libraries/FreeRTOS/portable/IAR/MSP430X/data_model.h	93;"	d
+myHardwareInit	main.c	/^void myHardwareInit(){$/;"	f
+myTraceCreate	main.c	/^void myTraceCreate      (){$/;"	f
+myTraceSwitchedIn	main.c	/^void myTraceSwitchedIn  (){$/;"	f
+myTraceSwitchedOut	main.c	/^void myTraceSwitchedOut	(){$/;"	f
 next	plibs/PSEFMconfigure.h	/^    struct item *next;$/;"	m	struct:item	typeref:struct:item::item
 noWIZC	libraries/FreeRTOS/portable/WizC/PIC18/Install.bat	/^:noWIZC$/;"	l
 num	plibs/PSEFMconfigure.h	/^    int num;   \/\/ the src servants of this servant$/;"	m	struct:servant
@@ -28817,10 +28822,10 @@ pcHead	libraries/FreeRTOS/queue.c	/^	signed char *pcHead;				\/*< Points to the 
 pcName	libraries/FreeRTOS/include/task.h	/^	const signed char * const pcName;$/;"	m	struct:xTASK_PARAMTERS
 pcQueueName	libraries/FreeRTOS/queue.c	/^		signed char *pcQueueName;$/;"	m	struct:QUEUE_REGISTRY_ITEM	file:
 pcReadFrom	libraries/FreeRTOS/queue.c	/^	signed char *pcReadFrom;			\/*< Points to the last place that a queued item was read from. *\/$/;"	m	struct:QueueDefinition	file:
-pcStatsString	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static char pcStatsString[ 50 ] ;$/;"	v	file:
+pcStatsString	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static char pcStatsString[ 50 ] ;$/;"	v	file:
 pcTail	libraries/FreeRTOS/queue.c	/^	signed char *pcTail;				\/*< Points to the byte at the end of the queue storage area.  Once more byte is allocated than necessary to store the queue items, this is used as a marker. *\/$/;"	m	struct:QueueDefinition	file:
-pcTaskGetTaskName	libraries/FreeRTOS/tasks.c	/^	signed char *pcTaskGetTaskName( xTaskHandle xTaskToQuery )$/;"	f
-pcTaskName	libraries/FreeRTOS/tasks.c	/^	signed char				pcTaskName[ configMAX_TASK_NAME_LEN ];\/*< Descriptive name given to the task when created.  Facilitates debugging only. *\/$/;"	m	struct:tskTaskControlBlock	file:
+pcTaskGetTaskName	libraries/FreeRTOS/tasks.c	/^signed char *pcTaskGetTaskName( xTaskHandle xTaskToQuery )$/;"	f
+pcTaskName	libraries/FreeRTOS/tasks.c	/^    signed char				pcTaskName[ configMAX_TASK_NAME_LEN ];\/*< Descriptive name given to the task when created.  Facilitates debugging only. *\/$/;"	m	struct:tskTaskControlBlock	file:
 pcTimerName	libraries/FreeRTOS/timers.c	/^	const signed char		*pcTimerName;		\/*<< Text name.  This is not used by the kernel, it is included simply to make debugging easier. *\/$/;"	m	struct:tmrTimerControl	file:
 pcWriteTo	libraries/FreeRTOS/queue.c	/^	signed char *pcWriteTo;				\/*< Points to the free next place in the storage area. *\/$/;"	m	struct:QueueDefinition	file:
 pcurrent_servant	plibs/exec_flow.c	/^static ps_servant_t * pcurrent_servant;$/;"	v	file:
@@ -31202,7 +31207,7 @@ prvClearTcInt	libraries/FreeRTOS/portable/IAR/AVR32_UC3/port.c	/^	static void pr
 prvCopyDataFromQueue	libraries/FreeRTOS/queue.c	/^static void prvCopyDataFromQueue( xQUEUE * const pxQueue, const void *pvBuffer )$/;"	f	file:
 prvCopyDataToQueue	libraries/FreeRTOS/queue.c	/^static void prvCopyDataToQueue( xQUEUE *pxQueue, const void *pvItemToQueue, portBASE_TYPE xPosition )$/;"	f	file:
 prvDefaultHandler	libraries/FreeRTOS/portable/IAR/STR91x/port.c	/^static void prvDefaultHandler( void )$/;"	f	file:
-prvDeleteTCB	libraries/FreeRTOS/tasks.c	/^	static void prvDeleteTCB( tskTCB *pxTCB )$/;"	f	file:
+prvDeleteTCB	libraries/FreeRTOS/tasks.c	/^static void prvDeleteTCB( tskTCB *pxTCB )$/;"	f	file:
 prvDummyISR	libraries/FreeRTOS/portable/Paradigm/Tern_EE/large_untested/port.c	/^static void __interrupt __far prvDummyISR( void )$/;"	f	file:
 prvEnableVFP	libraries/FreeRTOS/portable/RVDS/ARM_CM4F/port.c	/^__asm void prvEnableVFP( void )$/;"	f
 prvEnsureInterruptControllerIsInitialised	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port.c	/^static long prvEnsureInterruptControllerIsInitialised( void )$/;"	f	file:
@@ -31212,7 +31217,7 @@ prvExitFunction	libraries/FreeRTOS/portable/oWatcom/16BitDOS/Flsh186/port.c	/^st
 prvExitFunction	libraries/FreeRTOS/portable/oWatcom/16BitDOS/PC/port.c	/^static void prvExitFunction( void )$/;"	f	file:
 prvFindFactors	libraries/FreeRTOS/portable/IAR/STR91x/port.c	/^	static void prvFindFactors(u32 n, u16 *a, u32 *b)$/;"	f	file:
 prvFindFactors	libraries/FreeRTOS/portable/IAR/STR91x/port.c	/^	static void prvFindFactors(u32 n, u8 *a, u16 *b)$/;"	f	file:
-prvGenerateRunTimeStatsForTasksInList	libraries/FreeRTOS/tasks.c	/^	static void prvGenerateRunTimeStatsForTasksInList( const signed char *pcWriteBuffer, xList *pxList, unsigned long ulTotalRunTime )$/;"	f	file:
+prvGenerateRunTimeStatsForTasksInList	libraries/FreeRTOS/tasks.c	/^static void prvGenerateRunTimeStatsForTasksInList( const signed char *pcWriteBuffer, xList *pxList, unsigned long ulTotalRunTime )$/;"	f	file:
 prvGetMPURegionSizeSetting	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/port.c	/^static unsigned long prvGetMPURegionSizeSetting( unsigned long ulActualSizeInBytes )$/;"	f	file:
 prvGetNextExpireTime	libraries/FreeRTOS/timers.c	/^static portTickType prvGetNextExpireTime( portBASE_TYPE *pxListWasEmpty )$/;"	f	file:
 prvGetTCBFromHandle	libraries/FreeRTOS/tasks.c	296;"	d	file:
@@ -31226,7 +31231,7 @@ prvInsertTimerInActiveList	libraries/FreeRTOS/timers.c	/^static portBASE_TYPE pr
 prvInterruptYield	libraries/FreeRTOS/portable/GCC/TriCore_1782/port.c	/^static void prvInterruptYield( int iId )$/;"	f	file:
 prvIsQueueEmpty	libraries/FreeRTOS/queue.c	/^static signed portBASE_TYPE prvIsQueueEmpty( const xQueueHandle pxQueue )$/;"	f	file:
 prvIsQueueFull	libraries/FreeRTOS/queue.c	/^static signed portBASE_TYPE prvIsQueueFull( const xQueueHandle pxQueue )$/;"	f	file:
-prvListTaskWithinSingleList	libraries/FreeRTOS/tasks.c	/^	static void prvListTaskWithinSingleList( const signed char *pcWriteBuffer, xList *pxList, signed char cStatus )$/;"	f	file:
+prvListTaskWithinSingleList	libraries/FreeRTOS/tasks.c	/^static void prvListTaskWithinSingleList( const signed char *pcWriteBuffer, xList *pxList, signed char cStatus )$/;"	f	file:
 prvLockQueue	libraries/FreeRTOS/queue.c	259;"	d	file:
 prvLowInterrupt	libraries/FreeRTOS/portable/MPLAB/PIC18F/port.c	/^static void prvLowInterrupt( void )$/;"	f	file:
 prvNonPreemptiveTick	libraries/FreeRTOS/portable/BCC/16BitDOS/Flsh186/port.c	/^	static void __interrupt __far prvNonPreemptiveTick( void )$/;"	f	file:
@@ -31487,7 +31492,7 @@ pxCurrentTCB	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA tskTCB * volatile pxCu
 pxCurrentTimerList	libraries/FreeRTOS/timers.c	/^PRIVILEGED_DATA static xList *pxCurrentTimerList;$/;"	v	file:
 pxDelayedCoRoutineList	libraries/FreeRTOS/croutine.c	/^static xList * pxDelayedCoRoutineList;									\/*< Points to the delayed co-routine list currently being used. *\/$/;"	v	file:
 pxDelayedTaskList	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static xList * volatile pxDelayedTaskList ;				\/*< Points to the delayed task list currently being used. *\/$/;"	v	file:
-pxEndOfStack	libraries/FreeRTOS/tasks.c	/^		portSTACK_TYPE *pxEndOfStack;			\/*< Used for stack overflow checking on architectures where the stack grows up from low memory. *\/$/;"	m	struct:tskTaskControlBlock	file:
+pxEndOfStack	libraries/FreeRTOS/tasks.c	/^    portSTACK_TYPE *pxEndOfStack;			\/*< Used for stack overflow checking on architectures where the stack grows up from low memory. *\/$/;"	m	struct:tskTaskControlBlock	file:
 pxISR	libraries/FreeRTOS/include/portable.h	/^	typedef void ( __interrupt __far *pxISR )();$/;"	t
 pxISR	libraries/FreeRTOS/include/portable.h	/^    typedef void ( __interrupt __far *pxISR )();$/;"	t
 pxISR	libraries/FreeRTOS/portable/Paradigm/Tern_EE/small/portmacro.h	/^typedef void ( __interrupt __far *pxISR )();$/;"	t
@@ -31575,10 +31580,10 @@ pxPrevious	libraries/FreeRTOS/include/list.h	/^	volatile struct xLIST_ITEM *pxPr
 pxRAMStack	libraries/FreeRTOS/portable/SDCC/Cygnal/port.c	/^data static portSTACK_TYPE * data pxRAMStack;$/;"	v	file:
 pxReadyCoRoutineLists	libraries/FreeRTOS/croutine.c	/^static xList pxReadyCoRoutineLists[ configMAX_CO_ROUTINE_PRIORITIES ];	\/*< Prioritised ready co-routines. *\/$/;"	v	file:
 pxReadyTasksLists	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static xList pxReadyTasksLists[ configMAX_PRIORITIES ];	\/*< Prioritised ready tasks. *\/$/;"	v	file:
-pxStack	libraries/FreeRTOS/tasks.c	/^	portSTACK_TYPE			*pxStack;			\/*< Points to the start of the stack. *\/$/;"	m	struct:tskTaskControlBlock	file:
-pxTaskTag	libraries/FreeRTOS/tasks.c	/^		pdTASK_HOOK_CODE pxTaskTag;$/;"	m	struct:tskTaskControlBlock	file:
+pxStack	libraries/FreeRTOS/tasks.c	/^    portSTACK_TYPE			*pxStack;			\/*< Points to the start of the stack. *\/$/;"	m	struct:tskTaskControlBlock	file:
+pxTaskTag	libraries/FreeRTOS/tasks.c	/^    pdTASK_HOOK_CODE pxTaskTag;$/;"	m	struct:tskTaskControlBlock	file:
 pxTimer	libraries/FreeRTOS/timers.c	/^	xTIMER *				pxTimer;			\/*<< The timer to which the command will be applied. *\/$/;"	m	struct:tmrTimerQueueMessage	file:
-pxTopOfStack	libraries/FreeRTOS/tasks.c	/^	volatile portSTACK_TYPE	*pxTopOfStack;		\/*< Points to the location of the last item placed on the tasks stack.  THIS MUST BE THE FIRST MEMBER OF THE STRUCT. *\/$/;"	m	struct:tskTaskControlBlock	file:
+pxTopOfStack	libraries/FreeRTOS/tasks.c	/^    volatile portSTACK_TYPE	*pxTopOfStack;		\/*< Points to the location of the last item placed on the tasks stack.  THIS MUST BE THE FIRST MEMBER OF THE STRUCT. *\/$/;"	m	struct:tskTaskControlBlock	file:
 pxXRAMStack	libraries/FreeRTOS/portable/SDCC/Cygnal/port.c	/^xdata static portSTACK_TYPE * data pxXRAMStack;$/;"	v	file:
 queueDONT_BLOCK	libraries/FreeRTOS/queue.c	107;"	d	file:
 queueERRONEOUS_UNBLOCK	libraries/FreeRTOS/queue.c	92;"	d	file:
@@ -31739,7 +31744,6 @@ task_id	plibs/PSEFMconfigure.h	/^    id_t task_id;$/;"	m	struct:task
 task_switch_not_requested	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/portasm.S	/^task_switch_not_requested:$/;"	l
 tasks	plibs/PSEFMconfigure.h	/^    ps_task_t * tasks[NUMOFTASKS];$/;"	m	struct:mode
 tasks	plibs/ptask.c	/^    ps_task_t * tasks[NUMOFTASKS*NUMOFMODES];$/;"	m	struct:ps_task_array_t	file:
-tick_function	main.c	/^void tick_function()$/;"	f
 tick_t	plibs/PSEFMconfigure.h	/^typedef long tick_t;$/;"	t
 timestamp	plibs/PSEFMconfigure.h	/^    tick_t timestamp;             \/*< the time to be proecessed >*\/$/;"	m	struct:__anon81
 tmrCOMMAND_CHANGE_PERIOD	libraries/FreeRTOS/include/timers.h	88;"	d
@@ -31928,10 +31932,10 @@ ulR8	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/portmacro.h	/^	unsigned long u
 ulR9	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/portmacro.h	/^	unsigned long ulR9;$/;"	m	struct:PORT_REGISTER_DUMP
 ulRegionAttribute	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/portmacro.h	/^	unsigned portLONG ulRegionAttribute;$/;"	m	struct:MPU_REGION_REGISTERS
 ulRegionBaseAddress	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/portmacro.h	/^	unsigned portLONG ulRegionBaseAddress;$/;"	m	struct:MPU_REGION_REGISTERS
-ulRunTimeCounter	libraries/FreeRTOS/tasks.c	/^		unsigned long ulRunTimeCounter;		\/*< Used for calculating how much CPU time each task is utilising. *\/$/;"	m	struct:tskTaskControlBlock	file:
+ulRunTimeCounter	libraries/FreeRTOS/tasks.c	/^    unsigned long ulRunTimeCounter;		\/*< Used for calculating how much CPU time each task is utilising. *\/$/;"	m	struct:tskTaskControlBlock	file:
 ulTaskEndTrace	libraries/FreeRTOS/include/mpu_wrappers.h	96;"	d
 ulTaskSwitchRequested	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port.c	/^volatile unsigned long ulTaskSwitchRequested = 0UL;$/;"	v
-ulTaskSwitchedInTime	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static unsigned long ulTaskSwitchedInTime = 0UL;	\/*< Holds the value of a timer\/counter the last time a task was switched in. *\/$/;"	v	file:
+ulTaskSwitchedInTime	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static unsigned long ulTaskSwitchedInTime = 0UL;	\/*< Holds the value of a timer\/counter the last time a task was switched in. *\/$/;"	v	file:
 unit	plibs/PSEFMconfigure.h	/^	tick_t unit;$/;"	m	struct:mode
 usCalcMinStackSize	libraries/FreeRTOS/portable/WizC/PIC18/port.c	/^unsigned short usCalcMinStackSize		= 0;$/;"	v
 usCriticalNesting	libraries/FreeRTOS/portable/CCS/MSP430X/port.c	/^volatile unsigned short usCriticalNesting = portINITIAL_CRITICAL_NESTING;$/;"	v
@@ -31949,9 +31953,9 @@ usCriticalNesting	libraries/FreeRTOS/portable/IAR/V850ES/port.c	/^volatile portS
 usCriticalNesting	libraries/FreeRTOS/portable/Rowley/MSP430F449/port.c	/^volatile unsigned short usCriticalNesting = portINITIAL_CRITICAL_NESTING;$/;"	v
 usPortCALCULATE_MINIMAL_STACK_SIZE	libraries/FreeRTOS/portable/WizC/PIC18/port.c	/^unsigned short usPortCALCULATE_MINIMAL_STACK_SIZE( void )$/;"	f
 usStackDepth	libraries/FreeRTOS/include/task.h	/^	unsigned short usStackDepth;$/;"	m	struct:xTASK_PARAMTERS
-usTaskCheckFreeStackSpace	libraries/FreeRTOS/tasks.c	/^	static unsigned short usTaskCheckFreeStackSpace( const unsigned char * pucStackByte )$/;"	f	file:
+usTaskCheckFreeStackSpace	libraries/FreeRTOS/tasks.c	/^static unsigned short usTaskCheckFreeStackSpace( const unsigned char * pucStackByte )$/;"	f	file:
 uxAutoReload	libraries/FreeRTOS/timers.c	/^	unsigned portBASE_TYPE	uxAutoReload;		\/*<< Set to pdTRUE if the timer should be automatically restarted once expired.  Set to pdFALSE if the timer is, in effect, a one shot timer. *\/$/;"	m	struct:tmrTimerControl	file:
-uxBasePriority	libraries/FreeRTOS/tasks.c	/^		unsigned portBASE_TYPE uxBasePriority;	\/*< The priority last assigned to the task - used by the priority inheritance mechanism. *\/$/;"	m	struct:tskTaskControlBlock	file:
+uxBasePriority	libraries/FreeRTOS/tasks.c	/^    unsigned portBASE_TYPE uxBasePriority;	\/*< The priority last assigned to the task - used by the priority inheritance mechanism. *\/$/;"	m	struct:tskTaskControlBlock	file:
 uxCriticalNesting	libraries/FreeRTOS/portable/CodeWarrior/HCS12/port.c	/^volatile unsigned portBASE_TYPE uxCriticalNesting = 0xff;$/;"	v
 uxCriticalNesting	libraries/FreeRTOS/portable/GCC/ARM_CM0/port.c	/^static unsigned portBASE_TYPE uxCriticalNesting = 0xaaaaaaaa;$/;"	v	file:
 uxCriticalNesting	libraries/FreeRTOS/portable/GCC/ARM_CM3/port.c	/^static unsigned portBASE_TYPE uxCriticalNesting = 0xaaaaaaaa;$/;"	v	file:
@@ -31967,7 +31971,7 @@ uxCriticalNesting	libraries/FreeRTOS/portable/IAR/ATMega323/port.c	/^unsigned po
 uxCriticalNesting	libraries/FreeRTOS/portable/MPLAB/PIC24_dsPIC/port.c	/^unsigned portBASE_TYPE uxCriticalNesting = 0xef;$/;"	v
 uxCriticalNesting	libraries/FreeRTOS/portable/RVDS/ARM_CM3/port.c	/^static unsigned portBASE_TYPE uxCriticalNesting = 0xaaaaaaaa;$/;"	v	file:
 uxCriticalNesting	libraries/FreeRTOS/portable/RVDS/ARM_CM4F/port.c	/^static unsigned portBASE_TYPE uxCriticalNesting = 0xaaaaaaaa;$/;"	v	file:
-uxCriticalNesting	libraries/FreeRTOS/tasks.c	/^		unsigned portBASE_TYPE uxCriticalNesting;$/;"	m	struct:tskTaskControlBlock	file:
+uxCriticalNesting	libraries/FreeRTOS/tasks.c	/^    unsigned portBASE_TYPE uxCriticalNesting;$/;"	m	struct:tskTaskControlBlock	file:
 uxCurrentNumberOfTasks	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static volatile unsigned portBASE_TYPE uxCurrentNumberOfTasks 	= ( unsigned portBASE_TYPE ) 0U;$/;"	v	file:
 uxIndex	libraries/FreeRTOS/include/croutine.h	/^	unsigned portBASE_TYPE 	uxIndex;			\/*< Used to distinguish between co-routines when multiple co-routines use the same co-routine function. *\/$/;"	m	struct:corCoRoutineControlBlock
 uxInterruptNesting	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port.c	/^volatile unsigned portBASE_TYPE uxInterruptNesting = 0x01;$/;"	v
@@ -31980,7 +31984,7 @@ uxPortSetInterruptMaskFromISR	libraries/FreeRTOS/portable/GCC/TriCore_1782/port.
 uxPortSetInterruptMaskFromISR	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port.c	/^unsigned portBASE_TYPE uxPortSetInterruptMaskFromISR( void )$/;"	f
 uxPriority	libraries/FreeRTOS/include/croutine.h	/^	unsigned portBASE_TYPE 	uxPriority;			\/*< The priority of the co-routine in relation to other co-routines. *\/$/;"	m	struct:corCoRoutineControlBlock
 uxPriority	libraries/FreeRTOS/include/task.h	/^	unsigned portBASE_TYPE uxPriority;$/;"	m	struct:xTASK_PARAMTERS
-uxPriority	libraries/FreeRTOS/tasks.c	/^	unsigned portBASE_TYPE	uxPriority;			\/*< The priority of the task where 0 is the lowest priority. *\/$/;"	m	struct:tskTaskControlBlock	file:
+uxPriority	libraries/FreeRTOS/tasks.c	/^    unsigned portBASE_TYPE	uxPriority;			\/*< The priority of the task where 0 is the lowest priority. *\/$/;"	m	struct:tskTaskControlBlock	file:
 uxQueueMessagesWaiting	libraries/FreeRTOS/include/mpu_wrappers.h	113;"	d
 uxQueueMessagesWaiting	libraries/FreeRTOS/queue.c	/^unsigned portBASE_TYPE uxQueueMessagesWaiting( const xQueueHandle pxQueue )$/;"	f
 uxQueueMessagesWaitingFromISR	libraries/FreeRTOS/queue.c	/^unsigned portBASE_TYPE uxQueueMessagesWaitingFromISR( const xQueueHandle pxQueue )$/;"	f
@@ -31989,17 +31993,17 @@ uxRecursiveCallCount	libraries/FreeRTOS/queue.c	101;"	d	file:
 uxSavedTaskStackPointer	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port.c	/^unsigned portBASE_TYPE uxSavedTaskStackPointer = 0;$/;"	v
 uxSchedulerSuspended	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static volatile unsigned portBASE_TYPE uxSchedulerSuspended	 	= ( unsigned portBASE_TYPE ) pdFALSE;$/;"	v	file:
 uxState	libraries/FreeRTOS/include/croutine.h	/^	unsigned short 		uxState;			\/*< Used internally by the co-routine implementation. *\/$/;"	m	struct:corCoRoutineControlBlock
-uxTCBNumber	libraries/FreeRTOS/tasks.c	/^		unsigned portBASE_TYPE	uxTCBNumber;	\/*< This stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. *\/$/;"	m	struct:tskTaskControlBlock	file:
+uxTCBNumber	libraries/FreeRTOS/tasks.c	/^    unsigned portBASE_TYPE	uxTCBNumber;	\/*< This stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. *\/$/;"	m	struct:tskTaskControlBlock	file:
 uxTaskGetNumberOfTasks	libraries/FreeRTOS/include/mpu_wrappers.h	92;"	d
 uxTaskGetNumberOfTasks	libraries/FreeRTOS/tasks.c	/^unsigned portBASE_TYPE uxTaskGetNumberOfTasks( void )$/;"	f
 uxTaskGetStackHighWaterMark	libraries/FreeRTOS/include/mpu_wrappers.h	100;"	d
-uxTaskGetStackHighWaterMark	libraries/FreeRTOS/tasks.c	/^	unsigned portBASE_TYPE uxTaskGetStackHighWaterMark( xTaskHandle xTask )$/;"	f
-uxTaskGetTaskNumber	libraries/FreeRTOS/tasks.c	/^	unsigned portBASE_TYPE uxTaskGetTaskNumber( xTaskHandle xTask )$/;"	f
-uxTaskNumber	libraries/FreeRTOS/tasks.c	/^		unsigned portBASE_TYPE  uxTaskNumber;	\/*< This stores a number specifically for use by third party trace code. *\/$/;"	m	struct:tskTaskControlBlock	file:
+uxTaskGetStackHighWaterMark	libraries/FreeRTOS/tasks.c	/^unsigned portBASE_TYPE uxTaskGetStackHighWaterMark( xTaskHandle xTask )$/;"	f
+uxTaskGetTaskNumber	libraries/FreeRTOS/tasks.c	/^unsigned portBASE_TYPE uxTaskGetTaskNumber( xTaskHandle xTask )$/;"	f
+uxTaskNumber	libraries/FreeRTOS/tasks.c	/^    unsigned portBASE_TYPE  uxTaskNumber;	\/*< This stores a number specifically for use by third party trace code. *\/$/;"	m	struct:tskTaskControlBlock	file:
 uxTaskNumber	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static unsigned portBASE_TYPE uxTaskNumber 						= ( unsigned portBASE_TYPE ) 0U;$/;"	v	file:
 uxTaskPriorityGet	libraries/FreeRTOS/include/mpu_wrappers.h	84;"	d
-uxTaskPriorityGet	libraries/FreeRTOS/tasks.c	/^	unsigned portBASE_TYPE uxTaskPriorityGet( xTaskHandle pxTask )$/;"	f
-uxTasksDeleted	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static volatile unsigned portBASE_TYPE uxTasksDeleted = ( unsigned portBASE_TYPE ) 0U;$/;"	v	file:
+uxTaskPriorityGet	libraries/FreeRTOS/tasks.c	/^unsigned portBASE_TYPE uxTaskPriorityGet( xTaskHandle pxTask )$/;"	f
+uxTasksDeleted	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static volatile unsigned portBASE_TYPE uxTasksDeleted = ( unsigned portBASE_TYPE ) 0U;$/;"	v	file:
 uxTopCoRoutineReadyPriority	libraries/FreeRTOS/croutine.c	/^static unsigned portBASE_TYPE uxTopCoRoutineReadyPriority = 0;$/;"	v	file:
 uxTopReadyPriority	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static volatile unsigned portBASE_TYPE uxTopReadyPriority 		= tskIDLE_PRIORITY;$/;"	v	file:
 uxTopUsedPriority	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static unsigned portBASE_TYPE uxTopUsedPriority	 				= tskIDLE_PRIORITY;$/;"	v	file:
@@ -32008,6 +32012,7 @@ v0	libraries/FreeRTOS/portable/MPLAB/PIC32MX/ISR_Support.h	/^	sw			v0, 52(s5)$/;
 v1	libraries/FreeRTOS/portable/MPLAB/PIC32MX/ISR_Support.h	/^	lw			v1, 56(s5)$/;"	v
 v1	libraries/FreeRTOS/portable/MPLAB/PIC32MX/ISR_Support.h	/^	sw			v1, 56(s5)$/;"	v
 vApplicationExceptionRegisterDump	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port_exceptions.c	/^void vApplicationExceptionRegisterDump( xPortRegisterDump *xRegisterDump )$/;"	f
+vApplicationTickHook	main.c	/^void vApplicationTickHook( void )$/;"	f
 vAssertionTrap	libraries/FreeRTOS/portable/GCC/TriCore_1782/porttrap.c	/^void vAssertionTrap( int iTrapIdentification )$/;"	f
 vCoRoutineAddToDelayedList	libraries/FreeRTOS/croutine.c	/^void vCoRoutineAddToDelayedList( portTickType xTicksToDelay, xList *pxEventList )$/;"	f
 vCoRoutineSchedule	libraries/FreeRTOS/croutine.c	/^void vCoRoutineSchedule( void )$/;"	f
@@ -32318,39 +32323,39 @@ vStartFirstTask	libraries/FreeRTOS/portable/GCC/MicroBlaze/portasm.s	/^vStartFir
 vSystemBusAndPeripheralsTrap	libraries/FreeRTOS/portable/GCC/TriCore_1782/porttrap.c	/^void vSystemBusAndPeripheralsTrap( int iTrapIdentification )$/;"	f
 vT1InterruptHandler	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port_asm.S	/^vT1InterruptHandler:$/;"	l
 vTaskAllocateMPURegions	libraries/FreeRTOS/include/mpu_wrappers.h	80;"	d
-vTaskAllocateMPURegions	libraries/FreeRTOS/tasks.c	/^	void vTaskAllocateMPURegions( xTaskHandle xTaskToModify, const xMemoryRegion * const xRegions )$/;"	f
+vTaskAllocateMPURegions	libraries/FreeRTOS/tasks.c	/^void vTaskAllocateMPURegions( xTaskHandle xTaskToModify, const xMemoryRegion * const xRegions )$/;"	f
 vTaskDelay	libraries/FreeRTOS/include/mpu_wrappers.h	83;"	d
-vTaskDelay	libraries/FreeRTOS/tasks.c	/^	void vTaskDelay( portTickType xTicksToDelay )$/;"	f
+vTaskDelay	libraries/FreeRTOS/tasks.c	/^void vTaskDelay( portTickType xTicksToDelay )$/;"	f
 vTaskDelayUntil	libraries/FreeRTOS/include/mpu_wrappers.h	82;"	d
-vTaskDelayUntil	libraries/FreeRTOS/tasks.c	/^	void vTaskDelayUntil( portTickType * const pxPreviousWakeTime, portTickType xTimeIncrement )$/;"	f
+vTaskDelayUntil	libraries/FreeRTOS/tasks.c	/^void vTaskDelayUntil( portTickType * const pxPreviousWakeTime, portTickType xTimeIncrement )$/;"	f
 vTaskDelete	libraries/FreeRTOS/include/mpu_wrappers.h	81;"	d
-vTaskDelete	libraries/FreeRTOS/tasks.c	/^	void vTaskDelete( xTaskHandle pxTaskToDelete )$/;"	f
+vTaskDelete	libraries/FreeRTOS/tasks.c	/^void vTaskDelete( xTaskHandle pxTaskToDelete )$/;"	f
 vTaskEndScheduler	libraries/FreeRTOS/tasks.c	/^void vTaskEndScheduler( void )$/;"	f
-vTaskEnterCritical	libraries/FreeRTOS/tasks.c	/^	void vTaskEnterCritical( void )$/;"	f
+vTaskEnterCritical	libraries/FreeRTOS/tasks.c	/^void vTaskEnterCritical( void )$/;"	f
 vTaskExitCritical	libraries/FreeRTOS/tasks.c	/^void vTaskExitCritical( void )$/;"	f
 vTaskGetRunTimeStats	libraries/FreeRTOS/include/mpu_wrappers.h	94;"	d
-vTaskGetRunTimeStats	libraries/FreeRTOS/tasks.c	/^	void vTaskGetRunTimeStats( signed char *pcWriteBuffer )$/;"	f
+vTaskGetRunTimeStats	libraries/FreeRTOS/tasks.c	/^void vTaskGetRunTimeStats( signed char *pcWriteBuffer )$/;"	f
 vTaskISRHandler	libraries/FreeRTOS/portable/GCC/MicroBlaze/port.c	/^void vTaskISRHandler( void )$/;"	f
 vTaskIncrementTick	libraries/FreeRTOS/tasks.c	/^void vTaskIncrementTick( void )$/;"	f
 vTaskList	libraries/FreeRTOS/include/mpu_wrappers.h	93;"	d
-vTaskList	libraries/FreeRTOS/tasks.c	/^	void vTaskList( signed char *pcWriteBuffer )$/;"	f
+vTaskList	libraries/FreeRTOS/tasks.c	/^void vTaskList( signed char *pcWriteBuffer )$/;"	f
 vTaskMissedYield	libraries/FreeRTOS/tasks.c	/^void vTaskMissedYield( void )$/;"	f
 vTaskPlaceOnEventList	libraries/FreeRTOS/tasks.c	/^void vTaskPlaceOnEventList( const xList * const pxEventList, portTickType xTicksToWait )$/;"	f
-vTaskPlaceOnEventListRestricted	libraries/FreeRTOS/tasks.c	/^	void vTaskPlaceOnEventListRestricted( const xList * const pxEventList, portTickType xTicksToWait )$/;"	f
-vTaskPriorityDisinherit	libraries/FreeRTOS/tasks.c	/^	void vTaskPriorityDisinherit( xTaskHandle * const pxMutexHolder )$/;"	f
-vTaskPriorityInherit	libraries/FreeRTOS/tasks.c	/^	void vTaskPriorityInherit( xTaskHandle * const pxMutexHolder )$/;"	f
+vTaskPlaceOnEventListRestricted	libraries/FreeRTOS/tasks.c	/^void vTaskPlaceOnEventListRestricted( const xList * const pxEventList, portTickType xTicksToWait )$/;"	f
+vTaskPriorityDisinherit	libraries/FreeRTOS/tasks.c	/^void vTaskPriorityDisinherit( xTaskHandle * const pxMutexHolder )$/;"	f
+vTaskPriorityInherit	libraries/FreeRTOS/tasks.c	/^void vTaskPriorityInherit( xTaskHandle * const pxMutexHolder )$/;"	f
 vTaskPrioritySet	libraries/FreeRTOS/include/mpu_wrappers.h	85;"	d
-vTaskPrioritySet	libraries/FreeRTOS/tasks.c	/^	void vTaskPrioritySet( xTaskHandle pxTask, unsigned portBASE_TYPE uxNewPriority )$/;"	f
+vTaskPrioritySet	libraries/FreeRTOS/tasks.c	/^void vTaskPrioritySet( xTaskHandle pxTask, unsigned portBASE_TYPE uxNewPriority )$/;"	f
 vTaskResume	libraries/FreeRTOS/include/mpu_wrappers.h	88;"	d
-vTaskResume	libraries/FreeRTOS/tasks.c	/^	void vTaskResume( xTaskHandle pxTaskToResume )$/;"	f
+vTaskResume	libraries/FreeRTOS/tasks.c	/^void vTaskResume( xTaskHandle pxTaskToResume )$/;"	f
 vTaskSetApplicationTaskTag	libraries/FreeRTOS/include/mpu_wrappers.h	97;"	d
-vTaskSetApplicationTaskTag	libraries/FreeRTOS/tasks.c	/^	void vTaskSetApplicationTaskTag( xTaskHandle xTask, pdTASK_HOOK_CODE pxHookFunction )$/;"	f
-vTaskSetTaskNumber	libraries/FreeRTOS/tasks.c	/^	void vTaskSetTaskNumber( xTaskHandle xTask, unsigned portBASE_TYPE uxHandle )$/;"	f
+vTaskSetApplicationTaskTag	libraries/FreeRTOS/tasks.c	/^void vTaskSetApplicationTaskTag( xTaskHandle xTask, pdTASK_HOOK_CODE pxHookFunction )$/;"	f
+vTaskSetTaskNumber	libraries/FreeRTOS/tasks.c	/^void vTaskSetTaskNumber( xTaskHandle xTask, unsigned portBASE_TYPE uxHandle )$/;"	f
 vTaskSetTimeOutState	libraries/FreeRTOS/tasks.c	/^void vTaskSetTimeOutState( xTimeOutType * const pxTimeOut )$/;"	f
 vTaskStartScheduler	libraries/FreeRTOS/tasks.c	/^void vTaskStartScheduler( void )$/;"	f
 vTaskStartTrace	libraries/FreeRTOS/include/mpu_wrappers.h	95;"	d
 vTaskSuspend	libraries/FreeRTOS/include/mpu_wrappers.h	86;"	d
-vTaskSuspend	libraries/FreeRTOS/tasks.c	/^	void vTaskSuspend( xTaskHandle pxTaskToSuspend )$/;"	f
+vTaskSuspend	libraries/FreeRTOS/tasks.c	/^void vTaskSuspend( xTaskHandle pxTaskToSuspend )$/;"	f
 vTaskSuspendAll	libraries/FreeRTOS/include/mpu_wrappers.h	89;"	d
 vTaskSuspendAll	libraries/FreeRTOS/tasks.c	/^void vTaskSuspendAll( void )$/;"	f
 vTaskSwitchContext	libraries/FreeRTOS/tasks.c	/^void vTaskSwitchContext( void )$/;"	f
@@ -32409,19 +32414,19 @@ xEnd	libraries/FreeRTOS/portable/MemMang/heap_2.c	/^static xBlockLink xStart, xE
 xEventGlobalList	plibs/event.c	/^list_t xEventGlobalList;$/;"	v
 xEventIdleList	plibs/event.c	/^list_t xEventIdleList;$/;"	v
 xEventListItem	libraries/FreeRTOS/include/croutine.h	/^	xListItem				xEventListItem;		\/*< List item used to place the CRCB in event lists. *\/$/;"	m	struct:corCoRoutineControlBlock
-xEventListItem	libraries/FreeRTOS/tasks.c	/^	xListItem				xEventListItem;		\/*< List item used to place the TCB in event lists. *\/$/;"	m	struct:tskTaskControlBlock	file:
+xEventListItem	libraries/FreeRTOS/tasks.c	/^    xListItem				xEventListItem;		\/*< List item used to place the TCB in event lists. *\/$/;"	m	struct:tskTaskControlBlock	file:
 xEventLocalList	plibs/event.c	/^list_t xEventLocalList;$/;"	v
 xEventReadyList	plibs/event.c	/^list_t xEventReadyList;$/;"	v
 xFreeBytesRemaining	libraries/FreeRTOS/portable/MemMang/heap_2.c	/^static size_t xFreeBytesRemaining = configTOTAL_HEAP_SIZE;$/;"	v	file:
 xFutureModelTime	plibs/event.c	/^static tick_t xFutureModelTime;$/;"	v	file:
 xGenericListItem	libraries/FreeRTOS/include/croutine.h	/^	xListItem				xGenericListItem;	\/*< List item used to place the CRCB in ready and blocked queues. *\/$/;"	m	struct:corCoRoutineControlBlock
-xGenericListItem	libraries/FreeRTOS/tasks.c	/^	xListItem				xGenericListItem;	\/*< List item used to place the TCB in ready and blocked queues. *\/$/;"	m	struct:tskTaskControlBlock	file:
+xGenericListItem	libraries/FreeRTOS/tasks.c	/^    xListItem				xGenericListItem;	\/*< List item used to place the TCB in ready and blocked queues. *\/$/;"	m	struct:tskTaskControlBlock	file:
 xHandle	libraries/FreeRTOS/queue.c	/^		xQueueHandle xHandle;$/;"	m	struct:QUEUE_REGISTRY_ITEM	file:
 xHeap	libraries/FreeRTOS/portable/MemMang/heap_1.c	/^} xHeap;$/;"	v	typeref:union:xRTOS_HEAP	file:
 xHeap	libraries/FreeRTOS/portable/MemMang/heap_2.c	/^} xHeap;$/;"	v	typeref:union:xRTOS_HEAP	file:
 xISRStack	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port.c	/^portSTACK_TYPE xISRStack[ configISR_STACK_SIZE ] = { 0 };$/;"	v
 xISRStackTop	libraries/FreeRTOS/portable/MPLAB/PIC32MX/port.c	/^const portSTACK_TYPE * const xISRStackTop = &( xISRStack[ configISR_STACK_SIZE - 7 ] );$/;"	v
-xIdleTaskHandle	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static xTaskHandle xIdleTaskHandle = NULL;$/;"	v	file:
+xIdleTaskHandle	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static xTaskHandle xIdleTaskHandle = NULL;$/;"	v	file:
 xInterruptController	libraries/FreeRTOS/portable/GCC/PPC405_Xilinx/port.c	/^static XIntc xInterruptController;$/;"	v	file:
 xInterruptController	libraries/FreeRTOS/portable/GCC/PPC440_Xilinx/port.c	/^static XIntc xInterruptController;$/;"	v	file:
 xInterruptControllerInstance	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port.c	/^static XIntc xInterruptControllerInstance;$/;"	v	file:
@@ -32439,7 +32444,7 @@ xListEnd	libraries/FreeRTOS/include/list.h	/^	volatile xMiniListItem xListEnd;		
 xListItem	libraries/FreeRTOS/include/list.h	/^typedef struct xLIST_ITEM xListItem;		\/* For some reason lint wants this as two separate definitions. *\/$/;"	t	typeref:struct:xLIST_ITEM
 xMEMORY_REGION	libraries/FreeRTOS/include/task.h	/^typedef struct xMEMORY_REGION$/;"	s
 xMINI_LIST_ITEM	libraries/FreeRTOS/include/list.h	/^struct xMINI_LIST_ITEM$/;"	s
-xMPUSettings	libraries/FreeRTOS/tasks.c	/^		xMPU_SETTINGS xMPUSettings;				\/*< The MPU settings are defined as part of the port layer.  THIS MUST BE THE SECOND MEMBER OF THE STRUCT. *\/$/;"	m	struct:tskTaskControlBlock	file:
+xMPUSettings	libraries/FreeRTOS/tasks.c	/^    xMPU_SETTINGS xMPUSettings;				\/*< The MPU settings are defined as part of the port layer.  THIS MUST BE THE SECOND MEMBER OF THE STRUCT. *\/$/;"	m	struct:tskTaskControlBlock	file:
 xMPU_REGION_REGISTERS	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/portmacro.h	/^} xMPU_REGION_REGISTERS;$/;"	t	typeref:struct:MPU_REGION_REGISTERS
 xMPU_SETTINGS	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/portmacro.h	/^} xMPU_SETTINGS;$/;"	t	typeref:struct:MPU_SETTINGS
 xMPU_SETTINGS	libraries/FreeRTOS/portable/GCC/TriCore_1782/portmacro.h	/^typedef struct MPU_SETTINGS { unsigned long ulNotUsed; } xMPU_SETTINGS;$/;"	t	typeref:struct:MPU_SETTINGS
@@ -32618,37 +32623,37 @@ xSemaphoreTake	libraries/FreeRTOS/include/semphr.h	195;"	d
 xSemaphoreTakeRecursive	libraries/FreeRTOS/include/semphr.h	288;"	d
 xStart	libraries/FreeRTOS/portable/MemMang/heap_2.c	/^static xBlockLink xStart, xEnd;$/;"	v	file:
 xStartSchedulerNear	libraries/FreeRTOS/portable/GCC/HCS12/port.c	/^portBASE_TYPE xStartSchedulerNear( void )$/;"	f
-xSuspendedTaskList	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static xList xSuspendedTaskList;					\/*< Tasks that are currently suspended. *\/$/;"	v	file:
+xSuspendedTaskList	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static xList xSuspendedTaskList;					\/*< Tasks that are currently suspended. *\/$/;"	v	file:
 xTASK_PARAMTERS	libraries/FreeRTOS/include/task.h	/^typedef struct xTASK_PARAMTERS$/;"	s
 xTIMER	libraries/FreeRTOS/timers.c	/^} xTIMER;$/;"	t	typeref:struct:tmrTimerControl	file:
 xTIMER_MESSAGE	libraries/FreeRTOS/timers.c	/^} xTIMER_MESSAGE;$/;"	t	typeref:struct:tmrTimerQueueMessage	file:
 xTIME_OUT	libraries/FreeRTOS/include/task.h	/^typedef struct xTIME_OUT$/;"	s
 xTaskCallApplicationTaskHook	libraries/FreeRTOS/include/mpu_wrappers.h	99;"	d
-xTaskCallApplicationTaskHook	libraries/FreeRTOS/tasks.c	/^	portBASE_TYPE xTaskCallApplicationTaskHook( xTaskHandle xTask, void *pvParameter )$/;"	f
+xTaskCallApplicationTaskHook	libraries/FreeRTOS/tasks.c	/^portBASE_TYPE xTaskCallApplicationTaskHook( xTaskHandle xTask, void *pvParameter )$/;"	f
 xTaskCheckForTimeOut	libraries/FreeRTOS/tasks.c	/^portBASE_TYPE xTaskCheckForTimeOut( xTimeOutType * const pxTimeOut, portTickType * const pxTicksToWait )$/;"	f
 xTaskCreate	libraries/FreeRTOS/include/task.h	284;"	d
 xTaskCreateRestricted	libraries/FreeRTOS/include/task.h	353;"	d
 xTaskGenericCreate	libraries/FreeRTOS/include/mpu_wrappers.h	79;"	d
 xTaskGenericCreate	libraries/FreeRTOS/tasks.c	/^signed portBASE_TYPE xTaskGenericCreate( pdTASK_CODE pxTaskCode, const signed char * const pcName, unsigned short usStackDepth, void *pvParameters, unsigned portBASE_TYPE uxPriority, xTaskHandle *pxCreatedTask, portSTACK_TYPE *puxStackBuffer, const xMemoryRegion * const xRegions )$/;"	f
 xTaskGetApplicationTaskTag	libraries/FreeRTOS/include/mpu_wrappers.h	98;"	d
-xTaskGetApplicationTaskTag	libraries/FreeRTOS/tasks.c	/^	pdTASK_HOOK_CODE xTaskGetApplicationTaskTag( xTaskHandle xTask )$/;"	f
+xTaskGetApplicationTaskTag	libraries/FreeRTOS/tasks.c	/^pdTASK_HOOK_CODE xTaskGetApplicationTaskTag( xTaskHandle xTask )$/;"	f
 xTaskGetCurrentTaskHandle	libraries/FreeRTOS/include/mpu_wrappers.h	101;"	d
-xTaskGetCurrentTaskHandle	libraries/FreeRTOS/tasks.c	/^	xTaskHandle xTaskGetCurrentTaskHandle( void )$/;"	f
-xTaskGetIdleTaskHandle	libraries/FreeRTOS/tasks.c	/^	xTaskHandle xTaskGetIdleTaskHandle( void )$/;"	f
+xTaskGetCurrentTaskHandle	libraries/FreeRTOS/tasks.c	/^xTaskHandle xTaskGetCurrentTaskHandle( void )$/;"	f
+xTaskGetIdleTaskHandle	libraries/FreeRTOS/tasks.c	/^xTaskHandle xTaskGetIdleTaskHandle( void )$/;"	f
 xTaskGetSchedulerState	libraries/FreeRTOS/include/mpu_wrappers.h	102;"	d
-xTaskGetSchedulerState	libraries/FreeRTOS/tasks.c	/^	portBASE_TYPE xTaskGetSchedulerState( void )$/;"	f
+xTaskGetSchedulerState	libraries/FreeRTOS/tasks.c	/^portBASE_TYPE xTaskGetSchedulerState( void )$/;"	f
 xTaskGetTickCount	libraries/FreeRTOS/include/mpu_wrappers.h	91;"	d
 xTaskGetTickCount	libraries/FreeRTOS/tasks.c	/^portTickType xTaskGetTickCount( void )$/;"	f
 xTaskGetTickCountFromISR	libraries/FreeRTOS/tasks.c	/^portTickType xTaskGetTickCountFromISR( void )$/;"	f
 xTaskHandle	libraries/FreeRTOS/include/task.h	/^typedef void * xTaskHandle;$/;"	t
 xTaskIsTaskSuspended	libraries/FreeRTOS/include/mpu_wrappers.h	87;"	d
-xTaskIsTaskSuspended	libraries/FreeRTOS/tasks.c	/^	signed portBASE_TYPE xTaskIsTaskSuspended( xTaskHandle xTask )$/;"	f
+xTaskIsTaskSuspended	libraries/FreeRTOS/tasks.c	/^signed portBASE_TYPE xTaskIsTaskSuspended( xTaskHandle xTask )$/;"	f
 xTaskParameters	libraries/FreeRTOS/include/task.h	/^} xTaskParameters;$/;"	t	typeref:struct:xTASK_PARAMTERS
 xTaskRemoveFromEventList	libraries/FreeRTOS/tasks.c	/^signed portBASE_TYPE xTaskRemoveFromEventList( const xList * const pxEventList )$/;"	f
 xTaskResumeAll	libraries/FreeRTOS/include/mpu_wrappers.h	90;"	d
 xTaskResumeAll	libraries/FreeRTOS/tasks.c	/^signed portBASE_TYPE xTaskResumeAll( void )$/;"	f
-xTaskResumeFromISR	libraries/FreeRTOS/tasks.c	/^	portBASE_TYPE xTaskResumeFromISR( xTaskHandle pxTaskToResume )$/;"	f
-xTasksWaitingTermination	libraries/FreeRTOS/tasks.c	/^	PRIVILEGED_DATA static xList xTasksWaitingTermination;				\/*< Tasks that have been deleted - but the their memory not yet freed. *\/$/;"	v	file:
+xTaskResumeFromISR	libraries/FreeRTOS/tasks.c	/^portBASE_TYPE xTaskResumeFromISR( xTaskHandle pxTaskToResume )$/;"	f
+xTasksWaitingTermination	libraries/FreeRTOS/tasks.c	/^PRIVILEGED_DATA static xList xTasksWaitingTermination;				\/*< Tasks that have been deleted - but the their memory not yet freed. *\/$/;"	v	file:
 xTasksWaitingToReceive	libraries/FreeRTOS/queue.c	/^	xList xTasksWaitingToReceive;			\/*< List of tasks that are blocked waiting to read from this queue.  Stored in priority order. *\/$/;"	m	struct:QueueDefinition	file:
 xTasksWaitingToSend	libraries/FreeRTOS/queue.c	/^	xList xTasksWaitingToSend;				\/*< List of tasks that are blocked waiting to post onto this queue.  Stored in priority order. *\/$/;"	m	struct:QueueDefinition	file:
 xThreadState	libraries/FreeRTOS/portable/MSVC-MingW/port.c	/^} xThreadState;$/;"	t	typeref:struct:__anon36	file:
