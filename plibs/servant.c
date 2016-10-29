@@ -32,27 +32,27 @@ tick_t prv_servant_get_start_time(ps_servant_t * pservant)
     return pservant->start_time;
 }
 
-int       prv_servant_get_num(ps_servant_t *pservant)
+int  prv_servant_get_num(ps_servant_t *pservant)
 {
     return pservant->num;
 }
 
-int       prv_servant_get_arrive(ps_servant_t *pservant)
+int  prv_servant_get_arrive(ps_servant_t *pservant)
 {
     return pservant->arrive;
 }
 
-void 	  prv_servant_set_arrive( ps_servant_t * pservant, int n)
+void prv_servant_set_arrive( ps_servant_t * pservant, int n)
 {
 	pservant->arrive = n;
 }
 
-void 	prv_servant_clean_arrive( ps_servant_t * pservant)
+void prv_servant_clean_arrive( ps_servant_t * pservant)
 {
 	prv_servant_set_arrive(pservant, 0);
 }
 
-void      prv_servant_add_arrive(ps_servant_t *pservant)
+void prv_servant_add_arrive(ps_servant_t *pservant)
 {
     pservant->arrive ++;
 }
@@ -92,6 +92,7 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
 
 void ps_servant_cooperate()
 {
+    port_trigger(sem[NUMOFSERVANTS-1]);
     port_servant_yield();
     // yield API
 }

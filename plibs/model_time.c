@@ -106,7 +106,7 @@ int prv_model_time_is_mode_end()
 	id_t mode_id = pmode->mode_id;
 	tick_t current_time = port_get_current_time();
 
-	if( 0 == ( current_time - xModelTimeStart ) / mod.pmode[mode_id]->period){
+	if( current_time > xModelTimeStart && 0 == ( current_time - xModelTimeStart ) % mod.pmode[mode_id]->period){
 		return 1;
 	}else{
 		return 0;

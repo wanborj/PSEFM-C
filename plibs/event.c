@@ -154,15 +154,17 @@ ps_event_t * ps_event_receive()
     int len, i;
     ps_event_t * pevent[NUMOFINS];
     item_t * item;
-    if( 0 != (len = prv_list_get_length( &xEventReadyList) ) )
+    if( 0 != (len = prv_list_get_length( &xEventReadyList ) ) )
     {
-        item = prv_list_receive( &xEventReadyList );
-        pevent[0] = (ps_event_t *)item->item;
+        item                = prv_list_receive( &xEventReadyList );
+        pevent[0]           = (ps_event_t *)item->item;
         pevent[0]->data.num = len;
+
         for(i = 1; i < len; ++i){
-            item = prv_list_receive( &xEventReadyList );
-            pevent[i] = (ps_event_t *)item->item;
+            item                    = prv_list_receive( &xEventReadyList );
+            pevent[i]               = (ps_event_t *)item->item;
             pevent[0]->data.data[i] = pevent[i]->data.data[0];  // integrate events' data
+
             prv_event_delete(pevent[i]);   // delete left events
         }
         return pevent[0];

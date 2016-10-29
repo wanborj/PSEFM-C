@@ -11,7 +11,7 @@
 #define port_servant_create(runnable, prio) xTaskCreate(runnable, NULL, 128, NULL, prio, NULL)
 
 // trigger R_Servant to run
-#define port_servant_yield() xSemaphoreGive(sem[NUMOFSERVANTS-1]) ; taskYIELD()
+#define port_servant_yield() taskYIELD()
 
 
 // event operation
