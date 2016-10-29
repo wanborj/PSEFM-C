@@ -108,10 +108,12 @@ void prv_ef_triggering()
                         // send events to ready list
                         pevent_temp = pevent_iterator;
                         pevent_iterator = prv_item_get_next(pevent_iterator);
-                        prv_list_remove(pevent_iterator);
-                        prv_list_insert(pevent_iterator, &xEventReadyList);
+                        prv_list_remove(pevent_temp);
+                        prv_list_insert(pevent_temp, &xEventReadyList);
                         j ++;
-                    } //end if
+                    }else{
+                        pevent_iterator = prv_item_get_next(pevent_iterator);
+                    }
                     i ++;
                 } // end for
 

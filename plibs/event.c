@@ -57,36 +57,35 @@ void prv_event_delete(ps_event_t * pevent)
     prv_list_insert(&pevent->eventItem, &xEventIdleList);
 }
 
-void prv_event_tag_set(ps_event_t * pevent)
+void prv_event_tag_set(ps_event_t * pevent, int microstep)
 {
 	// update the timestamp and init the microstep of event
-	ps_servant_t * pservant = prv_ef_get_current_servant();
-	ps_servant_t * pservant_dest = prv_ef_get_ith_dest(pservant,0);
+    ps_servant_t * pservant_src = pevent->pservant_src;
+	ps_servant_t * pservant_dest = pevent->pservant_dest;
 
-	if(pservant_dest->servant_type == 0){
-		pevent->tag.timestamp = prv_model_time_output_end();
-		pevent->tag.microstep = 0;
-	}
-	else if (pservant_dest->servant_type == 1){
-		if( pservant->servant_type == 0){  // sensor communicate with controller
+	//if(pservant_dest->servant_type == 0){
+	//	pevent->tag.timestamp = prv_model_time_output_end();
+	//	pevent->tag.microstep = 0;
+	//}
+	if (pservant_dest->servant_type == 1){
+		if( pservant_src->servant_type == 0){  // sensor communicate with controller
 			pevent->tag.timestamp = prv_model_time_input_end();
-			pevent->tag.microstep = 0;
 		}else{ // controller communicate with controller
-
-			pevent->tag.timestamp = prv_servant_get_start_time(pservant) + prv_servant_get_LED(pservant);
-			pevent->tag.microstep = 0;
+			pevent->tag.timestamp = prv_servant_get_start_time(pservant_src) + prv_servant_get_LED(pservant_src);
 		}
 	}
 	else if( pservant_dest->servant_type == 2){ // actuator
 		pevent->tag.timestamp = prv_model_time_output_start();
-		pevent->tag.microstep = 0;
+
 	}else{
 		// error happened !!
 	}
+	pevent->tag.microstep = microstep;
+    pevent->tag.level = prv_servant_get_id(pservant_dest);
 }
 
 
-// invoked in prv_ef_trigger
+// invoked in prv_event_can_process()
 int prv_event_tag_update(ps_event_t * pevent)
 {
 	pevent->tag.timestamp = xFutureModelTime;
@@ -116,7 +115,7 @@ void prv_event_future_model_time_reset()
 int  prv_event_is_overlap(ps_event_t * pevent)
 {
 	tick_t led = pevent->pservant_dest->LED;
-	if( pevent->tag.timestamp+ led > prv_model_time_output_start()){
+	if( pevent->tag.timestamp + led > prv_model_time_output_start()){
 		return 1;
 	}else{
 		return 0;
@@ -129,9 +128,11 @@ int  prv_event_is_overlap(ps_event_t * pevent)
 int prv_event_can_process(ps_event_t * pevent)
 {
 	int servant_type = pevent->pservant_dest->servant_type;
-	if(servant_type == 0 || servant_type == 2){
+    // servant_type can't be sensor which only triggered by periodic timing events
+	if( servant_type == 2){
 		return 2;
-	}else{
+	}
+    if (servant_type == 1){
 		if(prv_event_tag_update(pevent)){
 			return 1;
 		}else{
@@ -149,7 +150,7 @@ void ps_event_wait()
 }
 
 
-ps_event_t * ps_event_receive()
+ps_data_t * ps_event_receive()
 {
     int len, i;
     ps_event_t * pevent[NUMOFINS];
@@ -159,6 +160,8 @@ ps_event_t * ps_event_receive()
         item                = prv_list_receive( &xEventReadyList );
         pevent[0]           = (ps_event_t *)item->item;
         pevent[0]->data.num = len;
+        // set the start time of servant, important !!!!
+        prv_servant_set_start_time( prv_ef_get_current_servant(), pevent[0]->tag.timestamp);
 
         for(i = 1; i < len; ++i){
             item                    = prv_list_receive( &xEventReadyList );
@@ -167,19 +170,18 @@ ps_event_t * ps_event_receive()
 
             prv_event_delete(pevent[i]);   // delete left events
         }
-        return pevent[0];
+        prv_event_delete(pevent[0]); // just change the owner of event, but won't delete the memory of event
+        return &pevent[0]->data;
     }
     return NULL;
 }
 
 
-void ps_event_create(ps_event_t * pevent, ps_data_t * new_data)
+void ps_event_create( ps_data_t * new_data)
 {
     int i, num;
     item_t * pitem;
-    ps_tag_t * tag;
 	ps_event_t * pevent_temp;
-	prv_event_tag_set(pevent);  // update the tag of event
 
     ps_servant_t * pservant = prv_ef_get_current_servant();
     num = prv_ef_get_dest_num(pservant);
@@ -188,18 +190,15 @@ void ps_event_create(ps_event_t * pevent, ps_data_t * new_data)
         pitem = prv_list_receive(&xEventIdleList);
         pevent_temp = (ps_event_t *)pitem->item;
 
-        pevent_temp->pservant_src = pservant;
+        pevent_temp->pservant_src  = pservant;
         pevent_temp->pservant_dest = prv_ef_get_ith_dest(pservant,i);
 
-        pevent_temp->tag.timestamp = pevent->tag.timestamp;
-        pevent_temp->tag.microstep = pevent->tag.microstep+i;
-        pevent_temp->tag.level     = prv_servant_get_id(pevent_temp->pservant_dest);  // set the level of event as the id of dest servant
-        pevent_temp->tag.deadline  = pevent->tag.deadline;  // nothing here yet
+        // update the tag of event according to the timing semantics of PSEFM
+        prv_event_tag_set(pevent_temp, i);
         pevent_temp->data.data[0]  = new_data->data[0];
 
         prv_event_send(pevent_temp);
     }
-	prv_event_delete(pevent);
 }
 
 

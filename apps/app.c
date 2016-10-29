@@ -2,49 +2,47 @@
 
 void sensor1()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
-
 	while(1){
+        // blocking for periodic timing event arriving
 		ps_event_wait();
-		pevent = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("sensor 1\n\r");
 
-		ps_event_create(pevent, NULL);
+        // parameter :pointer of struct data
+        ps_event_create(NULL);
+
+        // release CPU and trigger R-Sevant to execute
 		ps_servant_cooperate();
 	}
 }
 
 void controller1()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
+	ps_data_t * data;
 
 	while(1){
+        // blocking for message-arrival event arriving
 		ps_event_wait();
-		pevent = ps_event_receive();
+        // receive ready event from xEventReadyList
+		data = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("controller 1\n\r");
 
-		ps_event_create(pevent, NULL);
+        // parameter one is not NULL mean that sysmem will upate the existing event
+        ps_event_create(data);
 		ps_servant_cooperate();
 	}
 }
 
 void actuator1()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
+	ps_data_t * data;
 
 	while(1){
 		ps_event_wait();
-		pevent = ps_event_receive();
+		data = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("actuator 1\n\r");
@@ -56,18 +54,13 @@ void actuator1()
 
 void sensor2()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
-
 	while(1){
 		ps_event_wait();
-		pevent = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("sensor 2\n\r");
 
-		ps_event_create(pevent, NULL);
+		ps_event_create(NULL);
 		ps_servant_cooperate();
 	}
 
@@ -75,18 +68,16 @@ void sensor2()
 
 void controller2()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
+    ps_data_t * data;
 
 	while(1){
 		ps_event_wait();
-		pevent = ps_event_receive();
+		data = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("controller 2\n\r");
 
-		ps_event_create(pevent, NULL);
+		ps_event_create(NULL);
 		ps_servant_cooperate();
 	}
 
@@ -94,13 +85,11 @@ void controller2()
 
 void actuator2()
 {
-	ps_event_t * pevent;
-	ps_event_t * data;
-	ps_event_t * tag;
+    ps_data_t * data;
 
 	while(1){
 		ps_event_wait();
-		pevent = ps_event_receive();
+		data = ps_event_receive();
 
 		// process pevent including tag and data
 		port_print("actuator 2\n\r");

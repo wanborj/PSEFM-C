@@ -48,7 +48,7 @@ typedef struct {
     int num;
     /* data type can be changed here. Data type including portCHAR, portFLOAT, portLONG, portSHORT, portBASE_TYPE*/
     double data[NUMOFINS];
-}ps_data_t;
+} ps_data_t;
 
 /*
  * servant structure

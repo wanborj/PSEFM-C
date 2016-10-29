@@ -32,6 +32,11 @@ tick_t prv_servant_get_start_time(ps_servant_t * pservant)
     return pservant->start_time;
 }
 
+void  prv_servant_set_start_time(ps_servant_t * pservant, tick_t start_time)
+{
+    pservant->start_time = start_time;
+}
+
 int  prv_servant_get_num(ps_servant_t *pservant)
 {
     return pservant->num;
