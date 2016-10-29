@@ -5,36 +5,36 @@
 #include "stm32f10x.h"
 
 /*
-ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
-                                int num,
-                                ps_servant_t *src_array[],
-                                void (*runnable)(void *));
+   ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
+   int num,
+   ps_servant_t *src_array[],
+   void (*runnable)(void *));
 
-void ps_task_create(id_t task_id, tick_t LET, ps_servant_t * servants[],  int servant_num);
+   void ps_task_create(id_t task_id, tick_t LET, ps_servant_t * servants[],  int servant_num);
 
-void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num);
+   void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num);
 
-void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)
+   void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)
 
 
-*/
+ */
 bool mode_switch1()
 {
 	return 1;
 }
 
 void myHardwareInit(){
-    init_led();
-    init_rs232();
-    enable_rs232_interrupts();
-    enable_rs232();
+	init_led();
+	init_rs232();
+	enable_rs232_interrupts();
+	enable_rs232();
 }
 
 
 int main()
 {
-    myHardwareInit();
-    port_print("I'm in main()\n\r");
+	myHardwareInit();
+	port_print("I'm in main()\n\r");
 	ps_servant_t * ps_servants[NUMOFSERVANTS];
 	ps_task_t * ps_tasks[NUMOFTASKS];
 
@@ -69,5 +69,5 @@ void myTraceSwitchedOut	(){
 
 void vApplicationTickHook( void )
 {
-    ps_mode_switch();
+	ps_mode_switch();
 }

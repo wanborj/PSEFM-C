@@ -133,7 +133,7 @@ void prv_ef_triggering()
 static void R_Servant()
 {
     while(1){
-        port_wait(sem[NUMOFSERVANTS-1]);
+        //port_wait(sem[NUMOFSERVANTS-1]);
 
         prv_ef_sorting();
         prv_ef_triggering();

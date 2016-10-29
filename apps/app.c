@@ -7,7 +7,7 @@ void sensor1()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data
@@ -25,7 +25,7 @@ void controller1()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data
@@ -43,7 +43,7 @@ void actuator1()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data
@@ -61,7 +61,7 @@ void sensor2()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data
@@ -80,7 +80,7 @@ void controller2()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data
@@ -99,7 +99,7 @@ void actuator2()
 	ps_event_t * tag;
 
 	while(1){
-		ps_event_wait();
+		//ps_event_wait();
 		pevent = ps_event_receive();
 
 		// process pevent including tag and data

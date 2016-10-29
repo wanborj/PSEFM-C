@@ -27,21 +27,21 @@ int prv_mode_get_task_num(id_t mode_id)
 // set function implemented in model_time
 tick_t prv_mode_get_mode_period(id_t mode_id)
 {
-	return modes[mode_id].period;
+    return modes[mode_id].period;
 }
 
 void prv_mode_set_mode_period(id_t mode_id , tick_t period)
 {
-	modes[mode_id].period = period;
+    modes[mode_id].period = period;
 }
 
 tick_t prv_mode_get_mode_unit(id_t mode_id)
 {
-	return modes[mode_id].unit;
+    return modes[mode_id].unit;
 }
 void prv_mode_set_mode_unit(id_t mode_id, tick_t unit)
 {
-	modes[mode_id].unit  = unit;
+    modes[mode_id].unit  = unit;
 }
 
 
@@ -55,8 +55,8 @@ void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
         prv_mode_add_task(mode_id, task_array[i]);
     }
 
-	mod.pmode[mod.num] = &modes[mode_id];
-	mod.num ++;
+    mod.pmode[mod.num] = &modes[mode_id];
+    mod.num ++;
 
 }
 
@@ -83,32 +83,32 @@ void ps_mode_switch()
 {
     int i;
     ps_mode_t * current_mode;
-	if( prv_model_time_is_mode_end() == 1){
-        port_print("i'm in ps_mode_switch()\n\r");
+    if( prv_model_time_is_mode_end() == 1){
+        //port_print("i'm in ps_mode_switch()\n\r");
 
-		for(i=0;i<cond.num;++i){
-			if(cond.conditions[i].condition() == 1){
-				prv_model_time_reset();  // reset the xModeTimeStart
-				ps_mode_start(cond.conditions[i].mode_dest);
-				break;
-			}
-		}
-		if(i == cond.num){
+        for(i=0;i<cond.num;++i){
+            if(cond.conditions[i].condition() == 1){
+                prv_model_time_reset();  // reset the xModeTimeStart
+                ps_mode_start(cond.conditions[i].mode_dest);
+                break;
+            }
+        }
+        if(i == cond.num){
             current_mode = prv_mode_get_current_mode();
             ps_mode_start(current_mode->mode_id);
-		}
+        }
 
-		prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
-	}
+        prv_event_future_model_time_reset();  // when enter new mode period, set the xFutureModelTime as the Input end.
+    }
 }
 
 
 
 void system_start()
 {
-	prv_model_time_initialize();
-	prv_event_list_initialize();
-	prv_ef_create();
-	ps_mode_start(0);
-	port_scheduler_start();
+    prv_model_time_initialize();
+    prv_event_list_initialize();
+    prv_ef_create();
+    ps_mode_start(0);
+    port_scheduler_start();
 }

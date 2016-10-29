@@ -31169,9 +31169,9 @@ portYIELD_WITHIN_API	libraries/FreeRTOS/include/FreeRTOS.h	506;"	d
 portYIELD_WITHIN_API	libraries/FreeRTOS/portable/GCC/ARM_CM3_MPU/portmacro.h	152;"	d
 port_get_current_time	plibs/PSEFMport.h	26;"	d
 port_malloc	plibs/PSEFMport.h	30;"	d
-port_print	plibs/PSEFMport.h	32;"	d
+port_print	plibs/PSEFMport.h	33;"	d
 port_pure_event_create	plibs/PSEFMport.h	21;"	d
-port_scheduler_start	plibs/PSEFMport.h	34;"	d
+port_scheduler_start	plibs/PSEFMport.h	35;"	d
 port_servant_create	plibs/PSEFMport.h	11;"	d
 port_servant_yield	plibs/PSEFMport.h	14;"	d
 port_trigger	plibs/PSEFMport.h	19;"	d
@@ -31743,7 +31743,7 @@ taskYIELD	libraries/FreeRTOS/include/task.h	149;"	d
 task_id	plibs/PSEFMconfigure.h	/^    id_t task_id;$/;"	m	struct:task
 task_switch_not_requested	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/portasm.S	/^task_switch_not_requested:$/;"	l
 tasks	plibs/PSEFMconfigure.h	/^    ps_task_t * tasks[NUMOFTASKS];$/;"	m	struct:mode
-tasks	plibs/ptask.c	/^    ps_task_t * tasks[NUMOFTASKS*NUMOFMODES];$/;"	m	struct:ps_task_array_t	file:
+tasks	plibs/ptask.c	/^    ps_task_t tasks[NUMOFTASKS*NUMOFMODES];$/;"	m	struct:ps_task_array_t	file:
 tick_t	plibs/PSEFMconfigure.h	/^typedef long tick_t;$/;"	t
 timestamp	plibs/PSEFMconfigure.h	/^    tick_t timestamp;             \/*< the time to be proecessed >*\/$/;"	m	struct:__anon81
 tmrCOMMAND_CHANGE_PERIOD	libraries/FreeRTOS/include/timers.h	88;"	d
@@ -31807,7 +31807,7 @@ traceTIMER_COMMAND_SEND	libraries/FreeRTOS/include/FreeRTOS.h	464;"	d
 traceTIMER_CREATE	libraries/FreeRTOS/include/FreeRTOS.h	456;"	d
 traceTIMER_CREATE_FAILED	libraries/FreeRTOS/include/FreeRTOS.h	460;"	d
 traceTIMER_EXPIRED	libraries/FreeRTOS/include/FreeRTOS.h	468;"	d
-tsk	plibs/ptask.c	/^struct ps_task_array_t tsk ;$/;"	v	typeref:struct:ps_task_array_t
+tsk	plibs/ptask.c	/^struct ps_task_array_t tsk = {0};$/;"	v	typeref:struct:ps_task_array_t
 tskBLOCKED_CHAR	libraries/FreeRTOS/tasks.c	206;"	d	file:
 tskDELETED_CHAR	libraries/FreeRTOS/tasks.c	208;"	d	file:
 tskIDLE_PRIORITY	libraries/FreeRTOS/include/task.h	139;"	d

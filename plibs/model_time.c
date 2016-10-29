@@ -50,7 +50,7 @@ void prv_model_time_initialize()
 {
 	prv_model_time_unit_initialize();
 	prv_model_time_period_initialize();
-	xModelTimeStart = 0 ;
+    prv_model_time_reset();
 }
 
 tick_t prv_model_time_input_length()
