@@ -26,8 +26,7 @@ void prv_event_initialize()
     for( i = 0; i < NUMOFRELATIONS; ++i ){
         events[i].pservant_src = NULL;
         events[i].pservant_dest = NULL;
-        events[i].flag = 0;
-        prv_item_initialize(& events[i].eventItem);
+        prv_item_initialize( &events[i].eventItem);
 
         prv_list_insert(&events[i].eventItem, &xEventIdleList);
     }
@@ -50,6 +49,9 @@ void prv_event_list_initialize()
 void prv_event_send(ps_event_t *pevent)
 {
     prv_list_insert(&pevent->eventItem, &xEventGlobalList);
+    if( xEventGlobalList.earliest_time >  pevent->tag.timestamp){
+        xEventGlobalList.earliest_time = pevent->tag.timestamp;
+    }
 }
 
 void prv_event_delete(ps_event_t * pevent)
@@ -80,7 +82,7 @@ void prv_event_tag_set(ps_event_t * pevent, int microstep)
 	}else{
 		// error happened !!
 	}
-	pevent->tag.microstep = microstep;
+    pevent->tag.microstep = microstep;
     pevent->tag.level = prv_servant_get_id(pservant_dest);
 }
 
@@ -142,11 +144,10 @@ int prv_event_can_process(ps_event_t * pevent)
 }
 
 // wait for specific signal
-void ps_event_wait()
+void ps_event_wait( void * para )
 {
-    ps_servant_t * pservant = prv_ef_get_current_servant();
-    id_t current_servant_id = pservant->servant_id;
-    port_wait(sem[current_servant_id]);
+    id_t servant_id = * (id_t *) para;
+    port_wait(sem[servant_id]);
 }
 
 
@@ -186,6 +187,7 @@ void ps_event_create( ps_data_t * new_data)
     ps_servant_t * pservant = prv_ef_get_current_servant();
     num = prv_ef_get_dest_num(pservant);
 
+    port_print("i'm in ps_event_create()\n\r");
     for( i = 0; i < num; ++i ){
         pitem = prv_list_receive(&xEventIdleList);
         pevent_temp = (ps_event_t *)pitem->item;
@@ -196,6 +198,7 @@ void ps_event_create( ps_data_t * new_data)
         // update the tag of event according to the timing semantics of PSEFM
         prv_event_tag_set(pevent_temp, i);
         pevent_temp->data.data[0]  = new_data->data[0];
+        pevent_temp->data.num = 0;
 
         prv_event_send(pevent_temp);
     }

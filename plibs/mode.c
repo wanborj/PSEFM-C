@@ -1,7 +1,7 @@
 #include "mode.h"
 
 struct ps_condition_array_t cond;
-struct ps_mode_array_t mod;
+struct ps_mode_array_t mod = {0, NULL};
 
 ps_mode_t modes[NUMOFMODES];
 

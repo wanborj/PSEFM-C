@@ -86,7 +86,7 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
     pservant->arrive = 0;
 
     pservants[servant_id] = pservant; // store the new servant into servant array
-    port_servant_create(runnable, 2);
+    port_servant_create(runnable, &pservant->servant_id , 2);
 
     for(i = 0; i < num; ++ i){
         prv_ef_add_relation(src_array[i], pservant);

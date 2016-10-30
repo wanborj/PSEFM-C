@@ -1,5 +1,6 @@
 #include "ptask.h"
 #include "PSEFMconfigure.h"
+#include "PSEFMport.h"
 
 struct ps_task_array_t{
     int num;
@@ -37,7 +38,13 @@ int    prv_task_get_servant_num(ps_task_t * ptask)
 
 ps_servant_t * prv_task_get_sensor(ps_task_t * ptask)
 {
-    return ptask->servants[0];
+    int i;
+    for(i = 0; i < ptask->servant_num; ++i){
+        if(ptask->servants[i]->servant_type == 0){
+            return ptask->servants[0];
+        }
+    }
+    return NULL;
 }
 
 ps_servant_t * prv_task_get_actuator(ps_task_t * ptask)
@@ -67,5 +74,5 @@ ps_task_t * ps_task_create(id_t task_id, tick_t LET,
     }
     tsk.num ++;
 
-	return &tsk.tasks[pos];
+    return &tsk.tasks[pos];
 }

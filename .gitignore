@@ -3,3 +3,7 @@ ctags
 *.bin
 *.elf
 *.list
+
+cscope.*
+
+DAC_*

@@ -8,7 +8,7 @@
 // based on FreeRTOS API
 
 // servant operation
-#define port_servant_create(runnable, prio) xTaskCreate(runnable, NULL, 128, NULL, prio, NULL)
+#define port_servant_create(runnable, para, prio) xTaskCreate(runnable, NULL, 128, para, prio, NULL)
 
 // trigger R_Servant to run
 #define port_servant_yield() taskYIELD()

@@ -11,7 +11,7 @@ typedef int bool;
 #define NUMOFMODES 2  // the maximal number of modes in system, the id of mode start from 0
 #define NUMOFCONDS 4 // the maximal number of mode switch condition in system
 #define NUMOFTASKS 4 // the maximal number of tasks in one mode
-#define NUMOFSERVANTS NUMOFMODES*NUMOFTASKS*NUMOFINS // the maximal number of servants in one task
+#define NUMOFSERVANTS NUMOFMODES*NUMOFTASKS*4 // the maximal number of servants in one task
 #define NUMOFINS 4   // max in degree of every servants
 #define NUMOFRELATIONS NUMOFINS*NUMOFSERVANTS
 
@@ -71,8 +71,6 @@ typedef struct {
     ps_tag_t  tag;
     ps_data_t data;
     item_t eventItem;
-    int flag; // for counting the "arrive" number in servant;
-              // if counted, then flag ==1 ; else flag == 0
 }ps_event_t;
 
 

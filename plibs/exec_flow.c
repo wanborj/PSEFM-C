@@ -83,8 +83,10 @@ void prv_ef_triggering()
     len = prv_list_get_length(&xEventLocalList);
     pevent_item = prv_list_get_first_item(&xEventLocalList);
 
+
     for( i = 0 ; i < len;  i++){
 
+    port_print("i'm in prv_ef_triggering\n\r");
         pservant = prv_event_get_dest((ps_event_t *)&pevent_item->item);
         src_num = prv_servant_get_num(pservant);
         if(prv_servant_get_arrive(pservant) == src_num){
@@ -147,5 +149,5 @@ static void R_Servant()
 
 void prv_ef_create()
 {
-    port_servant_create(R_Servant, 1);
+    port_servant_create(R_Servant,NULL, 1);
 }

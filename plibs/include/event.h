@@ -51,7 +51,7 @@ int prv_event_can_process(ps_event_t * pevent);
 
 /* API */
 // waiting for periodic timing event or message-arrival event
-void ps_event_wait();
+void ps_event_wait( void * para );
 
 // receive event from ready event list and return the data set of these events
 ps_data_t * ps_event_receive();

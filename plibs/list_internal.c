@@ -4,7 +4,7 @@
 void prv_list_initialize(list_t * pEventList)
 {
     pEventList->length = 0;
-    pEventList->earliest_time = 0;
+    pEventList->earliest_time = 1000000; // set to the max time
     pEventList->first = pEventList->last = NULL;
 }
 
