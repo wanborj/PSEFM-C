@@ -65,7 +65,6 @@ void prv_servant_add_arrive(ps_servant_t *pservant)
 void prv_servant_trigger( ps_servant_t * pservant)
 {
 	id_t servant_id = prv_servant_get_id( pservant );
-//	prv_ef_set_current_servant(pservant);  // mark the dest servant as the current servant
 	port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
 }
 

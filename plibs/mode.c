@@ -3,6 +3,7 @@
 struct ps_condition_array_t cond;
 struct ps_mode_array_t mod = {0, NULL};
 extern list_t xEventGlobalList;
+extern list_t xEventLocalList;
 extern ps_event_sem_t sem[NUMOFSERVANTS];
 
 ps_mode_t modes[NUMOFMODES];
@@ -117,12 +118,13 @@ void ps_mode_switch()
             }
         }
 
-    }else if( xEventGlobalList.earliest_time <= port_get_current_time() ){ // trigger R-Servant to run to process the events in list
+    }else if( xEventGlobalList.earliest_time <= port_get_current_time() ||
+                xEventLocalList.earliest_time <= port_get_current_time() ){ // trigger R-Servant to run to process the events in list
 
         port_trigger( sem[NUMOFSERVANTS-1] );
 
     }else{
-        // do nothing
+
     }
 }
 

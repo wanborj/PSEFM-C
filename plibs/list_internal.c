@@ -4,7 +4,7 @@
 void prv_list_initialize(list_t * pEventList)
 {
     pEventList->length = 0;
-    pEventList->earliest_time = portMAX_DELAY; // set to the max time
+    pEventList->earliest_time = 1000000; // set to the max time
     pEventList->first = pEventList->last = NULL;
 }
 
@@ -18,6 +18,7 @@ void prv_item_initialize(void * item, item_t * pEventItem)
 
 void prv_list_insert( item_t * pEventItem, list_t * pEventList)
 {
+    ps_event_t * pevent = (ps_event_t *)prv_item_get_entity(pEventItem);
 
     if(pEventList->length == 0){
         pEventList->first = pEventList->last = pEventItem;
@@ -32,6 +33,10 @@ void prv_list_insert( item_t * pEventItem, list_t * pEventList)
 
     pEventList->length ++;
     pEventItem->owner = (void *)pEventList;
+
+    if( pEventList->earliest_time >  pevent->tag.timestamp){
+        pEventList->earliest_time = pevent->tag.timestamp;
+    }
 }
 
 static int tag_compare(ps_event_t * pe1, ps_event_t *pe2)
@@ -64,7 +69,6 @@ void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList)
     }else{
         len = pEventList->length;
         pIndex = prv_list_get_first_item(pEventList);
-        //for(; pIndex != prv_list_get_last_item(pEventList); pIndex = prv_item_get_next(pIndex)){
         for( i = 0; i < len; ++i){
             if(1 == tag_compare(pevent, prv_item_get_entity(pIndex))){
                 if( i == 0 ){
@@ -85,6 +89,9 @@ void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList)
 
     pEventList->length ++;
     pEventItem->owner = (void *)pEventList;
+    if( pEventList->earliest_time >  pevent->tag.timestamp){
+        pEventList->earliest_time = pevent->tag.timestamp;
+    }
 }
 
 void prv_list_remove(item_t * pEventItem)
@@ -113,7 +120,7 @@ void prv_list_earlist_time_update(list_t * pEventList)
 {
     if(pEventList->length == 0)
     {
-        pEventList->earliest_time = portMAX_DELAY;
+        pEventList->earliest_time = 1000000;
         return;
     }
 

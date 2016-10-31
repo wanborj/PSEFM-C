@@ -83,7 +83,7 @@ void prv_ef_triggering()
 
 
     for( i = 0 ; i < len;  i++){
-        port_print("I'm in prv_ef_triggering()\n\r");
+        //port_print("I'm in prv_ef_triggering()\n\r");
 
         pservant = prv_event_get_dest((ps_event_t *)prv_item_get_entity(pevent_item));
         src_num = prv_servant_get_num(pservant);
@@ -96,16 +96,16 @@ void prv_ef_triggering()
                 // trigger all actuators
                 pevent_temp = pevent_item;
                 pevent_item = prv_item_get_next(pevent_item);
-                prv_list_remove(pevent_item);
-                prv_list_insert(pevent_item, &xEventReadyList);
+                prv_list_remove(pevent_temp);
+                prv_list_insert(pevent_temp, &xEventReadyList);
 
                 prv_servant_trigger(pservant);
-                //port_servant_yield();
+                break;
 
             } else if( 1 == flag){
                 // if events are executable controller events, then process the events with same dest servant
                 pevent_iterator = pevent_item;
-                for(j=0; j < src_num && i < len;){
+                for(j = 0; j < src_num && i < len;){
                     if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
                         // send events to ready list
                         pevent_temp = pevent_iterator;
@@ -133,6 +133,7 @@ void prv_ef_triggering()
             pevent_item = prv_item_get_next(pevent_item);
         }
     }// end for
+    prv_list_earlist_time_update( &xEventLocalList);
 }
 
 
@@ -141,7 +142,7 @@ static void R_Servant()
     while(1){
         port_wait(sem[NUMOFSERVANTS-1]);
 
-        port_print("i'm in R-Servant\n\r");
+        //port_print("i'm in R-Servant\n\r");
         prv_ef_sorting();
         prv_ef_triggering();
     }
