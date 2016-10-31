@@ -92,18 +92,7 @@ void prv_ef_triggering()
             prv_servant_clean_arrive(pservant);  // set the arrive of pservant to 0
             flag = prv_event_can_process((ps_event_t *)prv_item_get_entity(pevent_item));
 
-            if(2 == flag){
-                // trigger all actuators
-                pevent_temp = pevent_item;
-                pevent_item = prv_item_get_next(pevent_item);
-                prv_list_remove(pevent_temp);
-                prv_list_insert(pevent_temp, &xEventReadyList);
-
-                prv_servant_trigger(pservant);
-                break;
-
-            } else if( 1 == flag){
-                // if events are executable controller events, then process the events with same dest servant
+            if(2 == flag || 1 == flag){
                 pevent_iterator = pevent_item;
                 for(j = 0; j < src_num && i < len;){
                     if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
@@ -121,7 +110,8 @@ void prv_ef_triggering()
 
                 prv_servant_trigger(pservant);
                 break;
-            }else{
+            }
+            else{
                 // transit all the left event in local list into the global event list
                 pevent_temp = pevent_item;
                 pevent_item = prv_item_get_next(pevent_item);

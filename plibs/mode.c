@@ -27,7 +27,6 @@ int prv_mode_get_task_num(id_t mode_id)
     return modes[mode_id].num;
 }
 
-// set function implemented in model_time
 tick_t prv_mode_get_mode_period(id_t mode_id)
 {
     return modes[mode_id].period;

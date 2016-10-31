@@ -71,6 +71,7 @@ tick_t prv_model_time_unit_start()
 	id_t mode_id = pmode->mode_id;
 	tick_t current_model_time = port_get_current_time();
 
+    //return current_model_time - (current_model_time - xModelTimeStart)%(prv_mode_get_mode_unit(mode_id));  // return absolute time
 	return current_model_time - (current_model_time - xModelTimeStart)%(mod.pmode[mode_id]->unit);  // return absolute time
 }
 
