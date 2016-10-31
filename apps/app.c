@@ -10,7 +10,7 @@ void sensor1( void * para )
 		port_print("sensor 1\n\r");
 
         // parameter :pointer of struct data
-        //ps_event_create(NULL);
+        ps_event_create(NULL);
 
         // release CPU and trigger R-Sevant to execute
 		ps_servant_cooperate();
@@ -31,7 +31,7 @@ void controller1(void * para)
 		port_print("controller 1\n\r");
 
         // parameter one is not NULL mean that sysmem will upate the existing event
-        //ps_event_create(data);
+        ps_event_create(data);
 		ps_servant_cooperate();
 	}
 }
@@ -60,7 +60,7 @@ void sensor2(void * para)
 		// process pevent including tag and data
 		port_print("sensor 2\n\r");
 
-		//ps_event_create(NULL);
+		ps_event_create(NULL);
 		ps_servant_cooperate();
 	}
 
@@ -77,7 +77,7 @@ void controller2(void * para)
 		// process pevent including tag and data
 		port_print("controller 2\n\r");
 
-		//ps_event_create(NULL);
+		ps_event_create(NULL);
 		ps_servant_cooperate();
 	}
 

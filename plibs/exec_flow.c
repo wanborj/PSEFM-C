@@ -41,8 +41,6 @@ void prv_ef_add_relation(ps_servant_t * pservant_src, ps_servant_t * pservant_de
     num = srcs[pservant_dest->servant_id].num;
     srcs[pservant_dest->servant_id].pservants[num] = pservant_src;
     srcs[pservant_dest->servant_id].num ++;
-
-    pservant_dest->num ++; // the number of source servants
 }
 
 // R-Servant
@@ -58,14 +56,14 @@ void prv_ef_sorting()
     len = prv_list_get_length( &xEventGlobalList );
     for( i = 0; i < len; ++i){
 
-        if(prv_event_get_timestamp((ps_event_t *) pevent_item->item) < pcurrent_time){
+        if(prv_event_get_timestamp((ps_event_t *)prv_item_get_entity(pevent_item)) <= pcurrent_time){
             pevent_temp = pevent_item;
             pevent_item = prv_item_get_next( pevent_item);
             prv_list_remove(pevent_temp);
             prv_list_insert_sorted( pevent_temp, &xEventLocalList);
 
             // add the arrive record in dest servant
-            prv_servant_add_arrive( prv_event_get_dest((ps_event_t *)pevent_item->item ));
+            prv_servant_add_arrive( prv_event_get_dest((ps_event_t *)prv_item_get_entity(pevent_item)));
         }else{
             pevent_item = prv_item_get_next( pevent_item );
         }
@@ -85,23 +83,25 @@ void prv_ef_triggering()
 
 
     for( i = 0 ; i < len;  i++){
+        port_print("I'm in prv_ef_triggering()\n\r");
 
-    port_print("i'm in prv_ef_triggering\n\r");
-        pservant = prv_event_get_dest((ps_event_t *)&pevent_item->item);
+        pservant = prv_event_get_dest((ps_event_t *)prv_item_get_entity(pevent_item));
         src_num = prv_servant_get_num(pservant);
+
         if(prv_servant_get_arrive(pservant) == src_num){
             prv_servant_clean_arrive(pservant);  // set the arrive of pservant to 0
-            flag = prv_event_can_process((ps_event_t *)&pevent_item->item);
+            flag = prv_event_can_process((ps_event_t *)prv_item_get_entity(pevent_item));
 
             if(2 == flag){
-                // if events are I/O events
+                // trigger all actuators
                 pevent_temp = pevent_item;
                 pevent_item = prv_item_get_next(pevent_item);
                 prv_list_remove(pevent_item);
                 prv_list_insert(pevent_item, &xEventReadyList);
 
                 prv_servant_trigger(pservant);
-                break;
+                //port_servant_yield();
+
             } else if( 1 == flag){
                 // if events are executable controller events, then process the events with same dest servant
                 pevent_iterator = pevent_item;

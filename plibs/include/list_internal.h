@@ -20,7 +20,7 @@
 
 void prv_list_initialize(list_t * pEventList);
 
-void prv_item_initialize(item_t * pEventItem);
+void prv_item_initialize(void * item, item_t * pEventItem);
 
 void prv_list_insert( item_t * pEventItem, list_t * pEventList);
 

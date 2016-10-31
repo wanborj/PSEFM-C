@@ -7,3 +7,5 @@ ctags
 cscope.*
 
 DAC_*
+
+*.txt

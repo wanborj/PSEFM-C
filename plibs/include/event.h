@@ -12,7 +12,6 @@
 #define prv_event_get_data_num(pevent) (((ps_event_t *)pevent)->data.num)
 #define prv_event_get_src(pevent) (((ps_event_t *)pevent)->pservant_src)
 #define prv_event_get_dest(pevent) (((ps_event_t *)pevent)->pservant_dest)
-#define prv_event_get_flag(pevent) (((ps_event_t *)pevent)->flag)
 
 //  send event to global event list;
 //  invoked in ps_event_create()

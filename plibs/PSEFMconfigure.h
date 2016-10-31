@@ -15,8 +15,8 @@ typedef int bool;
 #define NUMOFINS 4   // max in degree of every servants
 #define NUMOFRELATIONS NUMOFINS*NUMOFSERVANTS
 
-#define INPUT 3
-#define OUTPUT 3
+#define INPUT 50
+#define OUTPUT 50
 /*
  * list type
  * */

@@ -4,7 +4,7 @@
 
 extern ps_event_sem_t sem[NUMOFSERVANTS];
 
-ps_servant_t * pservants[NUMOFSERVANTS];
+ps_servant_t servants[NUMOFSERVANTS];
 
 id_t      prv_servant_get_id(ps_servant_t *pservant)
 {
@@ -65,7 +65,7 @@ void prv_servant_add_arrive(ps_servant_t *pservant)
 void prv_servant_trigger( ps_servant_t * pservant)
 {
 	id_t servant_id = prv_servant_get_id( pservant );
-	prv_ef_set_current_servant(pservant);  // mark the dest servant as the current servant
+//	prv_ef_set_current_servant(pservant);  // mark the dest servant as the current servant
 	port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
 }
 
@@ -77,15 +77,15 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
                                 void (*runnable)(void *))
 {
     int i;
-    ps_servant_t * pservant = (ps_servant_t *)port_malloc(sizeof(ps_servant_t));
+    ps_servant_t * pservant = &servants[servant_id];
 
     pservant->servant_id = servant_id;
     pservant->servant_type = servant_type;
+    pservant->start_time = 0;
     pservant->LED = LED;
     pservant->num = num;
     pservant->arrive = 0;
 
-    pservants[servant_id] = pservant; // store the new servant into servant array
     port_servant_create(runnable, &pservant->servant_id , 2);
 
     for(i = 0; i < num; ++ i){
@@ -97,7 +97,7 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
 
 void ps_servant_cooperate()
 {
-    port_trigger(sem[NUMOFSERVANTS-1]);
+    //port_trigger(sem[NUMOFSERVANTS-1]);
     port_servant_yield();
     // yield API
 }

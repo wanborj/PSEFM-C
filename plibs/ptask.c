@@ -41,7 +41,7 @@ ps_servant_t * prv_task_get_sensor(ps_task_t * ptask)
     int i;
     for(i = 0; i < ptask->servant_num; ++i){
         if(ptask->servants[i]->servant_type == 0){
-            return ptask->servants[0];
+            return ptask->servants[i];
         }
     }
     return NULL;

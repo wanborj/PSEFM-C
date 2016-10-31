@@ -3,6 +3,7 @@
 static tick_t xModelTimeStart ;
 extern struct ps_mode_array_t mod;
 
+
 static tick_t GCD(tick_t a, tick_t b){
 	return b==0?a:GCD(b,a%b);
 }
@@ -73,6 +74,28 @@ tick_t prv_model_time_unit_start()
 	return current_model_time - (current_model_time - xModelTimeStart)%(mod.pmode[mode_id]->unit);  // return absolute time
 }
 
+bool prv_model_time_is_unit_start()
+{
+	ps_mode_t * pmode = prv_mode_get_current_mode();
+	id_t mode_id = pmode->mode_id;
+	tick_t current_model_time = port_get_current_time();
+
+    if( (current_model_time - xModelTimeStart)%(mod.pmode[mode_id]->unit) == 0  ){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+bool prv_model_time_is_period_start(ps_task_t * ptask)
+{
+    if( (port_get_current_time() - xModelTimeStart) % ptask->period == 0){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
 void prv_model_time_reset()
 {
 	xModelTimeStart = port_get_current_time();
@@ -100,7 +123,7 @@ tick_t prv_model_time_output_start()
 	return prv_model_time_output_end()-OUTPUT;
 }
 
-int prv_model_time_is_mode_end()
+bool prv_model_time_is_mode_end()
 {
 	ps_mode_t *pmode = prv_mode_get_current_mode();
 	id_t mode_id = pmode->mode_id;

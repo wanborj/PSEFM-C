@@ -3,6 +3,7 @@
 #include "list_internal.h"
 
 static tick_t xFutureModelTime;
+extern ps_servant_t servants[NUMOFSERVANTS];
 
 list_t xEventIdleList;
 list_t xEventGlobalList;
@@ -26,7 +27,7 @@ void prv_event_initialize()
     for( i = 0; i < NUMOFRELATIONS; ++i ){
         events[i].pservant_src = NULL;
         events[i].pservant_dest = NULL;
-        prv_item_initialize( &events[i].eventItem);
+        prv_item_initialize( (void *)&events[i], &events[i].eventItem);
 
         prv_list_insert(&events[i].eventItem, &xEventIdleList);
     }
@@ -45,7 +46,7 @@ void prv_event_list_initialize()
 }
 
 
-// know the dest servant of pevent, and send the event to each of the dest servants
+// send event to xEventGlobalList
 void prv_event_send(ps_event_t *pevent)
 {
     prv_list_insert(&pevent->eventItem, &xEventGlobalList);
@@ -61,33 +62,44 @@ void prv_event_delete(ps_event_t * pevent)
 
 void prv_event_tag_set(ps_event_t * pevent, int microstep)
 {
-	// update the timestamp and init the microstep of event
     ps_servant_t * pservant_src = pevent->pservant_src;
 	ps_servant_t * pservant_dest = pevent->pservant_dest;
 
-	//if(pservant_dest->servant_type == 0){
-	//	pevent->tag.timestamp = prv_model_time_output_end();
-	//	pevent->tag.microstep = 0;
-	//}
-	if (pservant_dest->servant_type == 1){
-		if( pservant_src->servant_type == 0){  // sensor communicate with controller
+    if(prv_servant_get_type(pservant_dest) == 1){
+        if( prv_servant_get_type(pservant_src) == 0){  // sensor communicate with controller
 			pevent->tag.timestamp = prv_model_time_input_end();
 		}else{ // controller communicate with controller
 			pevent->tag.timestamp = prv_servant_get_start_time(pservant_src) + prv_servant_get_LED(pservant_src);
 		}
 	}
-	else if( pservant_dest->servant_type == 2){ // actuator
+	else if( prv_servant_get_type(pservant_dest) == 2){ // actuator
 		pevent->tag.timestamp = prv_model_time_output_start();
 
 	}else{
-		// error happened !!
+        port_print("error: unknow event type in prv_event_tag_set()\n\r");
 	}
     pevent->tag.microstep = microstep;
     pevent->tag.level = prv_servant_get_id(pservant_dest);
 }
 
 
-// invoked in prv_event_can_process()
+void prv_event_future_model_time_reset()
+{
+	xFutureModelTime = prv_model_time_input_end();
+}
+
+// 1 for overlap ; 0 for not overlap
+int  prv_event_is_overlap(ps_event_t * pevent)
+{
+	tick_t led = pevent->pservant_dest->LED;
+	if( pevent->tag.timestamp + led > prv_model_time_output_start()){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+// invoked in prv_event_can_process() in prv_ef_triggering()
 int prv_event_tag_update(ps_event_t * pevent)
 {
 	pevent->tag.timestamp = xFutureModelTime;
@@ -107,24 +119,7 @@ int prv_event_tag_update(ps_event_t * pevent)
 	}
 }
 
-void prv_event_future_model_time_reset()
-{
-	xFutureModelTime = port_get_current_time() + INPUT;
-}
-
-
-// 1 for overlap ; 0 for not overlap
-int  prv_event_is_overlap(ps_event_t * pevent)
-{
-	tick_t led = pevent->pservant_dest->LED;
-	if( pevent->tag.timestamp + led > prv_model_time_output_start()){
-		return 1;
-	}else{
-		return 0;
-	}
-}
-
-// 2 for I/O
+// 2 for actuator
 // 1 for controller
 // 0 for no valid
 int prv_event_can_process(ps_event_t * pevent)
@@ -148,6 +143,7 @@ void ps_event_wait( void * para )
 {
     id_t servant_id = * (id_t *) para;
     port_wait(sem[servant_id]);
+    prv_ef_set_current_servant( &servants[servant_id] );
 }
 
 
@@ -187,9 +183,13 @@ void ps_event_create( ps_data_t * new_data)
     ps_servant_t * pservant = prv_ef_get_current_servant();
     num = prv_ef_get_dest_num(pservant);
 
-    port_print("i'm in ps_event_create()\n\r");
     for( i = 0; i < num; ++i ){
         pitem = prv_list_receive(&xEventIdleList);
+
+        if(pitem == NULL){
+            port_wait("error: no idle event left. in ps_event_create() prv_list_receive() Error!!!\n\r");
+            return;
+        }
         pevent_temp = (ps_event_t *)pitem->item;
 
         pevent_temp->pservant_src  = pservant;
@@ -198,7 +198,7 @@ void ps_event_create( ps_data_t * new_data)
         // update the tag of event according to the timing semantics of PSEFM
         prv_event_tag_set(pevent_temp, i);
         pevent_temp->data.data[0]  = new_data->data[0];
-        pevent_temp->data.num = 0;
+        pevent_temp->data.num = 1;
 
         prv_event_send(pevent_temp);
     }

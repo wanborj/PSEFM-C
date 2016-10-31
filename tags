@@ -31359,7 +31359,6 @@ prv_event_get_data	plibs/include/event.h	11;"	d
 prv_event_get_data_num	plibs/include/event.h	12;"	d
 prv_event_get_deadline	plibs/include/event.h	10;"	d
 prv_event_get_dest	plibs/include/event.h	14;"	d
-prv_event_get_flag	plibs/include/event.h	15;"	d
 prv_event_get_level	plibs/include/event.h	9;"	d
 prv_event_get_microstep	plibs/include/event.h	8;"	d
 prv_event_get_src	plibs/include/event.h	13;"	d
@@ -31375,7 +31374,7 @@ prv_item_get_entity	plibs/include/list_internal.h	16;"	d
 prv_item_get_next	plibs/include/list_internal.h	18;"	d
 prv_item_get_owner	plibs/include/list_internal.h	17;"	d
 prv_item_get_prev	plibs/include/list_internal.h	19;"	d
-prv_item_initialize	plibs/list_internal.c	/^void prv_item_initialize(item_t * pEventItem)$/;"	f
+prv_item_initialize	plibs/list_internal.c	/^void prv_item_initialize(void * item, item_t * pEventItem)$/;"	f
 prv_list_earlist_time_update	plibs/list_internal.c	/^void prv_list_earlist_time_update(list_t * pEventList)$/;"	f
 prv_list_get_earliest_time	plibs/include/list_internal.h	11;"	d
 prv_list_get_first_item	plibs/include/list_internal.h	12;"	d
@@ -31397,7 +31396,9 @@ prv_model_time_get_model_time	plibs/model_time.c	/^tick_t prv_model_time_get_mod
 prv_model_time_initialize	plibs/model_time.c	/^void prv_model_time_initialize()$/;"	f
 prv_model_time_input_end	plibs/model_time.c	/^tick_t prv_model_time_input_end()$/;"	f
 prv_model_time_input_length	plibs/model_time.c	/^tick_t prv_model_time_input_length()$/;"	f
-prv_model_time_is_mode_end	plibs/model_time.c	/^int prv_model_time_is_mode_end()$/;"	f
+prv_model_time_is_mode_end	plibs/model_time.c	/^bool prv_model_time_is_mode_end()$/;"	f
+prv_model_time_is_period_start	plibs/model_time.c	/^bool prv_model_time_is_period_start(ps_servant_t * pservant)$/;"	f
+prv_model_time_is_unit_start	plibs/model_time.c	/^bool prv_model_time_is_unit_start()$/;"	f
 prv_model_time_output_end	plibs/model_time.c	/^tick_t prv_model_time_output_end()$/;"	f
 prv_model_time_output_length	plibs/model_time.c	/^tick_t prv_model_time_output_length()$/;"	f
 prv_model_time_output_start	plibs/model_time.c	/^tick_t prv_model_time_output_start()$/;"	f
@@ -31452,7 +31453,6 @@ ps_task_t	plibs/PSEFMconfigure.h	/^}ps_task_t;$/;"	t	typeref:struct:task
 pservant_dest	plibs/PSEFMconfigure.h	/^    ps_servant_t * pservant_dest;$/;"	m	struct:__anon83
 pservant_src	plibs/PSEFMconfigure.h	/^    ps_servant_t * pservant_src;$/;"	m	struct:__anon83
 pservants	plibs/include/exec_flow.h	/^    ps_servant_t * pservants[NUMOFINS];$/;"	m	struct:relation
-pservants	plibs/servant.c	/^ps_servant_t * pservants[NUMOFSERVANTS];$/;"	v
 pulISRStack	libraries/FreeRTOS/portable/GCC/MicroBlaze/port.c	/^unsigned long *pulISRStack;$/;"	v
 pulISRStack	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port.c	/^unsigned long *pulISRStack;$/;"	v
 pulStackPointerOnFunctionEntry	libraries/FreeRTOS/portable/GCC/MicroBlazeV8/port_exceptions.c	/^unsigned long *pulStackPointerOnFunctionEntry = NULL;$/;"	v
@@ -31680,6 +31680,7 @@ servant_id	plibs/PSEFMconfigure.h	/^    id_t servant_id;$/;"	m	struct:servant
 servant_num	plibs/PSEFMconfigure.h	/^    int servant_num;      \/\/ number of I-servants$/;"	m	struct:task
 servant_type	plibs/PSEFMconfigure.h	/^    int servant_type; \/\/ 0 for sensor; 1 for controller; 2 for actuator$/;"	m	struct:servant
 servants	plibs/PSEFMconfigure.h	/^    ps_servant_t * servants[NUMOFSERVANTS];  \/\/ I-servants in this task$/;"	m	struct:task
+servants	plibs/servant.c	/^ps_servant_t servants[NUMOFSERVANTS];$/;"	v
 soft_exceptions	libraries/FreeRTOS/portable/GCC/NiosII/port_asm.S	/^soft_exceptions:$/;"	l
 sp	libraries/FreeRTOS/portable/IAR/V850ES/ISR_Support.h	/^    MOV     sp,ep							; set stack pointer to element pointer$/;"	v
 sp	libraries/FreeRTOS/portable/IAR/V850ES/ISR_Support.h	/^    MOV     sp,r1$/;"	v
