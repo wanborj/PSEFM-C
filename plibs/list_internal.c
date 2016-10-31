@@ -22,10 +22,12 @@ void prv_list_insert( item_t * pEventItem, list_t * pEventList)
 
     if(pEventList->length == 0){
         pEventList->first = pEventList->last = pEventItem;
-        pEventItem->prev = pEventItem;
-        pEventItem->next = pEventItem;
+        pEventItem->prev = NULL;
+        pEventItem->next = NULL;
     }else{
         pEventList->last->next = pEventItem;
+        pEventList->first->prev = pEventItem;
+
         pEventItem->prev = pEventList->last;
         pEventItem->next = pEventList->first;
         pEventList->last = pEventItem;
@@ -97,6 +99,10 @@ void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList)
 void prv_list_remove(item_t * pEventItem)
 {
     list_t * pList = (list_t *)pEventItem->owner;
+
+    if(pList->length == 0){
+        port_print("error: no event could be remove in this event list; in prv_list_remove()\n\r");
+    }
 
     if(pList->length == 1){
         pList->first = NULL;

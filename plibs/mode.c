@@ -117,6 +117,7 @@ void ps_mode_switch()
                 prv_task_start( ptask);
             }
         }
+        prv_event_future_model_time_reset();  // when enter new unit, set the xFutureModelTime as the Input end.
 
     }else if( xEventGlobalList.earliest_time <= port_get_current_time() ||
                 xEventLocalList.earliest_time <= port_get_current_time() ){ // trigger R-Servant to run to process the events in list

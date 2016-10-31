@@ -96,9 +96,7 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
 
 void ps_servant_cooperate()
 {
-    //port_trigger(sem[NUMOFSERVANTS-1]);
     port_servant_yield();
-    // yield API
 }
 
 

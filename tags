@@ -31397,7 +31397,7 @@ prv_model_time_initialize	plibs/model_time.c	/^void prv_model_time_initialize()$
 prv_model_time_input_end	plibs/model_time.c	/^tick_t prv_model_time_input_end()$/;"	f
 prv_model_time_input_length	plibs/model_time.c	/^tick_t prv_model_time_input_length()$/;"	f
 prv_model_time_is_mode_end	plibs/model_time.c	/^bool prv_model_time_is_mode_end()$/;"	f
-prv_model_time_is_period_start	plibs/model_time.c	/^bool prv_model_time_is_period_start(ps_servant_t * pservant)$/;"	f
+prv_model_time_is_period_start	plibs/model_time.c	/^bool prv_model_time_is_period_start(ps_task_t * ptask)$/;"	f
 prv_model_time_is_unit_start	plibs/model_time.c	/^bool prv_model_time_is_unit_start()$/;"	f
 prv_model_time_output_end	plibs/model_time.c	/^tick_t prv_model_time_output_end()$/;"	f
 prv_model_time_output_length	plibs/model_time.c	/^tick_t prv_model_time_output_length()$/;"	f

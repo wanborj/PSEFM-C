@@ -63,7 +63,7 @@ void prv_ef_sorting()
             prv_list_insert_sorted( pevent_temp, &xEventLocalList);
 
             // add the arrive record in dest servant
-            prv_servant_add_arrive( prv_event_get_dest((ps_event_t *)prv_item_get_entity(pevent_item)));
+            prv_servant_add_arrive( prv_event_get_dest((ps_event_t *)prv_item_get_entity(pevent_temp)));
         }else{
             pevent_item = prv_item_get_next( pevent_item );
         }
