@@ -4,7 +4,7 @@
 void prv_list_initialize(list_t * pEventList)
 {
     pEventList->length = 0;
-    pEventList->earliest_time = 1000000; // set to the max time
+    pEventList->earliest_time = 100000000; // set to the max time
     pEventList->first = pEventList->last = NULL;
 }
 
@@ -122,23 +122,22 @@ void prv_list_remove(item_t * pEventItem)
 }
 
 
-void prv_list_earlist_time_update(list_t * pEventList)
+void prv_list_earliest_time_update(list_t * pEventList)
 {
+    int i, len;
     if(pEventList->length == 0)
     {
-        pEventList->earliest_time = 1000000;
-        return;
-    }
+        pEventList->earliest_time = 100000000;
+    }else{
+        len = prv_list_get_length(pEventList);
+        volatile  item_t * pIndex = prv_list_get_first_item(pEventList);
+        pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
 
-    int i, len;
-    len = prv_list_get_length(pEventList);
-    volatile  item_t * pIndex = prv_list_get_first_item(pEventList);
-    pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
-
-    for( i = 0; i < len; i++ , pIndex = prv_item_get_next(pIndex)){
-        if(pEventList->earliest_time > ((ps_event_t *)pIndex->item)->tag.timestamp)
-        {
-            pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
+        for( i = 0; i < len; i++ , pIndex = prv_item_get_next(pIndex)){
+            if(pEventList->earliest_time > ((ps_event_t *)pIndex->item)->tag.timestamp)
+            {
+                pEventList->earliest_time = ((ps_event_t *)pIndex->item)->tag.timestamp;
+            }
         }
     }
 }

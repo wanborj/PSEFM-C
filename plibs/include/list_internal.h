@@ -28,7 +28,7 @@ void prv_list_insert_sorted(item_t * pEventItem, list_t * pEventList);
 
 void prv_list_remove(item_t * pEventItem);
 
-void prv_list_earlist_time_update(list_t * pEventList);
+void prv_list_earliest_time_update(list_t * pEventList);
 
 // get the first event of the event list
 item_t * prv_list_receive(list_t * pEventList);

@@ -65,8 +65,8 @@ main.bin: main.c
 		$(CROSS_COMPILE)objdump -S main.elf > main.list
 
 qemu: main.bin $(QEMU_STM32)
-	$(QEMU_STM32) -monitor stdio -M stm32-p103 -kernel main.bin
-	#$(QEMU_STM32) -monitor stdio -M stm32-p103 -nographic -kernel main.bin -serial pty
+	#$(QEMU_STM31) -monitor stdio -M stm32-p103 -kernel main.bin
+	$(QEMU_STM32) -monitor stdio -M stm32-p103 -nographic -kernel main.bin -serial pty
 
 qemugdb: main.bin $(QEMU_STM32)
 	$(QEMU_STM32) -M stm32-p103 -gdb tcp::3333 -S -kernel main.bin

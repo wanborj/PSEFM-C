@@ -68,7 +68,7 @@ void prv_ef_sorting()
             pevent_item = prv_item_get_next( pevent_item );
         }
     }
-    prv_list_earlist_time_update( &xEventGlobalList);
+    prv_list_earliest_time_update( &xEventGlobalList);
 }
 
 
@@ -77,6 +77,7 @@ void prv_ef_triggering()
     item_t * pevent_item, *pevent_temp, *pevent_iterator;
     ps_servant_t * pservant;
     int src_num, i, j, len, flag;
+    tick_t timestamp;
 
     len = prv_list_get_length(&xEventLocalList);
     pevent_item = prv_list_get_first_item(&xEventLocalList);
@@ -89,16 +90,20 @@ void prv_ef_triggering()
         src_num = prv_servant_get_num(pservant);
 
         if(prv_servant_get_arrive(pservant) == src_num){
-            prv_servant_clean_arrive(pservant);  // set the arrive of pservant to 0
+            prv_servant_clean_arrive(pservant);  /* set the arrive of pservant to 0 */
             flag = prv_event_can_process((ps_event_t *)prv_item_get_entity(pevent_item));
 
             if(2 == flag || 1 == flag){
+                timestamp = prv_event_get_timestamp(prv_item_get_entity(pevent_item));
                 pevent_iterator = pevent_item;
                 for(j = 0; j < src_num && i < len;){
                     if(pservant == prv_event_get_dest((ps_event_t *)pevent_iterator->item)){
-                        // send events to ready list
+                        /* send events to ready list */
                         pevent_temp = pevent_iterator;
                         pevent_iterator = prv_item_get_next(pevent_iterator);
+
+                        /* Set all the events for one dest servant to the same time-stamp*/
+                        ((ps_event_t *)pevent_temp->item)->tag.timestamp = timestamp;
                         prv_list_remove(pevent_temp);
                         prv_list_insert(pevent_temp, &xEventReadyList);
                         j ++;
@@ -107,23 +112,20 @@ void prv_ef_triggering()
                     }
                     i ++;
                 } // end for
-
-                prv_servant_trigger(pservant);
+                //prv_servant_trigger(pservant);
                 break;
-            }
-            else{
+            } else{
                 // transit all the left event in local list into the global event list
                 pevent_temp = pevent_item;
                 pevent_item = prv_item_get_next(pevent_item);
                 prv_list_remove(pevent_temp);
                 prv_list_insert(pevent_temp,&xEventGlobalList);
             }
-        }
-        else{
+        } else{
             pevent_item = prv_item_get_next(pevent_item);
         }
     }// end for
-    prv_list_earlist_time_update( &xEventLocalList);
+    prv_list_earliest_time_update( &xEventLocalList);
 }
 
 

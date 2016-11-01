@@ -99,17 +99,16 @@ int  prv_event_is_overlap(ps_event_t * pevent)
 	}
 }
 
-// invoked in prv_event_can_process() in prv_ef_triggering()
 int prv_event_tag_update(ps_event_t * pevent)
 {
 	pevent->tag.timestamp = xFutureModelTime;
 	tick_t led = pevent->pservant_dest->LED;
 	if( !prv_event_is_overlap(pevent) && xFutureModelTime < prv_model_time_output_start()){
-		// process event pevent at the xFuturemodelTime
+		/* process event pevent at the xFuturemodelTime */
 		xFutureModelTime += led;
-		return 1; // update success
+        return 1; /* event can be processed */
 	}else if (prv_event_is_overlap(pevent) && xFutureModelTime < prv_model_time_output_start()){
-		xFutureModelTime = prv_model_time_output_start()+INPUT+OUTPUT;
+		xFutureModelTime = prv_model_time_output_end()+INPUT;
 		pevent->tag.timestamp = xFutureModelTime;
 		xFutureModelTime += led;
 		return 0;
@@ -144,31 +143,42 @@ void ps_event_wait( void * para )
     id_t servant_id = * (id_t *) para;
     port_wait(sem[servant_id]);
     prv_ef_set_current_servant( &servants[servant_id] );
+    vPrintNumber(port_get_current_time());
 }
 
 
 ps_data_t * ps_event_receive()
 {
-    int len, i;
+    int len, i, first_event = -1, count ;
     ps_event_t * pevent[NUMOFINS];
+    ps_servant_t * pservant;
     item_t * item;
     if( 0 != (len = prv_list_get_length( &xEventReadyList ) ) )
     {
-        item                = prv_list_receive( &xEventReadyList );
-        pevent[0]           = (ps_event_t *)item->item;
-        pevent[0]->data.num = len;
-        // set the start time of servant, important !!!!
-        prv_servant_set_start_time( prv_ef_get_current_servant(), pevent[0]->tag.timestamp);
 
-        for(i = 1; i < len; ++i){
+        pservant = prv_ef_get_current_servant();
+        /* set the start time of servant as the time-stamp of event when servant start to run */
+
+        for(i = 0, count = 0; i < len && count < pservant->num; ++i){
             item                    = prv_list_receive( &xEventReadyList );
             pevent[i]               = (ps_event_t *)item->item;
-            pevent[0]->data.data[i] = pevent[i]->data.data[0];  // integrate events' data
 
-            prv_event_delete(pevent[i]);   // delete left events
+            if( first_event == -1 && pevent[i]->pservant_dest == pservant ){
+                first_event = i;
+                prv_servant_set_start_time( pservant, pevent[i]->tag.timestamp);
+                count ++;
+                prv_event_delete(pevent[i]);   /* not real delete, keep the memory and data */
+                continue;  /* record the data of first input event*/
+            }
+
+            if( pevent[i]->pservant_dest == pservant ){
+                pevent[first_event]->data.data[count++] = pevent[i]->data.data[0];  // integrate events' data
+                prv_event_delete(pevent[i]);   /* not real delete, keep the memory and data */
+            }
         }
-        prv_event_delete(pevent[0]); // just change the owner of event, but won't delete the memory of event
-        return &pevent[0]->data;
+
+        prv_list_earliest_time_update(&xEventReadyList);
+        return &pevent[first_event]->data;
     }
     return NULL;
 }
