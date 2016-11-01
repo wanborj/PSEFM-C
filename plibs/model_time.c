@@ -71,8 +71,7 @@ tick_t prv_model_time_unit_start()
 	id_t mode_id = pmode->mode_id;
 	tick_t current_model_time = port_get_current_time();
 
-    //return current_model_time - (current_model_time - xModelTimeStart)%(prv_mode_get_mode_unit(mode_id));  // return absolute time
-	return current_model_time - (current_model_time - xModelTimeStart)%(mod.pmode[mode_id]->unit);  // return absolute time
+    return current_model_time - (current_model_time - xModelTimeStart)%(prv_mode_get_mode_unit(mode_id));  // return absolute time
 }
 
 bool prv_model_time_is_unit_start()
@@ -81,7 +80,7 @@ bool prv_model_time_is_unit_start()
 	id_t mode_id = pmode->mode_id;
 	tick_t current_model_time = port_get_current_time();
 
-    if( (current_model_time - xModelTimeStart)%(mod.pmode[mode_id]->unit) == 0  ){
+    if( (current_model_time - xModelTimeStart)%(prv_mode_get_mode_unit(mode_id)) == 0  ){
         return 1;
     }else{
         return 0;
@@ -116,7 +115,7 @@ tick_t prv_model_time_output_end()
 {
 	ps_mode_t *pmode = prv_mode_get_current_mode();
 	id_t mode_id = pmode->mode_id;
-	return prv_model_time_unit_start()+mod.pmode[mode_id]->unit;
+    return prv_model_time_unit_start()+prv_mode_get_mode_unit(mode_id);
 }
 
 tick_t prv_model_time_output_start()
@@ -130,7 +129,7 @@ bool prv_model_time_is_mode_end()
 	id_t mode_id = pmode->mode_id;
 	tick_t current_time = port_get_current_time();
 
-	if( current_time > xModelTimeStart && 0 == ( current_time - xModelTimeStart ) % mod.pmode[mode_id]->period){
+	if( current_time > xModelTimeStart && 0 == ( current_time - xModelTimeStart ) % prv_mode_get_mode_period(mode_id)){
 		return 1;
 	}else{
 		return 0;

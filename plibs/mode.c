@@ -64,7 +64,7 @@ void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)
 
 }
 
-void ps_mode_start(id_t mode_id)
+void prv_mode_start(id_t mode_id)
 {
     /*start all the tasks in this mode*/
     int i;
@@ -105,12 +105,12 @@ void ps_mode_switch()
                     prv_model_time_reset();  /* reset the xModeTimeStart only when mode switches */
 
                 }
-                ps_mode_start(cond.conditions[i].mode_dest);
+                prv_mode_start(cond.conditions[i].mode_dest);
                 break;
             }
         }
         if(i == cond.num){
-            ps_mode_start(current_mode->mode_id);
+            prv_mode_start(current_mode->mode_id);
         }
         prv_event_future_model_time_reset();  /* when enter new mode period, set the xFutureModelTime as the Input end. */
 
@@ -144,6 +144,6 @@ void system_start()
     prv_event_future_model_time_reset();
     prv_event_list_initialize();
     prv_ef_create();
-    ps_mode_start(0);
+    prv_mode_start(0);
     port_scheduler_start();
 }

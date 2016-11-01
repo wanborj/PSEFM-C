@@ -31394,6 +31394,7 @@ prv_mode_get_mode_unit	plibs/mode.c	/^tick_t prv_mode_get_mode_unit(id_t mode_id
 prv_mode_get_task_num	plibs/mode.c	/^int prv_mode_get_task_num(id_t mode_id)$/;"	f
 prv_mode_set_mode_period	plibs/mode.c	/^void prv_mode_set_mode_period(id_t mode_id , tick_t period)$/;"	f
 prv_mode_set_mode_unit	plibs/mode.c	/^void prv_mode_set_mode_unit(id_t mode_id, tick_t unit)$/;"	f
+prv_mode_start	plibs/mode.c	/^void prv_mode_start(id_t mode_id)$/;"	f
 prv_model_time_get_model_time	plibs/model_time.c	/^tick_t prv_model_time_get_model_time()$/;"	f
 prv_model_time_initialize	plibs/model_time.c	/^void prv_model_time_initialize()$/;"	f
 prv_model_time_input_end	plibs/model_time.c	/^tick_t prv_model_time_input_end()$/;"	f
@@ -31440,7 +31441,6 @@ ps_event_wait	plibs/event.c	/^void ps_event_wait( void * para )$/;"	f
 ps_mode_array_t	plibs/include/mode.h	/^struct ps_mode_array_t{$/;"	s
 ps_mode_cond	plibs/PSEFMconfigure.h	/^}ps_mode_cond;$/;"	t	typeref:struct:cond
 ps_mode_create	plibs/mode.c	/^void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num)$/;"	f
-ps_mode_start	plibs/mode.c	/^void ps_mode_start(id_t mode_id)$/;"	f
 ps_mode_switch	plibs/mode.c	/^void ps_mode_switch()$/;"	f
 ps_mode_switch_create	plibs/mode.c	/^void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest)$/;"	f
 ps_mode_t	plibs/PSEFMconfigure.h	/^}ps_mode_t;$/;"	t	typeref:struct:mode
