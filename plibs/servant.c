@@ -6,55 +6,15 @@ extern ps_event_sem_t sem[NUMOFSERVANTS];
 
 ps_servant_t servants[NUMOFSERVANTS];
 
-id_t      prv_servant_get_id(ps_servant_t *pservant)
-{
-    return pservant->servant_id;
-}
-
-
-int prv_servant_get_type(ps_servant_t * pservant)
-{
-    return pservant->servant_type;
-}
-
-tick_t    prv_servant_get_LED(ps_servant_t *pservant)
-{
-    return pservant->LED;
-}
-
-tick_t    prv_servant_get_LET(ps_servant_t *pservant)
-{
-    return pservant->LET;
-}
-
-tick_t prv_servant_get_start_time(ps_servant_t * pservant)
-{
-    return pservant->start_time;
-}
-
-void  prv_servant_set_start_time(ps_servant_t * pservant, tick_t start_time)
-{
-    pservant->start_time = start_time;
-}
-
-int  prv_servant_get_num(ps_servant_t *pservant)
-{
-    return pservant->num;
-}
-
-int  prv_servant_get_arrive(ps_servant_t *pservant)
-{
-    return pservant->arrive;
-}
 
 void prv_servant_set_arrive( ps_servant_t * pservant, int n)
 {
-	pservant->arrive = n;
+    pservant->arrive = n;
 }
 
 void prv_servant_clean_arrive( ps_servant_t * pservant)
 {
-	prv_servant_set_arrive(pservant, 0);
+    prv_servant_set_arrive(pservant, 0);
 }
 
 void prv_servant_add_arrive(ps_servant_t *pservant)
@@ -64,10 +24,14 @@ void prv_servant_add_arrive(ps_servant_t *pservant)
 
 void prv_servant_trigger( ps_servant_t * pservant)
 {
-	id_t servant_id = prv_servant_get_id( pservant );
-	port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
+    id_t servant_id = prv_servant_get_id( pservant );
+    port_trigger(sem[servant_id]);  // trigger the sem of the dest servant
 }
 
+void prv_servant_set_start_time ( ps_servant_t *pservant, tick_t start_time)
+{
+    pservant->start_time = start_time;
+}
 
 /* create servant and record the time,relation and function information */
 ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
@@ -96,6 +60,9 @@ ps_servant_t * ps_servant_create(id_t servant_id, int servant_type, tick_t LED,
 
 void ps_servant_cooperate()
 {
+    // print the start time of current servant
+    ps_servant_t * pservant = prv_ef_get_current_servant();
+    vPrintNumber(pservant->start_time);
     port_servant_yield();
 }
 

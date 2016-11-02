@@ -29,68 +29,48 @@ void ps_mode_create(id_t mode_id, ps_task_t * task_array[], int num);
 
 
 /******************************************************
-Function: prv_mode_add_task
-Description: kernel function, add one task into specific mode
-Calls:
-Called by: ps_mode_create()
-Input: mode_id( id of mode ); ptask( the pointer of task )
-Output:
-Return: void
-Others:
+function: prv_mode_add_task
+description: kernel function, add one task into specific mode
+calls:
+called by: ps_mode_create()
+input: mode_id( id of mode ); ptask( the pointer of task )
+output:
+return: void
+others:
  * *****************************************************/
 void prv_mode_add_task(id_t mode_id, ps_task_t * ptask);
 
 
 /******************************************************
-Function: prv_mode_get_mode_period
-Description: kernel function, get the period of specified mode
-Calls:
-Called by: prv_model_time_is_mode_end()
-Input: mode_id( id of mode )
-Output:
-Return: period of modes[mode_id]
-Others:
+function: getter function
+description: kernel function, get the values of properties of mode
+structure:
+typedef struct mode{
+    id_t mode_id; // start from zero for saving memory, the id in modes array represents the mode_id as well
+    tick_t period;
+    tick_t unit;
+    int num;  // number of tasks
+    ps_task_t * tasks[NUMOFTASKS];
+}ps_mode_t;
  * *****************************************************/
-tick_t  prv_mode_get_mode_period(id_t mode_id);
-
+tick_t prv_mode_get_mode_period ( id_t mode_id);
+tick_t prv_mode_get_mode_unit   ( id_t mode_id);
+int    prv_mode_get_task_num    ( id_t mode_id);
 
 /******************************************************
-Function: prv_mode_set_mode_period
-Description: kernel function, set the period of specified mode
-Calls:
-Called by: prv_model_time_period_initialize()
-Input: mode_id; period;
-Output:
-Return: void
-Others:
+function: setter function
+description: kernel function, set the values of properties of mode
+structure:
+typedef struct mode{
+    id_t mode_id; // setted by create function
+    tick_t period;
+    tick_t unit;
+    int num;  // setted by create function
+    ps_task_t * tasks[NUMOFTASKS]; // same as above
+}ps_mode_t;
  * *****************************************************/
-void prv_mode_set_mode_period(id_t mode_id , tick_t period);
-
-
-/******************************************************
-Function: prv_mode_get_mode_unit
-Description: kernel function, get the unit length of specified mode
-Calls:
-Called by: prv_model_time_unit_start();  prv_model_time_is_unit_start(); prv_model_time_output_end()
-Input: mode_id
-Output:
-Return: the length of mode unit which is the GCD of periods of all tasks in the mode
-Others:
- * *****************************************************/
-tick_t prv_mode_get_mode_unit(id_t mode_id);
-
-
-/******************************************************
-Function: prv_mode_set_mode_unit
-Description: kernel function, set the unit property of mode
-Calls:
-Called by: prv_model_time_unit_initialize()
-Input: mode_id; unit(the unit length of the mode)
-Output:
-Return: void
-Others:
- * *****************************************************/
-void prv_mode_set_mode_unit(id_t mode_id, tick_t unit);
+void prv_mode_set_mode_unit   ( id_t mode_id, tick_t unit);
+void prv_mode_set_mode_period ( id_t mode_id , tick_t period);
 
 /******************************************************
 Function: ps_mode_switch_create
@@ -143,18 +123,6 @@ Others:
  * *****************************************************/
 ps_mode_t * prv_mode_get_current_mode();
 
-
-/******************************************************
-Function: prv_mode_get_task_num
-Description: kernel function, get the number of tasks in one mode
-Calls:
-Called by:
-Input:
-Output:
-Return:
-Others:
- * *****************************************************/
-int  prv_mode_get_task_num(id_t mode_id);
 
 /******************************************************
 Function: system_start

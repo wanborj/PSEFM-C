@@ -10,32 +10,6 @@ struct ps_task_array_t{
 struct ps_task_array_t tsk = {0};
 
 
-id_t   prv_task_get_id(ps_task_t * ptask)
-{
-    return ptask->task_id;
-}
-
-
-tick_t prv_task_get_LET(ps_task_t * ptask)
-{
-    return ptask->LET;
-}
-
-tick_t prv_task_get_period(ps_task_t * ptask)
-{
-    return ptask->period;
-}
-
-tick_t prv_task_get_deadline(ps_task_t * ptask)
-{
-    return ptask->deadline;
-}
-
-int    prv_task_get_servant_num(ps_task_t * ptask)
-{
-    return ptask->servant_num;
-}
-
 ps_servant_t * prv_task_get_sensor(ps_task_t * ptask)
 {
     int i;
@@ -49,7 +23,13 @@ ps_servant_t * prv_task_get_sensor(ps_task_t * ptask)
 
 ps_servant_t * prv_task_get_actuator(ps_task_t * ptask)
 {
-    return ptask->servants[ptask->servant_num - 1];
+    int i;
+    for(i = 0; i < ptask->servant_num; ++i){
+        if(ptask->servants[i]->servant_type == 2){
+            return ptask->servants[i];
+        }
+    }
+    return NULL;
 }
 
 void   prv_task_start(ps_task_t * ptask)

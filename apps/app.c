@@ -7,7 +7,7 @@ void sensor1( void * para )
 		ps_event_wait(para);
 
 		// process pevent including tag and data
-		port_print("sensor 1\n\r");
+		port_print("sensor 1\t");
 
         // parameter :pointer of struct data
         ps_event_create(NULL);
@@ -28,7 +28,7 @@ void controller11(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("controller 1-1\n\r");
+		port_print("controller 1-1\t");
 
         // parameter one is not NULL mean that sysmem will upate the existing event
         ps_event_create(data);
@@ -47,7 +47,7 @@ void controller12(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("controller 1-2\n\r");
+		port_print("controller 1-2\t");
 
         // parameter one is not NULL mean that sysmem will upate the existing event
         ps_event_create(data);
@@ -64,7 +64,7 @@ void actuator1(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("actuator 1\n\r");
+		port_print("actuator 1\t");
 
         // output the event's data to physical device
 		ps_servant_cooperate();
@@ -77,7 +77,7 @@ void sensor2(void * para)
 		ps_event_wait(para);
 
 		// process pevent including tag and data
-		port_print("sensor 2\n\r");
+		port_print("sensor 2\t");
 
 		ps_event_create(NULL);
 		ps_servant_cooperate();
@@ -94,7 +94,7 @@ void controller21(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("controller 2-1\n\r");
+		port_print("controller 2-1\t");
 
 		ps_event_create(data);
 		ps_servant_cooperate();
@@ -111,7 +111,7 @@ void controller22(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("controller 2-2\n\r");
+		port_print("controller 2-2\t");
 
 		ps_event_create(data);
 		ps_servant_cooperate();
@@ -128,7 +128,7 @@ void actuator2(void * para)
 		data = ps_event_receive();
 
 		// process pevent including tag and data
-		port_print("actuator 2\n\r");
+		port_print("actuator 2\t");
         // output the event's data to physical device
 
 		ps_servant_cooperate();

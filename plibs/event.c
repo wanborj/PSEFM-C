@@ -1,9 +1,11 @@
 #include "event.h"
 #include "exec_flow.h"
 #include "list_internal.h"
+#include "model_time.h"
 
-static tick_t xFutureModelTime;
+
 extern ps_servant_t servants[NUMOFSERVANTS];
+extern tick_t xFutureModelTime;
 
 list_t xEventIdleList;
 list_t xEventGlobalList;
@@ -83,10 +85,7 @@ void prv_event_tag_set(ps_event_t * pevent, int microstep)
 }
 
 
-void prv_event_future_model_time_reset()
-{
-	xFutureModelTime = prv_model_time_input_end();
-}
+
 
 // 1 for overlap ; 0 for not overlap
 int  prv_event_is_overlap(ps_event_t * pevent)
@@ -101,7 +100,7 @@ int  prv_event_is_overlap(ps_event_t * pevent)
 
 int prv_event_tag_update(ps_event_t * pevent)
 {
-	pevent->tag.timestamp = xFutureModelTime;
+	pevent->tag.timestamp = xFutureModelTime; // bug
 	tick_t led = pevent->pservant_dest->LED;
 	if( !prv_event_is_overlap(pevent) && xFutureModelTime < prv_model_time_output_start()){
 		/* process event pevent at the xFuturemodelTime */
@@ -143,7 +142,6 @@ void ps_event_wait( void * para )
     id_t servant_id = * (id_t *) para;
     port_wait(sem[servant_id]);
     prv_ef_set_current_servant( &servants[servant_id] );
-    vPrintNumber(port_get_current_time());
 }
 
 
@@ -172,7 +170,7 @@ ps_data_t * ps_event_receive()
             }
 
             if( pevent[i]->pservant_dest == pservant ){
-                pevent[first_event]->data.data[count++] = pevent[i]->data.data[0];  // integrate events' data
+                pevent[first_event]->data.data[count++] = pevent[i]->data.data[0];  /* integrate events' data */
                 prv_event_delete(pevent[i]);   /* not real delete, keep the memory and data */
             }
         }
@@ -184,7 +182,7 @@ ps_data_t * ps_event_receive()
 }
 
 
-void ps_event_create( ps_data_t * new_data)
+void ps_event_create( ps_data_t * pdata)
 {
     int i, num;
     item_t * pitem;
@@ -207,7 +205,7 @@ void ps_event_create( ps_data_t * new_data)
 
         // update the tag of event according to the timing semantics of PSEFM
         prv_event_tag_set(pevent_temp, i);
-        pevent_temp->data.data[0]  = new_data->data[0];
+        pevent_temp->data.data[0]  = pdata->data[0];
         pevent_temp->data.num = 1;
 
         prv_event_send(pevent_temp);

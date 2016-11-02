@@ -1,6 +1,7 @@
 #include "model_time.h"
 
-static tick_t xModelTimeStart ;
+tick_t xModelTimeStart ;
+tick_t xFutureModelTime;
 extern struct ps_mode_array_t mod;
 
 
@@ -52,6 +53,7 @@ void prv_model_time_initialize()
 	prv_model_time_unit_initialize();
 	prv_model_time_period_initialize();
     prv_model_time_reset();
+    prv_model_time_future_reset();  /* when enter new mode period, set the xFutureModelTime as the Input end. */
 }
 
 tick_t prv_model_time_input_length()
@@ -101,9 +103,20 @@ void prv_model_time_reset()
 	xModelTimeStart = port_get_current_time();
 }
 
+
+void prv_model_time_future_reset()
+{
+	xFutureModelTime = prv_model_time_input_end();
+}
+
 tick_t prv_model_time_get_model_time()
 {
 	return xModelTimeStart;
+}
+
+tick_t prv_model_time_get_future_model_time()
+{
+    return xFutureModelTime;
 }
 
 tick_t prv_model_time_input_end()

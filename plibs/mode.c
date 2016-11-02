@@ -112,7 +112,7 @@ void ps_mode_switch()
         if(i == cond.num){
             prv_mode_start(current_mode->mode_id);
         }
-        prv_event_future_model_time_reset();  /* when enter new mode period, set the xFutureModelTime as the Input end. */
+        prv_model_time_future_reset();  /* when enter new mode period, set the xFutureModelTime as the Input end. */
 
     }else if( prv_model_time_is_unit_start() == 1 ){ /* start the task which finish their last periods */
 
@@ -123,7 +123,7 @@ void ps_mode_switch()
                 prv_task_start( ptask);
             }
         }
-        prv_event_future_model_time_reset();  /* when enter new unit, set the xFutureModelTime as the Input end. */
+        prv_model_time_future_reset();  /* when enter new unit, set the xFutureModelTime as the Input end. */
 
     }else if( xEventReadyList.length == 0 &&
             ( xEventGlobalList.earliest_time <= port_get_current_time() ||
@@ -141,7 +141,6 @@ void ps_mode_switch()
 void system_start()
 {
     prv_model_time_initialize();
-    prv_event_future_model_time_reset();
     prv_event_list_initialize();
     prv_ef_create();
     prv_mode_start(0);
