@@ -13,4 +13,6 @@ void controller22(void *);
 void actuator1(void *);
 void actuator2(void *);
 
+bool mode_switch1();
+
 

@@ -56,6 +56,7 @@ main.bin: main.c
 		$(PSEFM_LIB)/exec_flow.c \
 		$(PSEFM_LIB)/list_internal.c \
 		$(PSEFM_LIB)/model_time.c \
+		$(PSEFM_LIB)/PSEFMstart.c \
 		\
 		$(PSEFM_APP)/app.c \
 		$(PSEFM_APP)/stm32_p103.c \
@@ -65,8 +66,8 @@ main.bin: main.c
 		$(CROSS_COMPILE)objdump -S main.elf > main.list
 
 qemu: main.bin $(QEMU_STM32)
-	#$(QEMU_STM32) -monitor stdio -M stm32-p103 -kernel main.bin
-	$(QEMU_STM32) -monitor stdio -M stm32-p103 -nographic -kernel main.bin -serial pty
+	$(QEMU_STM32) -monitor stdio -M stm32-p103 -kernel main.bin
+	#$(QEMU_STM32) -monitor stdio -M stm32-p103 -nographic -kernel main.bin -serial pty
 
 qemugdb: main.bin $(QEMU_STM32)
 	$(QEMU_STM32) -M stm32-p103 -gdb tcp::3333 -S -kernel main.bin

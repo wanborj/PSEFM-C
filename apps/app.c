@@ -136,5 +136,9 @@ void actuator2(void * para)
 }
 
 
+bool mode_switch1()
+{
+	return 1;
+}
 
 

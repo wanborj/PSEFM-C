@@ -1,16 +1,19 @@
 #include "exec_flow.h"
 
+typedef struct relation{
+    int num;
+    ps_servant_t * pservants[NUMOFINS];
+} ps_relation_t;
+
+ps_relation_t srcs[NUMOFSERVANTS];
+ps_relation_t dests[NUMOFSERVANTS];
+
 static ps_servant_t * pcurrent_servant;
 extern ps_servant_t * pservants[NUMOFSERVANTS];
 extern list_t xEventGlobalList;
 extern list_t xEventReadyList;
 extern list_t xEventLocalList;
 extern ps_event_sem_t sem[NUMOFSERVANTS];
-
-
-ps_relation_t srcs[NUMOFSERVANTS];
-ps_relation_t dests[NUMOFSERVANTS];
-
 
 int prv_ef_get_dest_num(ps_servant_t * pservant)
 {

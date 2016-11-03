@@ -86,20 +86,6 @@ void ps_mode_switch_create(bool (*condition)(void), id_t mode_dest);
 
 
 /******************************************************
-Function: ps_mode_switch
-Description: Programming API, run every tick interrupt happended.
-Implemented the time-triggered semantics, triggered R-Servant and Servants to run according to the information of events
-Calls:
-Called by: vApplicationTickHook()
-Input:
-Output:
-Return:
-Others:
- * *****************************************************/
-void ps_mode_switch();
-
-
-/******************************************************
 Function: prv_mode_start
 Description: kernel function, triggered all the tasks in one mode to run when time reach the beginning of a mode
 Calls: prv_task_start()
@@ -122,19 +108,6 @@ Return: the pointer of current mode
 Others:
  * *****************************************************/
 ps_mode_t * prv_mode_get_current_mode();
-
-
-/******************************************************
-Function: system_start
-Description: Programming API, Initialize the model time, event list and execution flow, and start the RTOS scheduler
-Calls:
-Called by: main()
-Input:
-Output:
-Return:
-Others:
- * *****************************************************/
-void system_start();
 
 
 #endif
