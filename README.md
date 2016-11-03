@@ -38,7 +38,6 @@ Then set the PATH:
 export PATH=/usr/local/csl/arm-2014.05/bin:$PATH
 ```
 (You can also write it to ~/.bashrc, then source ~/.bashrc)
-```
 
 #### Install Qemu
 ```
@@ -69,6 +68,50 @@ The PSEFM example app in ./apps will run after that.
 ### How to use PSEFM-C
 
 #### Programming API
+
+##### Servant Create
+
+```
+ps_servant_create(servant_id, servant_type, subLET, num_of_src, src_array[], runnable);
+
+servant_id   : The ID of a servant, and this is specified by programmer( must start from 0 )
+servant_type : 0 for sensor; 1 for contoller; 2 for actuator
+subLET       : The logical execution time duration of servant. It's specified by programmer according to the timing requirements
+num_of_src   : The number of servants that communicate to this servant
+src_array[]  : The array of pointer of source servants
+runnable     : The run-time function this servant will be invoked
+```
+#### Task Create
+```
+ps_task_create(task_id, LET, servant_array[], num_of_servants)
+
+task_id: The ID of a task, and this is specified by programmer( must start from 0 )
+LET: The logical execution time of task. It's specified by programmer according to the timing requirements
+servant_array[]: the array of pointer of servants in this task
+num_of_servants: the number of servants in servant_array[]
+```
+
+#### Mode Create
+```
+ps_mode_create(mode_id, task_array[], num_of_tasks)
+
+mode_id: the ID of a mode
+task_array[]: the array of pointer of tasks in this mode
+num_of_tasks: the number of tasks in task_array[]
+```
+
+#### Mode Switch Create
+```
+ps_mode_switch_create( bool (*switch_condition)(void ),  destination_mode)
+
+switch_condition: The condition that mode switch happened
+destination_mode: The target mode after mode switch
+```
+
+#### PSEFM start
+```
+system_start()
+```
 
 
 
